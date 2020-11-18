@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -130,6 +138,48 @@
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCategory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCustom.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblLanguage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPost.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRepply.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -531,87 +581,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Content\Layout\css\style.map" />
-    <Content Include="Content\Layout\fonts\fa-brands-400.eot" />
-    <Content Include="Content\Layout\fonts\fa-brands-400.ttf" />
-    <Content Include="Content\Layout\fonts\fa-brands-400.woff" />
-    <Content Include="Content\Layout\fonts\fa-brands-400.woff2" />
-    <Content Include="Content\Layout\fonts\fa-regular-400.eot" />
-    <Content Include="Content\Layout\fonts\fa-regular-400.ttf" />
-    <Content Include="Content\Layout\fonts\fa-regular-400.woff" />
-    <Content Include="Content\Layout\fonts\fa-regular-400.woff2" />
-    <Content Include="Content\Layout\fonts\fa-solid-900.eot" />
-    <Content Include="Content\Layout\fonts\fa-solid-900.ttf" />
-    <Content Include="Content\Layout\fonts\fa-solid-900.woff" />
-    <Content Include="Content\Layout\fonts\fa-solid-900.woff2" />
-    <Content Include="Content\Layout\fonts\Flaticon.eot" />
-    <Content Include="Content\Layout\fonts\Flaticon.ttf" />
-    <Content Include="Content\Layout\fonts\Flaticon.woff" />
-    <Content Include="Content\Layout\fonts\Flaticon.woff2" />
-    <Content Include="Content\Layout\fonts\gijgo-material.eot" />
-    <Content Include="Content\Layout\fonts\gijgo-material.ttf" />
-    <Content Include="Content\Layout\fonts\gijgo-material.woff" />
-    <Content Include="Content\Layout\fonts\themify.eot" />
-    <Content Include="Content\Layout\fonts\themify.ttf" />
-    <Content Include="Content\Layout\fonts\themify.woff" />
-    <Content Include="Content\Layout\fonts\_flaticon.scss" />
-    <Content Include="Content\Layout\scss\style.scss" />
-    <Content Include="Content\Layout\scss\_about.scss" />
-    <Content Include="Content\Layout\scss\_blog_page.scss" />
-    <Content Include="Content\Layout\scss\_bradcam.scss" />
-    <Content Include="Content\Layout\scss\_collaps.scss" />
-    <Content Include="Content\Layout\scss\_color.scss" />
-    <Content Include="Content\Layout\scss\_common.scss" />
-    <Content Include="Content\Layout\scss\_contact.scss" />
-    <Content Include="Content\Layout\scss\_contact_form.scss" />
-    <Content Include="Content\Layout\scss\_courses.scss" />
-    <Content Include="Content\Layout\scss\_elements.scss" />
-    <Content Include="Content\Layout\scss\_extend.scss" />
-    <Content Include="Content\Layout\scss\_footer.scss" />
-    <Content Include="Content\Layout\scss\_h1-hero.scss" />
-    <Content Include="Content\Layout\scss\_headerMenu.scss" />
-    <Content Include="Content\Layout\scss\_load-balnceing.scss" />
-    <Content Include="Content\Layout\scss\_login.scss" />
-    <Content Include="Content\Layout\scss\_mixins.scss" />
-    <Content Include="Content\Layout\scss\_overlay.scss" />
-    <Content Include="Content\Layout\scss\_services.scss" />
-    <Content Include="Content\Layout\scss\_services_section.scss" />
-    <Content Include="Content\Layout\scss\_team.scss" />
-    <Content Include="Content\Layout\scss\_testimonial.scss" />
-    <Content Include="Content\Layout\scss\_top-sub.scss" />
-    <Content Include="Content\Layout\scss\_variables.scss" />
-    <Content Include="Content\Layout\scss\_wantTowork.scss" />
-    <Content Include="Content\LayoutAdmin\icon\icofont\fonts\icofont.eot" />
-    <Content Include="Content\LayoutAdmin\icon\icofont\fonts\icofont.ttf" />
-    <Content Include="Content\LayoutAdmin\icon\icofont\fonts\icofont.woff" />
-    <Content Include="Content\LayoutAdmin\icon\themify-icons\fonts\themify.eot" />
-    <Content Include="Content\LayoutAdmin\icon\themify-icons\fonts\themify.ttf" />
-    <Content Include="Content\LayoutAdmin\icon\themify-icons\fonts\themify.woff" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ViewAdmin\Menu.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\EditHome.cshtml" />
-    <Content Include="Content\Semantic-UI-CSS-master\.versions" />
-    <Content Include="Content\Semantic-UI-CSS-master\LICENSE" />
-    <Content Include="Content\Semantic-UI-CSS-master\package.json" />
-    <Content Include="Content\Semantic-UI-CSS-master\README.md" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\brand-icons.eot" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\brand-icons.ttf" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\brand-icons.woff" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\brand-icons.woff2" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\icons.eot" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\icons.otf" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\icons.ttf" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\icons.woff" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\icons.woff2" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\outline-icons.eot" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\outline-icons.ttf" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\outline-icons.woff" />
-    <Content Include="Content\Semantic-UI-CSS-master\themes\default\assets\fonts\outline-icons.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -643,8 +624,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -659,6 +638,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

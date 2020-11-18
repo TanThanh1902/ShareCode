@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Cat_ID" />
+          </Key>
+          <Property Name="Cat_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cat_Name" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="tblComment">
+          <Key>
+            <PropertyRef Name="Comment_ID" />
+          </Key>
+          <Property Name="Comment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comment_Contents" Type="nvarchar(max)" />
+          <Property Name="Comment_User" Type="int" />
+          <Property Name="Comment_Post" Type="int" />
+          <Property Name="Comment_DatePost" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblCustom">
+          <Key>
+            <PropertyRef Name="Custom_ID" />
+          </Key>
+          <Property Name="Custom_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ct_01" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_02" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_03" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_04" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_05" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_06" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_07" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="Lang_ID" />
+          </Key>
+          <Property Name="Lang_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lang_Name" Type="nvarchar" MaxLength="70" />
+          <Property Name="Lang_Logo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="Post_ID" />
+          </Key>
+          <Property Name="Post_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Post_Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Post_Avata" Type="nvarchar(max)" />
+          <Property Name="Post_ViewMoreImage" Type="nvarchar(max)" />
+          <Property Name="Post_Description" Type="nvarchar(max)" />
+          <Property Name="Post_View" Type="int" />
+          <Property Name="Post_Vote" Type="int" />
+          <Property Name="Post_Rate" Type="float" />
+          <Property Name="Post_CountDownLoad" Type="int" />
+          <Property Name="Post_LinkDown" Type="nvarchar(max)" />
+          <Property Name="Post_DateCreate" Type="datetime" />
+          <Property Name="Post_Cat" Type="int" />
+          <Property Name="Post_User" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPostLang">
+          <Key>
+            <PropertyRef Name="Post_ID" />
+            <PropertyRef Name="Lang_ID" />
+          </Key>
+          <Property Name="Post_ID" Type="int" Nullable="false" />
+          <Property Name="Lang_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRepply">
+          <Key>
+            <PropertyRef Name="Rep_ID" />
+          </Key>
+          <Property Name="Rep_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rep_Contents" Type="nvarchar(max)" />
+          <Property Name="Rep_User" Type="int" />
+          <Property Name="Rep_Comment" Type="int" />
+          <Property Name="Rep_DatePost" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_Email" Type="varbinary" MaxLength="150" />
+          <Property Name="User_Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_DateLogin" Type="datetime" />
+          <Property Name="User_Active" Type="bit" />
+          <Property Name="User_Trash" Type="bit" />
+          <Property Name="User_Token" Type="nvarchar(max)" />
+          <Property Name="User_Role" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblComment_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComment_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblCategory">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Cat_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPostLang_tblLanguage">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+          <End Role="tblPostLang" Type="Self.tblPostLang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="Lang_ID" />
+            </Principal>
+            <Dependent Role="tblPostLang">
+              <PropertyRef Name="Lang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPostLang_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="1" />
+          <End Role="tblPostLang" Type="Self.tblPostLang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblPostLang">
+              <PropertyRef Name="Post_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRepply_tblComment">
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="0..1" />
+          <End Role="tblRepply" Type="Self.tblRepply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComment">
+              <PropertyRef Name="Comment_ID" />
+            </Principal>
+            <Dependent Role="tblRepply">
+              <PropertyRef Name="Rep_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRepply_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblRepply" Type="Self.tblRepply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblRepply">
+              <PropertyRef Name="Rep_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="User_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBShareCodeModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblComment" EntityType="Self.tblComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustom" EntityType="Self.tblCustom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPostLang" EntityType="Self.tblPostLang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRepply" EntityType="Self.tblRepply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblComment_tblPost" Association="Self.FK_tblComment_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblComment" EntitySet="tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComment_tblUser" Association="Self.FK_tblComment_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblComment" EntitySet="tblComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblCategory" Association="Self.FK_tblPost_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblUser" Association="Self.FK_tblPost_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPostLang_tblLanguage" Association="Self.FK_tblPostLang_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguage" />
+            <End Role="tblPostLang" EntitySet="tblPostLang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPostLang_tblPost" Association="Self.FK_tblPostLang_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblPostLang" EntitySet="tblPostLang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRepply_tblComment" Association="Self.FK_tblRepply_tblComment">
+            <End Role="tblComment" EntitySet="tblComment" />
+            <End Role="tblRepply" EntitySet="tblRepply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRepply_tblUser" Association="Self.FK_tblRepply_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblRepply" EntitySet="tblRepply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
+            <End Role="tblRole" EntitySet="tblRole" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Cat_ID" />
+          </Key>
+          <Property Name="Cat_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cat_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblCategory" FromRole="tblCategory" ToRole="tblPost" />
+        </EntityType>
+        <EntityType Name="tblComment">
+          <Key>
+            <PropertyRef Name="Comment_ID" />
+          </Key>
+          <Property Name="Comment_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment_User" Type="Int32" />
+          <Property Name="Comment_Post" Type="Int32" />
+          <Property Name="Comment_DatePost" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblComment_tblPost" FromRole="tblComment" ToRole="tblPost" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblComment_tblUser" FromRole="tblComment" ToRole="tblUser" />
+          <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblComment" FromRole="tblComment" ToRole="tblRepply" />
+        </EntityType>
+        <EntityType Name="tblCustom">
+          <Key>
+            <PropertyRef Name="Custom_ID" />
+          </Key>
+          <Property Name="Custom_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ct_01" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_02" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_03" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_04" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_05" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_06" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_07" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="Lang_ID" />
+          </Key>
+          <Property Name="Lang_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lang_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Lang_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPosts" Relationship="Self.tblPostLang" FromRole="tblLanguage" ToRole="tblPost" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="Post_ID" />
+          </Key>
+          <Property Name="Post_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Post_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Post_Avata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post_ViewMoreImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post_View" Type="Int32" />
+          <Property Name="Post_Vote" Type="Int32" />
+          <Property Name="Post_Rate" Type="Double" />
+          <Property Name="Post_CountDownLoad" Type="Int32" />
+          <Property Name="Post_LinkDown" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post_DateCreate" Type="DateTime" Precision="3" />
+          <Property Name="Post_Cat" Type="Int32" />
+          <Property Name="Post_User" Type="Int32" />
+          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblPost_tblCategory" FromRole="tblPost" ToRole="tblCategory" />
+          <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblPost" FromRole="tblPost" ToRole="tblComment" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblPost_tblUser" FromRole="tblPost" ToRole="tblUser" />
+          <NavigationProperty Name="tblLanguages" Relationship="Self.tblPostLang" FromRole="tblPost" ToRole="tblLanguage" />
+        </EntityType>
+        <EntityType Name="tblRepply">
+          <Key>
+            <PropertyRef Name="Rep_ID" />
+          </Key>
+          <Property Name="Rep_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rep_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rep_User" Type="Int32" />
+          <Property Name="Rep_Comment" Type="Int32" />
+          <Property Name="Rep_DatePost" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblComment" Relationship="Self.FK_tblRepply_tblComment" FromRole="tblRepply" ToRole="tblComment" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblRepply" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblRole" FromRole="tblRole" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_Email" Type="Binary" MaxLength="150" FixedLength="false" />
+          <Property Name="User_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_DateLogin" Type="DateTime" Precision="3" />
+          <Property Name="User_Active" Type="Boolean" />
+          <Property Name="User_Trash" Type="Boolean" />
+          <Property Name="User_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Role" Type="Int32" />
+          <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblUser" FromRole="tblUser" ToRole="tblComment" />
+          <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblUser" FromRole="tblUser" ToRole="tblPost" />
+          <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblUser" ToRole="tblRepply" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+        </EntityType>
+        <Association Name="FK_tblPost_tblCategory">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Cat_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComment_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComment_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRepply_tblComment">
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="0..1" />
+          <End Role="tblRepply" Type="Self.tblRepply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComment">
+              <PropertyRef Name="Comment_ID" />
+            </Principal>
+            <Dependent Role="tblRepply">
+              <PropertyRef Name="Rep_Comment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRepply_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblRepply" Type="Self.tblRepply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblRepply">
+              <PropertyRef Name="Rep_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="User_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblPostLang">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="*" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DBShareCodeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblComments" EntityType="Self.tblComment" />
+          <EntitySet Name="tblCustoms" EntityType="Self.tblCustom" />
+          <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
+          <EntitySet Name="tblPosts" EntityType="Self.tblPost" />
+          <EntitySet Name="tblRepplies" EntityType="Self.tblRepply" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblPost_tblCategory" Association="Self.FK_tblPost_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComment_tblPost" Association="Self.FK_tblComment_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblComment" EntitySet="tblComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComment_tblUser" Association="Self.FK_tblComment_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblComment" EntitySet="tblComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRepply_tblComment" Association="Self.FK_tblRepply_tblComment">
+            <End Role="tblComment" EntitySet="tblComments" />
+            <End Role="tblRepply" EntitySet="tblRepplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblUser" Association="Self.FK_tblPost_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRepply_tblUser" Association="Self.FK_tblRepply_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblRepply" EntitySet="tblRepplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
+            <End Role="tblRole" EntitySet="tblRoles" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="tblPostLang" Association="Self.tblPostLang">
+            <End Role="tblLanguage" EntitySet="tblLanguages" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBShareCodeModelStoreContainer" CdmEntityContainer="DBShareCodeEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBShareCodeModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Cat_ID" ColumnName="Cat_ID" />
+                <ScalarProperty Name="Cat_Name" ColumnName="Cat_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblComments">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblComment">
+              <MappingFragment StoreEntitySet="tblComment">
+                <ScalarProperty Name="Comment_ID" ColumnName="Comment_ID" />
+                <ScalarProperty Name="Comment_Contents" ColumnName="Comment_Contents" />
+                <ScalarProperty Name="Comment_User" ColumnName="Comment_User" />
+                <ScalarProperty Name="Comment_Post" ColumnName="Comment_Post" />
+                <ScalarProperty Name="Comment_DatePost" ColumnName="Comment_DatePost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustoms">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblCustom">
+              <MappingFragment StoreEntitySet="tblCustom">
+                <ScalarProperty Name="Custom_ID" ColumnName="Custom_ID" />
+                <ScalarProperty Name="ct_01" ColumnName="ct_01" />
+                <ScalarProperty Name="ct_02" ColumnName="ct_02" />
+                <ScalarProperty Name="ct_03" ColumnName="ct_03" />
+                <ScalarProperty Name="ct_04" ColumnName="ct_04" />
+                <ScalarProperty Name="ct_05" ColumnName="ct_05" />
+                <ScalarProperty Name="ct_06" ColumnName="ct_06" />
+                <ScalarProperty Name="ct_07" ColumnName="ct_07" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLanguages">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblLanguage">
+              <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
+                <ScalarProperty Name="Lang_Name" ColumnName="Lang_Name" />
+                <ScalarProperty Name="Lang_Logo" ColumnName="Lang_Logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPosts">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblPost">
+              <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+                <ScalarProperty Name="Post_Title" ColumnName="Post_Title" />
+                <ScalarProperty Name="Post_Avata" ColumnName="Post_Avata" />
+                <ScalarProperty Name="Post_ViewMoreImage" ColumnName="Post_ViewMoreImage" />
+                <ScalarProperty Name="Post_Description" ColumnName="Post_Description" />
+                <ScalarProperty Name="Post_View" ColumnName="Post_View" />
+                <ScalarProperty Name="Post_Vote" ColumnName="Post_Vote" />
+                <ScalarProperty Name="Post_Rate" ColumnName="Post_Rate" />
+                <ScalarProperty Name="Post_CountDownLoad" ColumnName="Post_CountDownLoad" />
+                <ScalarProperty Name="Post_LinkDown" ColumnName="Post_LinkDown" />
+                <ScalarProperty Name="Post_DateCreate" ColumnName="Post_DateCreate" />
+                <ScalarProperty Name="Post_Cat" ColumnName="Post_Cat" />
+                <ScalarProperty Name="Post_User" ColumnName="Post_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRepplies">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblRepply">
+              <MappingFragment StoreEntitySet="tblRepply">
+                <ScalarProperty Name="Rep_ID" ColumnName="Rep_ID" />
+                <ScalarProperty Name="Rep_Contents" ColumnName="Rep_Contents" />
+                <ScalarProperty Name="Rep_User" ColumnName="Rep_User" />
+                <ScalarProperty Name="Rep_Comment" ColumnName="Rep_Comment" />
+                <ScalarProperty Name="Rep_DatePost" ColumnName="Rep_DatePost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblRole">
+              <MappingFragment StoreEntitySet="tblRole">
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="User_DisplayName" ColumnName="User_DisplayName" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
+                <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+                <ScalarProperty Name="User_DateLogin" ColumnName="User_DateLogin" />
+                <ScalarProperty Name="User_Active" ColumnName="User_Active" />
+                <ScalarProperty Name="User_Trash" ColumnName="User_Trash" />
+                <ScalarProperty Name="User_Token" ColumnName="User_Token" />
+                <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblPostLang" TypeName="DBShareCodeModel.tblPostLang" StoreEntitySet="tblPostLang">
+            <EndProperty Name="tblLanguage">
+              <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
+            </EndProperty>
+            <EndProperty Name="tblPost">
+              <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
