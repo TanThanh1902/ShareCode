@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -44,6 +44,25 @@
           <Property Name="ct_05" Type="nvarchar" MaxLength="255" />
           <Property Name="ct_06" Type="nvarchar" MaxLength="255" />
           <Property Name="ct_07" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_08" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_09" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_10" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_11" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_12" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_13" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_14" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_15" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_16" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_17" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_18" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_19" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_20" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_21" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_22" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_23" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_24" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_25" Type="nvarchar" MaxLength="255" />
+          <Property Name="ct_26" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
@@ -266,8 +285,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -314,6 +332,25 @@
           <Property Name="ct_05" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ct_06" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ct_07" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_08" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_09" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_11" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_12" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_14" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_16" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_17" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_18" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_19" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_20" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_21" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_22" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_23" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_24" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_25" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ct_26" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
@@ -554,6 +591,25 @@
           <EntitySetMapping Name="tblCustoms">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblCustom">
               <MappingFragment StoreEntitySet="tblCustom">
+                <ScalarProperty Name="ct_26" ColumnName="ct_26" />
+                <ScalarProperty Name="ct_25" ColumnName="ct_25" />
+                <ScalarProperty Name="ct_24" ColumnName="ct_24" />
+                <ScalarProperty Name="ct_23" ColumnName="ct_23" />
+                <ScalarProperty Name="ct_22" ColumnName="ct_22" />
+                <ScalarProperty Name="ct_21" ColumnName="ct_21" />
+                <ScalarProperty Name="ct_20" ColumnName="ct_20" />
+                <ScalarProperty Name="ct_19" ColumnName="ct_19" />
+                <ScalarProperty Name="ct_18" ColumnName="ct_18" />
+                <ScalarProperty Name="ct_17" ColumnName="ct_17" />
+                <ScalarProperty Name="ct_16" ColumnName="ct_16" />
+                <ScalarProperty Name="ct_15" ColumnName="ct_15" />
+                <ScalarProperty Name="ct_14" ColumnName="ct_14" />
+                <ScalarProperty Name="ct_13" ColumnName="ct_13" />
+                <ScalarProperty Name="ct_12" ColumnName="ct_12" />
+                <ScalarProperty Name="ct_11" ColumnName="ct_11" />
+                <ScalarProperty Name="ct_10" ColumnName="ct_10" />
+                <ScalarProperty Name="ct_09" ColumnName="ct_09" />
+                <ScalarProperty Name="ct_08" ColumnName="ct_08" />
                 <ScalarProperty Name="Custom_ID" ColumnName="Custom_ID" />
                 <ScalarProperty Name="ct_01" ColumnName="ct_01" />
                 <ScalarProperty Name="ct_02" ColumnName="ct_02" />

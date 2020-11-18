@@ -22,5 +22,24 @@ namespace ShareCode.Models
         public string ct_05 { get; set; }
         public string ct_06 { get; set; }
         public string ct_07 { get; set; }
+        public string ct_08 { get; set; }
+        public string ct_09 { get; set; }
+        public string ct_10 { get; set; }
+        public string ct_11 { get; set; }
+        public string ct_12 { get; set; }
+        public string ct_13 { get; set; }
+        public string ct_14 { get; set; }
+        public string ct_15 { get; set; }
+        public string ct_16 { get; set; }
+        public string ct_17 { get; set; }
+        public string ct_18 { get; set; }
+        public string ct_19 { get; set; }
+        public string ct_20 { get; set; }
+        public string ct_21 { get; set; }
+        public string ct_22 { get; set; }
+        public string ct_23 { get; set; }
+        public string ct_24 { get; set; }
+        public string ct_25 { get; set; }
+        public string ct_26 { get; set; }
     }
 }

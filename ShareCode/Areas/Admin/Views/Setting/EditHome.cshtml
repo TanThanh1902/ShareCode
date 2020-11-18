@@ -1,4 +1,5 @@
-﻿
+﻿@using ShareCode.Models;
+@model tblCustom
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -32,11 +33,19 @@
     <link rel="stylesheet" href="~/Content/Layout/css/nice-select.css">
     <link rel="stylesheet" href="~/Content/Layout/css/style.css">
 
+    <style>
+        .delbd {
+            background: rgba(-41, -21, 71, -11.9);
+            border: none;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-lg-1 bg-dark"  style="padding: 0px">
+    <form action="@Url.Action("EditHome", "Setting")" method="post" class="row">
+        <input type="hidden" value="1" name="Custom_ID" />
+        <div class="col-lg-1 bg-dark" style="padding: 0px">
             <div class="sticky-top">
                 <button class="ui red button w-100" style="font-size: 30px; height: 200px"><i class="fa fa-save">&nbsp;</i>Cập nhập</button>
             </div>
@@ -104,8 +113,13 @@
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-7 col-md-12">
                                         <div class="hero__caption">
-                                            <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
-                                            <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses, certificates, and degrees online from world-class universities and companies</p>
+                                            <h1 data-animation="fadeInLeft" data-delay="0.2s">
+                                                <input class="w-100 text-white delbd text-center" name="ct_01" value="@Model.ct_01" placeholder="Nhập nội dung" /><br />
+                                                <input class="w-100 text-white delbd text-center" name="ct_02" value="@Model.ct_02" placeholder="Nhập nội dung" />
+                                            </h1>
+                                            <p data-animation="fadeInLeft" data-delay="0.4s">
+                                                <textarea class="w-100 text-white delbd text-left" placeholder="Nhập nội dung" name="ct_03">@Model.ct_03</textarea>
+                                            </p>
                                             <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
                                         </div>
                                     </div>
@@ -124,8 +138,8 @@
                                         <img src="~/Content/Layout/img/icon/icon1.svg" alt="">
                                     </div>
                                     <div class="features-caption">
-                                        <h3>60+ UX courses</h3>
-                                        <p>The automated process all your website tasks.</p>
+                                        <h3><input class="w-100 text-white delbd text-center" name="ct_04" value="@Model.ct_04" placeholder="Nhập nội dung" /></h3>
+                                        <p><input class="w-100 text-white delbd text-center" name="ct_05" value="@Model.ct_05" placeholder="Nhập nội dung" /></p>
                                     </div>
                                 </div>
                             </div>
@@ -135,8 +149,8 @@
                                         <img src="~/Content/Layout/img/icon/icon2.svg" alt="">
                                     </div>
                                     <div class="features-caption">
-                                        <h3>Expert instructors</h3>
-                                        <p>The automated process all your website tasks.</p>
+                                        <h3><input class="w-100 text-white delbd text-center" name="ct_06" value="@Model.ct_06" placeholder="Nhập nội dung" /></h3>
+                                        <p><input class="w-100 text-white delbd text-center" name="ct_07" value="@Model.ct_07" placeholder="Nhập nội dung" /></p>
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +160,8 @@
                                         <img src="~/Content/Layout/img/icon/icon3.svg" alt="">
                                     </div>
                                     <div class="features-caption">
-                                        <h3>Life time access</h3>
-                                        <p>The automated process all your website tasks.</p>
+                                        <h3><input class="w-100 text-white delbd text-center" name="ct_08" value="@Model.ct_08" placeholder="Nhập nội dung" /></h3>
+                                        <p><input class="w-100 text-white delbd text-center" name="ct_09" value="@Model.ct_09" placeholder="Nhập nội dung" /></p>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +174,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-7 col-lg-8">
                                 <div class="section-tittle text-center mb-55">
-                                    <h2>Our featured courses</h2>
+                                    <h2><input class="w-100 text-white delbd text-center" name="ct_10" value="@Model.ct_10" placeholder="Nhập nội dung" /></h2>
                                 </div>
                             </div>
                         </div>
@@ -313,11 +327,9 @@
                             <!-- section tittle -->
                             <div class="section-tittle section-tittle2 mb-55">
                                 <div class="front-text">
-                                    <h2 class="">Learn new skills online with top educators</h2>
+                                    <h2 class=""><input class="w-100 text-white delbd text-center" name="ct_11" value="@Model.ct_11" placeholder="Nhập nội dung" /></h2>
                                     <p>
-                                        The automated process all your website tasks. Discover tools and
-                                        techniques to engage effectively with vulnerable children and young
-                                        people.
+                                        <input class="w-100 text-white delbd text-center" name="ct_12" value="@Model.ct_12" placeholder="Nhập nội dung" />
                                     </p>
                                 </div>
                             </div>
@@ -326,7 +338,7 @@
                                     <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                                    <p><input class="w-100 text-white delbd text-center" name="ct_13" value="@Model.ct_13" placeholder="Nhập nội dung" /></p>
                                 </div>
                             </div>
                             <div class="single-features">
@@ -334,7 +346,7 @@
                                     <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <p>Join millions of people from around the world  learning together.</p>
+                                    <p><input class="w-100 text-white delbd text-center" name="ct_14" value="@Model.ct_14" placeholder="Nhập nội dung" /></p>
                                 </div>
                             </div>
 
@@ -343,7 +355,7 @@
                                     <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <p>Join millions of people from around the world learning together. Online learning is as easy and natural.</p>
+                                    <p><input class="w-100 text-white delbd text-center" name="ct_15" value="@Model.ct_15" placeholder="Nhập nội dung" /></p>
                                 </div>
                             </div>
                         </div>
@@ -366,7 +378,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-7 col-lg-8">
                                 <div class="section-tittle text-center mb-55">
-                                    <h2>Explore top subjects</h2>
+                                    <h2><input class="w-100 text-white delbd text-center" name="ct_16" value="@Model.ct_16" placeholder="Nhập nội dung" /></h2>
                                 </div>
                             </div>
                         </div>
@@ -491,7 +503,7 @@
                             <!-- section tittle -->
                             <div class="section-tittle section-tittle2 mb-20">
                                 <div class="front-text">
-                                    <h2 class="">Learner outcomes on courses you will take</h2>
+                                    <h2 class=""><input class="w-100 text-white delbd text-center" name="ct_17" value="@Model.ct_17" placeholder="Nhập nội dung" /></h2>
                                 </div>
                             </div>
                             <div class="single-features">
@@ -499,7 +511,7 @@
                                     <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
                                 </div>
                                 <div class="features-caption">
-                                    <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                                    <p><input class="w-100 text-white delbd text-center" name="ct_18" value="@Model.ct_18" placeholder="Nhập nội dung" /></p>
                                 </div>
                             </div>
                             <div class="single-features">
@@ -508,8 +520,7 @@
                                 </div>
                                 <div class="features-caption">
                                     <p>
-                                        Join millions of people from around the world
-                                        learning together.
+                                        <input class="w-100 text-white delbd text-center" name="ct_19" value="@Model.ct_19" placeholder="Nhập nội dung" />
                                     </p>
                                 </div>
                             </div>
@@ -519,8 +530,7 @@
                                 </div>
                                 <div class="features-caption">
                                     <p>
-                                        Join millions of people from around the world learning together.
-                                        Online learning is as easy and natural.
+                                        <input class="w-100 text-white delbd text-center" name="ct_20" value="@Model.ct_20" placeholder="Nhập nội dung" />
                                     </p>
                                 </div>
                             </div>
@@ -534,7 +544,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-7 col-lg-8">
                                 <div class="section-tittle text-center mb-55">
-                                    <h2>Community experts</h2>
+                                    <h2><input class="w-100 text-white delbd text-center" name="ct_21" value="@Model.ct_21" placeholder="Nhập nội dung" /></h2>
                                 </div>
                             </div>
                         </div>
@@ -602,12 +612,9 @@
                             <div class="section-tittle section-tittle2 mb-20">
                                 <div class="front-text">
                                     <h2 class="">
-                                        Take the next step
-                                        toward your personal
-                                        and professional goals
-                                        with us.
+                                        <input class="w-100 text-white delbd text-center" name="ct_22" value="@Model.ct_22" placeholder="Nhập nội dung" />
                                     </h2>
-                                    <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.</p>
+                                    <p><input class="w-100 text-white delbd text-center" name="ct_23" value="@Model.ct_23" placeholder="Nhập nội dung" /></p>
                                     <a href="#" class="btn">Join now for Free</a>
                                 </div>
                             </div>
@@ -715,7 +722,7 @@
                 <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
             </div>
         </div>
-    </div>
+    </form>
 
     <!-- JS here -->
     <script src="~/Content/Layout/js/vendor/modernizr-3.5.0.min.js"></script>
