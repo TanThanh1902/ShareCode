@@ -1,8 +1,155 @@
 ﻿
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Đăng ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<section class="slider-area slider-area2" style="height: 345px;">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-11 col-md-12">
+                        <div class="hero__caption hero__caption2" style="padding-top: 164px;">
+                            <h1 data-animation="bounceIn" data-delay="0.2s">@ViewBag.title</h1>
+                            <!-- breadcrumb Start-->
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("","")">Trang chủ</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Đăng ký</a></li>
+                                </ol>
+                            </nav>
+                            <!-- breadcrumb End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow">
+                    <!--Quảng cáo-->
+                    <div class="w3-content w3-section">
+                        <img class="mySlides" src="https://sharecode.vn/assets/images/thiet-ke-website.jpg" style="width:100%; height: 70px">
+                        <img class="mySlides" src="https://sharecode.vn/assets/images/code-hay-upload-kiem-tien.jpg" style="width:100%; height: 70px">
+                        <img class="mySlides" src="https://sharecode.vn/assets/images/thiet-ke-website.jpg" style="width:100%; height: 70px">
+                    </div>
+                    <script>
+                        var myIndex = 0;
+                        carousel();
 
-<h2>Register</h2>
+                        function carousel() {
+                            var i;
+                            var x = document.getElementsByClassName("mySlides");
+                            for (i = 0; i < x.length; i++) {
+                            x[i].style.display = "none";
+                            }
+                            myIndex++;
+                            if (myIndex > x.length) {myIndex = 1}
+                            x[myIndex-1].style.display = "block";
+                            setTimeout(carousel, 2000); // Change image every 2 seconds
+                        }
+                    </script>
+                </div>
+            </div>
+            <br /><br />
+            <br /><br />
+            <div class="col-lg-5">
+                <div class="card shadow" style="padding: 10px">
+                    <div class="row mt-1">
+                        <div class="col-lg-12">
+                            <h4 style="font-weight: bold" class="mt-3">Đăng nhập</h4>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <button class="ui facebook button w-100" style="font-size: 15px">
+                                <i class="facebook icon"></i>
+                                Facebook
+                            </button>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <button class="ui google plus button w-100" style="font-size: 15px">
+                                <i class="google plus icon"></i>
+                                Google
+                            </button>
+                        </div>
+                    </div>
+                    <p>Bạn đã có tài khoản? <a href="@Url.Action("Register","User")" class="text-success">Đăng nhập ngay</a></p>
+                    <form class="ui form">
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="text" placeholder="Nhập Email" class="form-control" />
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="text" placeholder="Nhập tên hiển thị" class="form-control" />
+                        </div>
+                        <div class="field">
+                            <label>Mật khẩu</label>
+                            <input type="password" placeholder="Nhập mật khẩu" class="form-control" />
+                        </div>
+                        <div class="field">
+                            <label>Xác nhận mật khẩu</label>
+                            <input type="password" placeholder="Xác nhận mật khẩu" class="form-control" />
+                        </div>
+                        <input type="checkbox" />Tôi đồng ý với điều khoản sử dụng
+                        <button class="ui green button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card shadow" style="padding: 10px">
+                    <div class="services-area services-area2">
+                        <div class="">
+                            <div class="services-area services-area2">
+                                <div class="container">
+                                    <div class="left-content3">
+                                        <!-- section tittle -->
+                                        <div class="section-tittle section-tittle2 mb-20">
+                                            <div class="front-text">
+                                                <h2 class="">Hướng dẫn sử dụng</h2>
+                                            </div>
+                                        </div>
+                                        <div class="single-features">
+                                            <div class="features-icon">
+                                                <img src="assets/img/icon/right-icon.svg" alt="">
+                                            </div>
+                                            <div class="features-caption">
+                                                <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                                            </div>
+                                        </div>
+                                        <div class="single-features">
+                                            <div class="features-icon">
+                                                <img src="assets/img/icon/right-icon.svg" alt="">
+                                            </div>
+                                            <div class="features-caption">
+                                                <p>
+                                                    Join millions of people from around the world
+                                                    learning together.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="single-features">
+                                            <div class="features-icon">
+                                                <img src="assets/img/icon/right-icon.svg" alt="">
+                                            </div>
+                                            <div class="features-caption">
+                                                <p>
+                                                    Join millions of people from around the world learning together.
+                                                    Online learning is as easy and natural.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <img src="https://sharecode.vn/assets/images/share-code-1.jpg" class="w-100 mt-3" style="border-radius: 20px; height: 325px"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                     </div>
+            </div>
+    </div>
+</div>
 
