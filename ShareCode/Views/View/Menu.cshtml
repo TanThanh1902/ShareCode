@@ -1,4 +1,9 @@
-﻿<div class="menu-wrapper d-flex align-items-center justify-content-end">
+﻿@using ShareCode.Models;
+@{ 
+
+    DBShareCodeEntities db = new DBShareCodeEntities();
+}
+<div class="menu-wrapper d-flex align-items-center justify-content-end">
     <!-- Main-menu -->
     <div class="main-menu d-none d-lg-block">
         <nav>
@@ -9,8 +14,17 @@
                 <li><a href="contact.html">Code tham thảo</a></li>
                 <li><a href="contact.html">Code miễn phí</a></li>
                 <!-- Button -->
-                <li class="button-header margin-left "><a href="#"  class="btn"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
-                <li class="button-header"><a href="" data-toggle="modal" data-target="#login" class="btn btn3"><i class="fa fa-user">&nbsp;</i>Đăng nhập</a></li>
+                <li class="button-header margin-left "><a href="#" class="btn"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
+                @if (Session["member"] != null)
+                {
+                    tblUser user = (tblUser)Session["member"];
+                    <li class="button-header"><a href="" class="btn btn3"><i class="fa fa-user">&nbsp;</i>@user.User_DisplayName</a></li>
+                    <li class="button-header"><a href="/User/LogOut" class="btn btn3"><i class="fa fa-sign-out-alt">&nbsp;</i>Đăng xuất</a></li>
+                }
+                else
+                {
+                    <li class="button-header"><a href="" data-toggle="modal" data-target="#login" class="btn btn3"><i class="fa fa-user">&nbsp;</i>Đăng nhập</a></li>
+                }
             </ul>
         </nav>
     </div>

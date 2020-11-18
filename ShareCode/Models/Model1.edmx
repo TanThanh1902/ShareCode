@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -121,13 +121,13 @@
           </Key>
           <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_DisplayName" Type="nvarchar" MaxLength="50" />
-          <Property Name="User_Email" Type="varbinary" MaxLength="150" />
           <Property Name="User_Password" Type="nvarchar" MaxLength="50" />
           <Property Name="User_DateLogin" Type="datetime" />
           <Property Name="User_Active" Type="bit" />
           <Property Name="User_Trash" Type="bit" />
           <Property Name="User_Token" Type="nvarchar(max)" />
           <Property Name="User_Role" Type="int" />
+          <Property Name="User_Email" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <Association Name="FK_tblComment_tblPost">
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
@@ -285,7 +285,8 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -409,13 +410,13 @@
           </Key>
           <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="User_Email" Type="Binary" MaxLength="150" FixedLength="false" />
           <Property Name="User_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="User_DateLogin" Type="DateTime" Precision="3" />
           <Property Name="User_Active" Type="Boolean" />
           <Property Name="User_Trash" Type="Boolean" />
           <Property Name="User_Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="User_Role" Type="Int32" />
+          <Property Name="User_Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblUser" FromRole="tblUser" ToRole="tblComment" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblUser" FromRole="tblUser" ToRole="tblPost" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblUser" ToRole="tblRepply" />
@@ -591,25 +592,6 @@
           <EntitySetMapping Name="tblCustoms">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblCustom">
               <MappingFragment StoreEntitySet="tblCustom">
-                <ScalarProperty Name="ct_26" ColumnName="ct_26" />
-                <ScalarProperty Name="ct_25" ColumnName="ct_25" />
-                <ScalarProperty Name="ct_24" ColumnName="ct_24" />
-                <ScalarProperty Name="ct_23" ColumnName="ct_23" />
-                <ScalarProperty Name="ct_22" ColumnName="ct_22" />
-                <ScalarProperty Name="ct_21" ColumnName="ct_21" />
-                <ScalarProperty Name="ct_20" ColumnName="ct_20" />
-                <ScalarProperty Name="ct_19" ColumnName="ct_19" />
-                <ScalarProperty Name="ct_18" ColumnName="ct_18" />
-                <ScalarProperty Name="ct_17" ColumnName="ct_17" />
-                <ScalarProperty Name="ct_16" ColumnName="ct_16" />
-                <ScalarProperty Name="ct_15" ColumnName="ct_15" />
-                <ScalarProperty Name="ct_14" ColumnName="ct_14" />
-                <ScalarProperty Name="ct_13" ColumnName="ct_13" />
-                <ScalarProperty Name="ct_12" ColumnName="ct_12" />
-                <ScalarProperty Name="ct_11" ColumnName="ct_11" />
-                <ScalarProperty Name="ct_10" ColumnName="ct_10" />
-                <ScalarProperty Name="ct_09" ColumnName="ct_09" />
-                <ScalarProperty Name="ct_08" ColumnName="ct_08" />
                 <ScalarProperty Name="Custom_ID" ColumnName="Custom_ID" />
                 <ScalarProperty Name="ct_01" ColumnName="ct_01" />
                 <ScalarProperty Name="ct_02" ColumnName="ct_02" />
@@ -618,6 +600,25 @@
                 <ScalarProperty Name="ct_05" ColumnName="ct_05" />
                 <ScalarProperty Name="ct_06" ColumnName="ct_06" />
                 <ScalarProperty Name="ct_07" ColumnName="ct_07" />
+                <ScalarProperty Name="ct_08" ColumnName="ct_08" />
+                <ScalarProperty Name="ct_09" ColumnName="ct_09" />
+                <ScalarProperty Name="ct_10" ColumnName="ct_10" />
+                <ScalarProperty Name="ct_11" ColumnName="ct_11" />
+                <ScalarProperty Name="ct_12" ColumnName="ct_12" />
+                <ScalarProperty Name="ct_13" ColumnName="ct_13" />
+                <ScalarProperty Name="ct_14" ColumnName="ct_14" />
+                <ScalarProperty Name="ct_15" ColumnName="ct_15" />
+                <ScalarProperty Name="ct_16" ColumnName="ct_16" />
+                <ScalarProperty Name="ct_17" ColumnName="ct_17" />
+                <ScalarProperty Name="ct_18" ColumnName="ct_18" />
+                <ScalarProperty Name="ct_19" ColumnName="ct_19" />
+                <ScalarProperty Name="ct_20" ColumnName="ct_20" />
+                <ScalarProperty Name="ct_21" ColumnName="ct_21" />
+                <ScalarProperty Name="ct_22" ColumnName="ct_22" />
+                <ScalarProperty Name="ct_23" ColumnName="ct_23" />
+                <ScalarProperty Name="ct_24" ColumnName="ct_24" />
+                <ScalarProperty Name="ct_25" ColumnName="ct_25" />
+                <ScalarProperty Name="ct_26" ColumnName="ct_26" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -673,13 +674,13 @@
               <MappingFragment StoreEntitySet="tblUser">
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="User_DisplayName" ColumnName="User_DisplayName" />
-                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
                 <ScalarProperty Name="User_Password" ColumnName="User_Password" />
                 <ScalarProperty Name="User_DateLogin" ColumnName="User_DateLogin" />
                 <ScalarProperty Name="User_Active" ColumnName="User_Active" />
                 <ScalarProperty Name="User_Trash" ColumnName="User_Trash" />
                 <ScalarProperty Name="User_Token" ColumnName="User_Token" />
                 <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -24,13 +24,13 @@ namespace ShareCode.Models
     
         public int User_ID { get; set; }
         public string User_DisplayName { get; set; }
-        public byte[] User_Email { get; set; }
         public string User_Password { get; set; }
         public Nullable<System.DateTime> User_DateLogin { get; set; }
         public Nullable<bool> User_Active { get; set; }
         public Nullable<bool> User_Trash { get; set; }
         public string User_Token { get; set; }
         public Nullable<int> User_Role { get; set; }
+        public string User_Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblComment> tblComments { get; set; }

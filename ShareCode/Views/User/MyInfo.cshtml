@@ -1,0 +1,14 @@
+﻿@using ShareCode.Models;
+@model tblUser 
+@{
+    ViewBag.Title = "MyInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyInfo</h2>
+
+<div class="container">
+    <span>@Model.User_DisplayName</span>
+    <span>@Model.User_Email</span>
+    <span>@Model.User_Password</span>
+</div>
