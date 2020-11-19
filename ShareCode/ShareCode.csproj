@@ -643,6 +643,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\MyInfo.cshtml" />
     <Content Include="Views\View\Val.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

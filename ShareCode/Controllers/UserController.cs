@@ -41,12 +41,12 @@ namespace ShareCode.Controllers
 
                 return RedirectToAction("MyInfo");
             }
-            return View();
+            return View(register);
         }
 
         public ActionResult Login()
         {
-            return View();
+            return View("Register");
         }
         [HttpPost]
         public ActionResult Login(ViewLogin log)
@@ -57,10 +57,26 @@ namespace ShareCode.Controllers
                 Session["member"] = logUser;
                 return Redirect(log.ReturnUrl);
             }
-            return View(log);
+            return View("Register", log);
         }
 
+        public ActionResult LogOut()
+        {
+            Session["member"] = null;
+            return RedirectToAction("LogIn");
+        }
+
+        // manager account
         public ActionResult MyInfo()
+        {
+            if (Session["member"] == null)
+            {
+                return RedirectToAction("LogIn");
+            }
+            tblUser user = (tblUser)Session["member"];
+            return View(user);
+        }
+        public ActionResult ResetPassword()
         {
             if(Session["member"] == null)
             {
@@ -69,11 +85,21 @@ namespace ShareCode.Controllers
             tblUser user = (tblUser)Session["member"];
             return View(user);
         }
-
-        public ActionResult LogOut()
+        [HttpPost]
+        public ActionResult ResetPassword(ViewResetPassword resetPassword)
         {
-            Session["member"] = null;
-            return RedirectToAction("LogIn");
+            tblUser user = (tblUser)Session["member"];
+            if (ModelState.IsValid)
+            {
+                user.User_Password = resetPassword.NewPassword;
+                db.tblUsers.Find(user.User_ID).User_Password = resetPassword.NewPassword;
+                db.SaveChanges();
+
+                Session["member"] = user;
+                Session["notifi_resetpass"] = "Đổi mật khẩu thành công!";
+                return RedirectToAction("MyInfo");
+            }
+            return View(resetPassword);
         }
     }
 }
