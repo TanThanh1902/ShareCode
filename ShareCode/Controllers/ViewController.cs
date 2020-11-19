@@ -18,5 +18,9 @@ namespace ShareCode.Controllers
         {
             return PartialView();
         }
+        public PartialViewResult Val()
+        {
+            return PartialView();
+        }
     }
 }

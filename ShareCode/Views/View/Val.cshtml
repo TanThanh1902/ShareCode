@@ -1,0 +1,106 @@
+﻿@{ 
+    var a = "@";
+}
+<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                Email: {
+                    identifier: 'Email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập email'
+                        },
+                        {
+                            type: 'email',
+                            prompt: 'Email không đúng định dạng'
+                        }
+                    ]
+                },
+                Password: {
+                    identifier: 'Password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Mật khẩu phải trên 5 ký tự'
+                        },
+                        {
+                            type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                            prompt: 'Mật khẩu không an toàn! Mật khẩu có ít nhất một chữ thường, một chữ hoa, một chữ số và một ký tự đặc biệt'
+                        }
+                    ]
+                },
+                PassworkRes: {
+                    identifier: 'PassworkRes',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng xác nhận mật khẩu'
+                        },
+                        {
+                            type: 'match[Password]',
+                            prompt: 'Mật khẩu xác nhận không hợp lệ'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Xác nhận mật khẩu phải trên 5 ký tự'
+                        }
+                    ]
+                },
+                DisplayName: {
+                    identifier: 'DisplayName',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập tên hiển thị'
+                        },
+                        {
+                            type: 'minLength[3]',
+                            prompt: 'Tên hiển thị phải trên 3 ký tự'
+                        },
+                        {
+                            type: 'maxLength[50]',
+                            prompt: 'Tên hiển thị không quá 50 ký tự'
+                        }
+                    ]
+                },
+                username: {
+                    identifier: 'username',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter a username'
+                        }
+                    ]
+                },
+                password: {
+                    identifier: 'password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter a password'
+                        },
+                        {
+                            type: 'minLength[6]',
+                            prompt: 'Your password must be at least {ruleValue} characters'
+                        }
+                    ]
+                },
+                terms: {
+                    identifier: 'terms',
+                    rules: [
+                        {
+                            type: 'checked',
+                            prompt: 'You must agree to the terms and conditions'
+                        }
+                    ]
+                }
+            }
+        })
+        ;
+</script>

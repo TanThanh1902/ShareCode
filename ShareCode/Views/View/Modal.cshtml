@@ -28,10 +28,13 @@
                     <div class="field">
                         <label>Mật khẩu</label>
                         <input type="password" name="Password" placeholder="Nhập mật khẩu" class="form-control" />
-                        <input type="checkbox" name="RememberMe" /> Nhớ tôi
-                        <b style="font-size: 12px" class="mt-2"><a>Quên mật khẩu?</a></b>
                     </div>
-                    <button class="ui green button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
+                    <div class="field">
+                        <input type="checkbox" name="RememberMe" checked/> Nhớ tôi
+                        <b style="font-size: 12px"><a>Quên mật khẩu?</a></b>
+                    </div>
+                    <div class="ui error message"></div>
+                    <button class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
                 </form>
             </div>
         </div>

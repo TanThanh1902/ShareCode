@@ -91,14 +91,15 @@
                             </div>
                             <div class="field">
                                 <label>Mật khẩu</label>
-                                <input type="password" name="Password" placeholder="Nhập mật khẩu" class="form-control" />
+                                <input type="password" id="Password" name="Password" placeholder="Nhập mật khẩu" class="form-control" />
                             </div>
                             <div class="field">
                                 <label>Xác nhận mật khẩu</label>
-                                <input type="password" placeholder="Xác nhận mật khẩu" class="form-control" />
+                                <input type="password" id="PassworkRes" name="PassworkRes" placeholder="Xác nhận mật khẩu" class="form-control" />
                             </div>
                             <input type="checkbox" />Tôi đồng ý với điều khoản sử dụng
-                            <button class="ui green button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng ký</button>
+                            <div class="ui error message"></div>
+                            <button class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng ký</button>
                         </form>
                     }
                     else
