@@ -19,4 +19,8 @@ namespace ShareCode.Models
         public string ReturnUrl { get; set; }
         public Boolean RememberMe { get; set; }
     }
+    public class ViewResetPassword
+    {
+        public string NewPassword { get; set; }
+    }
 }
