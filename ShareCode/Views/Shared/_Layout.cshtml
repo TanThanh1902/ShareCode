@@ -39,6 +39,9 @@
         html {
             font-size: 14px;
         }
+        .slider-area.slider-area2, .slider-area2.slider-area2 {
+            background-image: url(../../Images/pexels-photo-5473337.jpeg);
+        }
     </style>
 </head>
 
@@ -84,6 +87,25 @@
     </header>
     <main>
         @RenderBody()
+        <div class="topic-area section-padding40">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>@custom.ct_16</h2>
+                        </div>
+                    </div>
+                </div>
+                @Html.Action("Top8Cat", "Home")
+                <div class="row justify-content-center">
+                    <div class="col-xl-12">
+                        <div class="section-tittle text-center mt-20">
+                            <a href="courses.html" class="border-btn">View More Subjects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="courses-area section-padding40 fix">
             <div class="container">
                 <div class="row justify-content-center">
@@ -288,25 +310,7 @@
         </section>
         <!-- About Area End -->
         <!--? top subjects Area Start -->
-        <div class="topic-area section-padding40">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>@custom.ct_16</h2>
-                        </div>
-                    </div>
-                </div>
-                @Html.Action("Top8Cat", "Home")
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="section-tittle text-center mt-20">
-                            <a href="courses.html" class="border-btn">View More Subjects</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- top subjects End -->
         <!--? About Area-3 Start -->
         <section class="about-area3 fix">

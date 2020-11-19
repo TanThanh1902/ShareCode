@@ -1,0 +1,88 @@
+﻿@using ShareCode.Models;
+@{ 
+    tblUser user = (tblUser)Session["member"];
+}
+<div class="card" style="padding: 20px;">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="~/Images/User/man-300x300.png" style="width: 100px; height: 100px" />
+        </div>
+        <div class="col-lg-8">
+            <div style="padding: 10px">
+                <b>Chào <a class="text-danger font-weight-bold" href="/User/MyInfo">@user.User_DisplayName</a>,</b>
+                <div><b>Tài khoản: </b> 0 xu</div>
+                <div><b>Tạm giữ: </b> 0 xu</div>
+                <div><b>Khả dụng: </b> 0 xu</div>
+            </div>
+        </div>
+        <hr />
+        <div class="col-lg-6">
+            <i class="fa fa-cog">&nbsp;</i>Cài đặt TT<br />
+            <i class="fas fa-paper-plane">&nbsp;</i>Báo bản quyền
+        </div>
+        <div class="col-lg-6">
+            <i class="fa fa-users">&nbsp;</i>Trang cá nhân<br />
+            <i class="fas fa-comment">&nbsp;</i>Bình luận(0)
+        </div>
+        <div class="col-lg-12 mt-4" style="padding: 0px">
+            <div class="list-group text-center">
+                <a href="#" class="list-group-item list-group-item-action">Code tải lên (0)</a>
+                <a href="#" class="list-group-item list-group-item-action">Code đã lưu (0)</a>
+                <a href="#" class="list-group-item list-group-item-action">Code đã mua (0)</a>
+                <a href="#" class="list-group-item list-group-item-action">Doanh thu bán code</a>
+                <a href="#" class="list-group-item list-group-item-action">Lịch sử nạp tiền</a>
+                <a href="#" class="list-group-item list-group-item-action">Rút tiền</a>
+                <a href="#" class="list-group-item list-group-item-action">Cài đặt gợi ý code</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-5">
+    <div class="col-lg-12" style="padding: 0px">
+        <div class="w3-content w3-section" style="width:100%">
+            <img class="mySlides" src="https://sharecode.vn/FilesUpload/Banner/15_19_18_meo%20tang%20doanh%20thu%20ban%20code.jpg" style="width:100%; height:200px">
+            <img class="mySlides" src="https://www.w3schools.com/w3css/img_chicago.jpg" style="width:100%; height:200px">
+            <img class="mySlides" src="https://sharecode.vn/FilesUpload/Banner/15_19_18_meo%20tang%20doanh%20thu%20ban%20code.jpg" style="width:100%; height:200px">
+        </div>
+        <script>
+                        var myIndex = 0;
+                        carousel();
+
+                        function carousel() {
+                            var i;
+                            var x = document.getElementsByClassName("mySlides");
+                            for (i = 0; i < x.length; i++) {
+                                x[i].style.display = "none";
+                            }
+                            myIndex++;
+                            if (myIndex > x.length) { myIndex = 1 }
+                            x[myIndex - 1].style.display = "block";
+                            setTimeout(carousel, 2000); // Change image every 2 seconds
+                        }
+        </script>
+    </div>
+</div>
+<div class="card mt-5">
+    <div class="col-lg-12" style="padding: 0px">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+                Thông báo
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                [SIÊU KHUYẾN MÃI] Dịch vụ máy chủ MUA 1 TẶNG 1 đến hết 29/02 <img src="https://sharecode.vn/assets/images/ic_hot.gif" />
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                [SIÊU KHUYẾN MÃI] Dịch vụ máy chủ MUA 1 TẶNG 1 đến hết 29/02 <img src="https://sharecode.vn/assets/images/ic_hot.gif" />
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                [SIÊU KHUYẾN MÃI] Dịch vụ máy chủ MUA 1 TẶNG 1 đến hết 29/02 <img src="https://sharecode.vn/assets/images/ic_hot.gif" />
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                [SIÊU KHUYẾN MÃI] Dịch vụ máy chủ MUA 1 TẶNG 1 đến hết 29/02 <img src="https://sharecode.vn/assets/images/ic_hot.gif" />
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                [SIÊU KHUYẾN MÃI] Dịch vụ máy chủ MUA 1 TẶNG 1 đến hết 29/02 <img src="https://sharecode.vn/assets/images/ic_hot.gif" />
+            </a>
+        </div>
+    </div>
+</div>

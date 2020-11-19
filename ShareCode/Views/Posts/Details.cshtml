@@ -1,131 +1,135 @@
 ﻿@model ShareCode.Models.tblPost
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Post_Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>tblPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Avata)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Avata)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_ViewMoreImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_ViewMoreImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_View)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_View)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Vote)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Vote)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Rate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Rate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_CountDownLoad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_CountDownLoad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_LinkDown)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_LinkDown)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_DateCreate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_DateCreate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_Favorite)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_Favorite)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Post_TutorialSetup)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Post_TutorialSetup)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tblCategory.Cat_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tblCategory.Cat_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tblUser.User_DisplayName)
-        </dd>
-
-    </dl>
+<section class="slider-area slider-area2" style="height: 345px;">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-11 col-md-12">
+                        <div class="hero__caption hero__caption2">
+                            <h3 data-animation="bounceIn" data-delay="0.2s">
+                                <div class="ui search">
+                                    <div class="ui icon input w-100">
+                                        <input class="prompt" type="text" placeholder="Nhập từ khóa...">
+                                        <i class="search icon"></i>
+                                    </div>
+                                    <div class="results"></div>
+                                </div>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary"/>
+                </div>
+                <div class="col-lg-10">
+                    <b>@Model.Post_Title <b class="text-danger">[Mã code: #code-@Model.Post_ID]</b></b>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            1 Đánh giá
+                            <i class="fa fa-edit">&nbsp;</i>Viết đánh giá
+                        </div>
+                        <div class="col-lg-4">
+                            <i class="fa fa-eye">&nbsp;</i>@Model.Post_View
+                            <i class="fa fa-download">&nbsp;</i>1
+                            <i class="fa fa-heart">&nbsp;</i>@Model.Post_CountDownLoad
+                        </div>
+                        <div class="col-lg-12">
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h3 class="font-weight-bold"><b class="text-danger">Phí tải: </b>15 xu <span style="color: gray; font-size: 15px">(1 xu = 2.000 vnđ)</span></h3>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="ui red button float-right"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                </div>
+                                <hr />
+                                <div class="col-lg-8">
+                                    <ul>
+                                        <li><b>Danh mục:</b>@Model.tblCategory.Cat_Name</li>
+                                        <li><b>Thể loại:</b>Chưa có</li>
+                                        <li><b>Nhóm code:</b>Chưa có</li>
+                                        <li><b>Ngày đăng:</b>@Model.Post_DateCreate</li>
+                                        <li><b>Dung lượng:</b>Chưa có</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                    <button class="ui gray button float-right w-100 mt-2"><i class="fa fa-desktop">&nbsp;</i>Demo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="ui two column grid">
+                        <div class="column  w-100">
+                            <div class="ui raised segment">
+                                <a class="ui red ribbon label">Mô tả chi tiết</a>
+                                <br />
+                                @Html.Raw(Model.Post_Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div style="padding: 10px">
+                            <b>Người bán</b>
+                            <div class="row mt-2">
+                                <div class="col-lg-6">
+                                    <img src="~/Images/User/man-300x300.png" class="w-100" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <b class="text-danger">@Model.tblUser.User_DisplayName</b>
+                                    <ul>
+                                        <li><b>Free:</b> 0</li>
+                                        <li><b>Có phí:</b> 0</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-12 mt-2">
+                                    <div class="card">
+                                        <div style="padding: 10px">
+                                            <p class="text-danger">Thông tin liên hệ</p>
+                                            <ul>
+                                                <li><b>Email:</b>Ẩn</li>
+                                                <li><b>SĐT:</b>Ẩn</li>
+                                                <li class="text-default">(Chỉ hiển thị khi đã mua code)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Post_ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

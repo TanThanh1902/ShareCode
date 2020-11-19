@@ -52,6 +52,58 @@
                         }
                     ]
                 },
+                //ResetPasswork
+                NewPassword: {
+                    identifier: 'NewPassword',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Mật khẩu phải trên 5 ký tự'
+                        },
+                        {
+                            type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                            prompt: 'Mật khẩu không an toàn! Mật khẩu có ít nhất một chữ thường, một chữ hoa, một chữ số và một ký tự đặc biệt'
+                        }
+                    ]
+                },
+                confirmpass: {
+                    identifier: 'confirmpass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng xác nhận mật khẩu'
+                        },
+                        {
+                            type: 'match[NewPassword]',
+                            prompt: 'Mật khẩu xác nhận không hợp lệ'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Xác nhận mật khẩu phải trên 5 ký tự'
+                        }
+                    ]
+                },
+                oldpass: {
+                    identifier: 'oldpass',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Vui lòng nhập mật khẩu'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Mật khẩu phải trên 5 ký tự'
+                        },
+                        {
+                            type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                            prompt: 'Mật khẩu không an toàn! Mật khẩu có ít nhất một chữ thường, một chữ hoa, một chữ số và một ký tự đặc biệt'
+                        }
+                    ]
+                },
                 DisplayName: {
                     identifier: 'DisplayName',
                     rules: [

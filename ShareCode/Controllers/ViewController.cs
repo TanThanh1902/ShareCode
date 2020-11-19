@@ -22,5 +22,9 @@ namespace ShareCode.Controllers
         {
             return PartialView();
         }
+        public PartialViewResult InfoRight()
+        {
+            return PartialView();
+        }
     }
 }
