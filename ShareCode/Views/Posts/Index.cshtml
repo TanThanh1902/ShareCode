@@ -1,0 +1,29 @@
+﻿@using ShareCode.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblPost>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("Details", new { id = item.Post_ID})">
+                    <img src="~/Content/Layout/img/post/@item.Post_Avata" />
+                </a>
+                <span>@item.Post_Title</span>
+                <span>@item.Post_View</span>
+                <span>@item.tblCategory.Cat_Name</span>
+                <span>@item.Post_DateCreate</span>
+            </div>
+        }
+    </div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action(HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString(), new { page }))
+    </div>
+</div>

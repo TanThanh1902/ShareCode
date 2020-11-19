@@ -1,4 +1,9 @@
-﻿@{
+﻿@using ShareCode.Models;
+@{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    tblCustom custom = db.tblCustoms.Find(1);
+}
+@{
     ViewBag.Title = "Share Code Online";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,8 +16,8 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-7 col-md-12">
                         <div class="hero__caption">
-                            <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
-                            <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses, certificates, and degrees online from world-class universities and companies</p>
+                            <h1 data-animation="fadeInLeft" data-delay="0.2s">@custom.ct_01<br> @custom.ct_02</h1>
+                            <p data-animation="fadeInLeft" data-delay="0.4s">@custom.ct_03</p>
                             <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
                         </div>
                     </div>

@@ -1,0 +1,131 @@
+﻿@model ShareCode.Models.tblPost
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Avata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Avata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_ViewMoreImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_ViewMoreImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_View)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_View)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Vote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Vote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_CountDownLoad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_CountDownLoad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_LinkDown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_LinkDown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_DateCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_DateCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_Favorite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_Favorite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post_TutorialSetup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post_TutorialSetup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCategory.Cat_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCategory.Cat_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblUser.User_DisplayName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Post_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

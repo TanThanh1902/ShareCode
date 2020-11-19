@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -21,6 +21,7 @@
           </Key>
           <Property Name="Cat_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cat_Name" Type="nvarchar" MaxLength="70" />
+          <Property Name="Cat_Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tblComment">
           <Key>
@@ -89,6 +90,9 @@
           <Property Name="Post_DateCreate" Type="datetime" />
           <Property Name="Post_Cat" Type="int" />
           <Property Name="Post_User" Type="int" />
+          <Property Name="Post_Favorite" Type="int" />
+          <Property Name="Post_TutorialSetup" Type="nvarchar(max)" />
+          <Property Name="Post_Price" Type="money" />
         </EntityType>
         <EntityType Name="tblPostLang">
           <Key>
@@ -128,6 +132,8 @@
           <Property Name="User_Token" Type="nvarchar(max)" />
           <Property Name="User_Role" Type="int" />
           <Property Name="User_Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="User_Avata" Type="nvarchar(max)" />
+          <Property Name="User_VIP" Type="int" />
         </EntityType>
         <Association Name="FK_tblComment_tblPost">
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
@@ -285,8 +291,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -307,6 +312,7 @@
           <Property Name="Cat_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cat_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblCategory" FromRole="tblCategory" ToRole="tblPost" />
+          <Property Name="Cat_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblComment">
           <Key>
@@ -383,6 +389,9 @@
           <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblPost" FromRole="tblPost" ToRole="tblComment" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblPost_tblUser" FromRole="tblPost" ToRole="tblUser" />
           <NavigationProperty Name="tblLanguages" Relationship="Self.tblPostLang" FromRole="tblPost" ToRole="tblLanguage" />
+          <Property Name="Post_Favorite" Type="Int32" />
+          <Property Name="Post_TutorialSetup" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post_Price" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="tblRepply">
           <Key>
@@ -421,6 +430,8 @@
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblUser" FromRole="tblUser" ToRole="tblPost" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblUser" ToRole="tblRepply" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+          <Property Name="User_Avata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_VIP" Type="Int32" />
         </EntityType>
         <Association Name="FK_tblPost_tblCategory">
           <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
@@ -573,6 +584,7 @@
           <EntitySetMapping Name="tblCategories">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblCategory">
               <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Cat_Image" ColumnName="Cat_Image" />
                 <ScalarProperty Name="Cat_ID" ColumnName="Cat_ID" />
                 <ScalarProperty Name="Cat_Name" ColumnName="Cat_Name" />
               </MappingFragment>
@@ -634,6 +646,9 @@
           <EntitySetMapping Name="tblPosts">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="Post_Price" ColumnName="Post_Price" />
+                <ScalarProperty Name="Post_TutorialSetup" ColumnName="Post_TutorialSetup" />
+                <ScalarProperty Name="Post_Favorite" ColumnName="Post_Favorite" />
                 <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
                 <ScalarProperty Name="Post_Title" ColumnName="Post_Title" />
                 <ScalarProperty Name="Post_Avata" ColumnName="Post_Avata" />
@@ -672,6 +687,8 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="User_VIP" ColumnName="User_VIP" />
+                <ScalarProperty Name="User_Avata" ColumnName="User_Avata" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="User_DisplayName" ColumnName="User_DisplayName" />
                 <ScalarProperty Name="User_Password" ColumnName="User_Password" />

@@ -34,6 +34,9 @@ namespace ShareCode.Models
         public Nullable<System.DateTime> Post_DateCreate { get; set; }
         public Nullable<int> Post_Cat { get; set; }
         public Nullable<int> Post_User { get; set; }
+        public Nullable<int> Post_Favorite { get; set; }
+        public string Post_TutorialSetup { get; set; }
+        public Nullable<decimal> Post_Price { get; set; }
     
         public virtual tblCategory tblCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
