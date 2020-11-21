@@ -14,6 +14,7 @@ namespace ShareCode.Controllers
         // GET: User
         public ActionResult Register()
         {
+            ViewBag.Title = "Đăng ký";
             return View();
         }
         [HttpPost]
@@ -46,6 +47,7 @@ namespace ShareCode.Controllers
 
         public ActionResult Login()
         {
+            ViewBag.Title = "Đăng nhập";
             return View("Register");
         }
         [HttpPost]

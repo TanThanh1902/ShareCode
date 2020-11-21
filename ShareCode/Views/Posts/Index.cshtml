@@ -4,7 +4,6 @@
 @model PagedList.IPagedList<tblPost>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="slider-area slider-area2" style="height: 345px;">
@@ -36,7 +35,7 @@
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8">
                 <div class="section-tittle text-center mb-55">
-                    <h2>Có 0 code được tìm thấy</h2>
+                    <h2>Có @ViewBag.couttPost code được tìm thấy</h2>
                 </div>
             </div>
         </div>

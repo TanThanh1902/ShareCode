@@ -1,0 +1,125 @@
+﻿@using ShareCode.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblPost>
+
+@{
+    ViewBag.Title = "PostsCollection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>PostsCollection</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Title
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var del = "delfavorite" + item.Post_ID;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Avata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Favorite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblCategory.Cat_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblGenre.Genres_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblGroupCode.Group_Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", new { id = item.Post_ID})" target="_blank" style="color: blue">Chi tiết</a> |
+                <a href="#" id="@del" style="color: blue">Hủy</a>
+            </td>
+        </tr>
+
+        <script>
+            $(document).ready(function () {
+                $("#@del").click(function () {
+                    debugger
+                    let id = @del.Substring(11);
+                    $.ajax({
+                        url: "/Ajax/RemoveFavorite?id=" + id,
+                        contentType: "Json",
+                        success: function (response) {
+                            window.location.href = "/Posts/PostsCollection?id=" + id;
+                        }
+                    })
+                })
+            })
+        </script>
+    }
+
+</table>
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("PostsCollection", new { page }))
+</div>
+

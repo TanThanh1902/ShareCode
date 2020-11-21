@@ -1,8 +1,17 @@
-﻿@model ShareCode.Models.tblPost
+﻿@using ShareCode.Models;
+@model ShareCode.Models.tblPost
 
 @{
     ViewBag.Title = Model.Post_Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> mulImage = Model.Post_ViewMoreImage.Split(';').ToList();
+    tblUser user = new tblUser();
+    if (Session["member"] != null)
+    {
+        user = (tblUser)Session["member"];
+    }
+    int coin = (int)Model.Post_Price;
+    DBShareCodeEntities db = new DBShareCodeEntities();
 }
 
 <section class="slider-area slider-area2" style="height: 345px;">
@@ -33,11 +42,20 @@
     <div class="row">
         <div class="col-lg-9">
             <div class="row">
-                <div class="col-lg-2">
-                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary"/>
+                <div class="col-lg-3">
+                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" />
+                    <br />
+                    <div class="row" style="padding-bottom: 10px">
+                        @foreach (var img in mulImage)
+                        {
+                            <div class="col-md-4">
+                                <img src="~/Content/Layout/img/post/@img" style="width: 100%; height: 50px" />
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div class="col-lg-10">
-                    <b>@Model.Post_Title <b class="text-danger">[Mã code: #code-@Model.Post_ID]</b></b>
+                <div class="col-lg-9">
+                    <b>@Model.Post_Title <b class="text-danger">[Mã code: #@Model.Post_Code]</b></b>
                     <div class="row">
                         <div class="col-lg-8">
                             <i class="fa fa-star text-warning"></i>
@@ -45,36 +63,72 @@
                             <i class="fa fa-star text-warning"></i>
                             <i class="fa fa-star text-warning"></i>
                             <i class="fa fa-star text-warning"></i>
-                            1 Đánh giá
+                            @Model.Post_Vote Đánh giá
                             <i class="fa fa-edit">&nbsp;</i>Viết đánh giá
                         </div>
                         <div class="col-lg-4">
                             <i class="fa fa-eye">&nbsp;</i>@Model.Post_View
-                            <i class="fa fa-download">&nbsp;</i>1
-                            <i class="fa fa-heart">&nbsp;</i>@Model.Post_CountDownLoad
+                            <i class="fa fa-download" id="newCountDownLoad">&nbsp;@Model.Post_CountDownLoad</i>
+                            <i class="fa fa-heart" id="newCountFavorite">&nbsp;@Model.Post_Favorite</i>
                         </div>
                         <div class="col-lg-12">
                             <hr />
                             <div class="row">
                                 <div class="col-lg-8">
-                                    <h3 class="font-weight-bold"><b class="text-danger">Phí tải: </b>15 xu <span style="color: gray; font-size: 15px">(1 xu = 2.000 vnđ)</span></h3>
+                                    <h3 class="font-weight-bold"><b class="text-danger">Phí tải: </b>@coin xu <span style="color: gray; font-size: 15px">(1 xu = 2.000 vnđ)</span></h3>
                                 </div>
-                                <div class="col-lg-4">
-                                    <button class="ui red button float-right"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                <div class="col-lg-4" id="favorite">
+                                    @if (user.User_ID == Model.Post_User)
+                                    {
+                                        <button class="ui red button float-right"><i class="fa fa-comments">&nbsp;</i>Xem bình luận</button>
+                                    }
+                                    else
+                                    {
+                                        if (Session["member"] != null)
+                                        {
+                                            Boolean checkfavorite = db.tblFavorites.FirstOrDefault(t => t.Favorite_User == user.User_ID && t.Favorite_Post == Model.Post_ID) != null;
+                                            if (checkfavorite)
+                                            {
+                                                <button class="ui red button float-right" id="removefavorite"><i class="fa fa-heart">&nbsp;</i>Hủy yêu thích code</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="ui red button float-right" id="addfavorite"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button data-toggle="modal" data-target="#login" class="ui red button float-right"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                        }
+                                    }
                                 </div>
                                 <hr />
                                 <div class="col-lg-8">
                                     <ul>
-                                        <li><b>Danh mục:</b>@Model.tblCategory.Cat_Name</li>
-                                        <li><b>Thể loại:</b>Chưa có</li>
-                                        <li><b>Nhóm code:</b>Chưa có</li>
-                                        <li><b>Ngày đăng:</b>@Model.Post_DateCreate</li>
+                                        <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat})" style="color: red">@Model.tblCategory.Cat_Name</a></li>
+                                        <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres})" style="color: red">@Model.tblGenre.Genres_Name</a></li>
+                                        <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group})" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
+                                        <li><b>Ngày đăng:</b>@Model.Post_DateCreate.Value.ToLongDateString()</li>
                                         <li><b>Dung lượng:</b>Chưa có</li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-4">
-                                    <button class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
-                                    <button class="ui gray button float-right w-100 mt-2"><i class="fa fa-desktop">&nbsp;</i>Demo</button>
+                                    @if (user.User_ID == Model.Post_User)
+                                    {
+                                        <button class="ui green button float-right w-100 mt-2"><i class="fa fa-edit">&nbsp;</i>Chỉnh sửa</button>
+                                    }
+                                    else
+                                    {
+                                        if (Session["member"] != null)
+                                        {
+                                            <button id="download" class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                        }
+                                        else
+                                        {
+                                            <button data-toggle="modal" data-target="#login" class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                        }
+                                        <button class="ui gray button float-right w-100 mt-2"><i class="fa fa-desktop">&nbsp;</i>Demo</button>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -108,8 +162,8 @@
                                 <div class="col-lg-6">
                                     <b class="text-danger">@Model.tblUser.User_DisplayName</b>
                                     <ul>
-                                        <li><b>Free:</b> 0</li>
-                                        <li><b>Có phí:</b> 0</li>
+                                        <li><b>Free:</b> @ViewBag.countPostsFree</li>
+                                        <li><b>Có phí:</b> @ViewBag.countPostsPay</li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-12 mt-2">
@@ -132,4 +186,56 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="idpost" value="@Model.Post_ID" />
+<script>
+    $(document).ready(function () {
+        $("#addfavorite").click(function () {
+            let id = document.getElementById("idpost").value;
+            debugger
+            $.ajax({
+                url: "/Ajax/AddFavorite?id=" + id,
+                contentType: "Json",
+                success: function (response) {
+                    let htmFavorite = '<button class="ui red button float-right" id="removefavorite"><i class="fa fa-heart">&nbsp;</i>Hủy yêu thích code</button>';
+                    //let addFavoriteCount = parseInt(countFavorite)++;
+                    let htmNewFavorite = '&nbsp;' + response;
+                    $("#favorite").html(htmFavorite);
+                    $("#newCountFavorite").html(htmNewFavorite);
+                }
+            })
+        })
+    })
+</script>
 
+<script>
+    $(document).ready(function () {
+        $("#removefavorite").click(function () {
+            let id = document.getElementById("idpost").value; debugger
+            $.ajax({
+                url: "/Ajax/RemoveFavorite?id=" + id,
+                contentType: "Json",
+                success: function (response) {
+                    let htmFavorite = '<button class="ui red button float-right" id="addfavorite"><i class="fa fa-heart">&nbsp;</i>Thích code</button>';
+                    let htmNewFavorite = '&nbsp;' + response;
+                    $("#favorite").html(htmFavorite);
+                    $("#newCountFavorite").html(htmNewFavorite);
+                }
+            })
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#download").click(function () {
+            let id = document.getElementById("idpost").value; debugger
+            $.ajax({
+                url: "/Ajax/CountDownLoad?id=" + id,
+                contentType: "Json",
+                success: function (response) {
+                    let htmNewDownLoad = '&nbsp;' + response;
+                    $("#newCountDownLoad").html(htmNewDownLoad);
+                }
+            })
+        })
+    })
+</script>

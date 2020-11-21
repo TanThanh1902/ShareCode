@@ -65,6 +65,39 @@
           <Property Name="ct_25" Type="nvarchar" MaxLength="255" />
           <Property Name="ct_26" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblDownLoad">
+          <Key>
+            <PropertyRef Name="DownLoad_ID" />
+          </Key>
+          <Property Name="DownLoad_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DownLoad_User" Type="int" />
+          <Property Name="DownLoad_Post" Type="int" />
+          <Property Name="DownLoad_DateDown" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblFavorite">
+          <Key>
+            <PropertyRef Name="Favorite_ID" />
+          </Key>
+          <Property Name="Favorite_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Favorite_User" Type="int" />
+          <Property Name="Favorite_Post" Type="int" />
+          <Property Name="Favorite_DateAdd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblGenres">
+          <Key>
+            <PropertyRef Name="Genres_ID" />
+          </Key>
+          <Property Name="Genres_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Genres_Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblGroupCode">
+          <Key>
+            <PropertyRef Name="Group_ID" />
+          </Key>
+          <Property Name="Group_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Group_Descriptions" Type="nvarchar" MaxLength="1024" />
+        </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
             <PropertyRef Name="Lang_ID" />
@@ -93,6 +126,11 @@
           <Property Name="Post_Favorite" Type="int" />
           <Property Name="Post_TutorialSetup" Type="nvarchar(max)" />
           <Property Name="Post_Price" Type="money" />
+          <Property Name="Post_Genres" Type="int" />
+          <Property Name="Post_Group" Type="int" />
+          <Property Name="Post_Active" Type="bit" />
+          <Property Name="Post_Trash" Type="bit" />
+          <Property Name="Post_Code" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tblPostLang">
           <Key>
@@ -134,6 +172,9 @@
           <Property Name="User_Email" Type="nvarchar" MaxLength="150" />
           <Property Name="User_Avata" Type="nvarchar(max)" />
           <Property Name="User_VIP" Type="int" />
+          <Property Name="User_Phone" Type="varchar" MaxLength="14" />
+          <Property Name="User_Point" Type="int" />
+          <Property Name="User_Coin" Type="int" />
         </EntityType>
         <Association Name="FK_tblComment_tblPost">
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
@@ -159,6 +200,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblDownLoad_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblDownLoad" Type="Self.tblDownLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblDownLoad">
+              <PropertyRef Name="DownLoad_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDownLoad_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblDownLoad" Type="Self.tblDownLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblDownLoad">
+              <PropertyRef Name="DownLoad_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFavorite_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblFavorite" Type="Self.tblFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblFavorite">
+              <PropertyRef Name="Favorite_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFavorite_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblFavorite" Type="Self.tblFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblFavorite">
+              <PropertyRef Name="Favorite_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_GroupCode">
+          <End Role="tblGroupCode" Type="Self.tblGroupCode" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGroupCode">
+              <PropertyRef Name="Group_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPost_tblCategory">
           <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
@@ -168,6 +269,18 @@
             </Principal>
             <Dependent Role="tblPost">
               <PropertyRef Name="Post_Cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblGenres">
+          <End Role="tblGenres" Type="Self.tblGenres" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenres">
+              <PropertyRef Name="Genres_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Genres" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -248,6 +361,10 @@
           <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblComment" EntityType="Self.tblComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCustom" EntityType="Self.tblCustom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDownLoad" EntityType="Self.tblDownLoad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFavorite" EntityType="Self.tblFavorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGenres" EntityType="Self.tblGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGroupCode" EntityType="Self.tblGroupCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPostLang" EntityType="Self.tblPostLang" Schema="dbo" store:Type="Tables" />
@@ -262,8 +379,32 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblComment" EntitySet="tblComment" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblDownLoad_tblPost" Association="Self.FK_tblDownLoad_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblDownLoad" EntitySet="tblDownLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDownLoad_tblUser" Association="Self.FK_tblDownLoad_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblDownLoad" EntitySet="tblDownLoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFavorite_tblPost" Association="Self.FK_tblFavorite_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblFavorite" EntitySet="tblFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFavorite_tblUser" Association="Self.FK_tblFavorite_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblFavorite" EntitySet="tblFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_GroupCode" Association="Self.FK_tblPost_GroupCode">
+            <End Role="tblGroupCode" EntitySet="tblGroupCode" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblPost_tblCategory" Association="Self.FK_tblPost_tblCategory">
             <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblGenres" Association="Self.FK_tblPost_tblGenres">
+            <End Role="tblGenres" EntitySet="tblGenres" />
             <End Role="tblPost" EntitySet="tblPost" />
           </AssociationSet>
           <AssociationSet Name="FK_tblPost_tblUser" Association="Self.FK_tblPost_tblUser">
@@ -392,6 +533,15 @@
           <Property Name="Post_Favorite" Type="Int32" />
           <Property Name="Post_TutorialSetup" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Post_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Post_Genres" Type="Int32" />
+          <Property Name="Post_Group" Type="Int32" />
+          <Property Name="Post_Active" Type="Boolean" />
+          <Property Name="Post_Trash" Type="Boolean" />
+          <Property Name="Post_Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tblGenre" Relationship="DBShareCodeModel.FK_tblPost_tblGenres" FromRole="tblPost" ToRole="tblGenre" />
+          <NavigationProperty Name="tblGroupCode" Relationship="DBShareCodeModel.FK_tblPost_GroupCode" FromRole="tblPost" ToRole="tblGroupCode" />
+          <NavigationProperty Name="tblFavorites" Relationship="DBShareCodeModel.FK_tblFavorite_tblPost" FromRole="tblPost" ToRole="tblFavorite" />
+          <NavigationProperty Name="tblDownLoads" Relationship="DBShareCodeModel.FK_tblDownLoad_tblPost" FromRole="tblPost" ToRole="tblDownLoad" />
         </EntityType>
         <EntityType Name="tblRepply">
           <Key>
@@ -432,6 +582,11 @@
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
           <Property Name="User_Avata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="User_VIP" Type="Int32" />
+          <Property Name="User_Phone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="User_Point" Type="Int32" />
+          <Property Name="User_Coin" Type="Int32" />
+          <NavigationProperty Name="tblFavorites" Relationship="DBShareCodeModel.FK_tblFavorite_tblUser" FromRole="tblUser" ToRole="tblFavorite" />
+          <NavigationProperty Name="tblDownLoads" Relationship="DBShareCodeModel.FK_tblDownLoad_tblUser" FromRole="tblUser" ToRole="tblDownLoad" />
         </EntityType>
         <Association Name="FK_tblPost_tblCategory">
           <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
@@ -563,7 +718,146 @@
             <End Role="tblLanguage" EntitySet="tblLanguages" />
             <End Role="tblPost" EntitySet="tblPosts" />
           </AssociationSet>
+          <EntitySet Name="tblGenres" EntityType="DBShareCodeModel.tblGenre" />
+          <AssociationSet Name="FK_tblPost_tblGenres" Association="DBShareCodeModel.FK_tblPost_tblGenres">
+            <End Role="tblGenre" EntitySet="tblGenres" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <EntitySet Name="tblGroupCodes" EntityType="DBShareCodeModel.tblGroupCode" />
+          <AssociationSet Name="FK_tblPost_GroupCode" Association="DBShareCodeModel.FK_tblPost_GroupCode">
+            <End Role="tblGroupCode" EntitySet="tblGroupCodes" />
+            <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <EntitySet Name="tblFavorites" EntityType="DBShareCodeModel.tblFavorite" />
+          <AssociationSet Name="FK_tblFavorite_tblPost" Association="DBShareCodeModel.FK_tblFavorite_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblFavorite" EntitySet="tblFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFavorite_tblUser" Association="DBShareCodeModel.FK_tblFavorite_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblFavorite" EntitySet="tblFavorites" />
+          </AssociationSet>
+          <EntitySet Name="tblDownLoads" EntityType="DBShareCodeModel.tblDownLoad" />
+          <AssociationSet Name="FK_tblDownLoad_tblPost" Association="DBShareCodeModel.FK_tblDownLoad_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblDownLoad" EntitySet="tblDownLoads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDownLoad_tblUser" Association="DBShareCodeModel.FK_tblDownLoad_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblDownLoad" EntitySet="tblDownLoads" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblGenre">
+          <Key>
+            <PropertyRef Name="Genres_ID" />
+          </Key>
+          <Property Name="Genres_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Genres_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPosts" Relationship="DBShareCodeModel.FK_tblPost_tblGenres" FromRole="tblGenre" ToRole="tblPost" />
+        </EntityType>
+        <Association Name="FK_tblPost_tblGenres">
+          <End Type="DBShareCodeModel.tblGenre" Role="tblGenre" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenre">
+              <PropertyRef Name="Genres_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Genres" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblGroupCode">
+          <Key>
+            <PropertyRef Name="Group_ID" />
+          </Key>
+          <Property Name="Group_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Group_Descriptions" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPosts" Relationship="DBShareCodeModel.FK_tblPost_GroupCode" FromRole="tblGroupCode" ToRole="tblPost" />
+        </EntityType>
+        <Association Name="FK_tblPost_GroupCode">
+          <End Type="DBShareCodeModel.tblGroupCode" Role="tblGroupCode" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGroupCode">
+              <PropertyRef Name="Group_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="Post_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblFavorite">
+          <Key>
+            <PropertyRef Name="Favorite_ID" />
+          </Key>
+          <Property Name="Favorite_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Favorite_User" Type="Int32" />
+          <Property Name="Favorite_Post" Type="Int32" />
+          <Property Name="Favorite_DateAdd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="DBShareCodeModel.FK_tblFavorite_tblPost" FromRole="tblFavorite" ToRole="tblPost" />
+          <NavigationProperty Name="tblUser" Relationship="DBShareCodeModel.FK_tblFavorite_tblUser" FromRole="tblFavorite" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblFavorite_tblPost">
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblFavorite" Role="tblFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblFavorite">
+              <PropertyRef Name="Favorite_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFavorite_tblUser">
+          <End Type="DBShareCodeModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblFavorite" Role="tblFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblFavorite">
+              <PropertyRef Name="Favorite_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblDownLoad">
+          <Key>
+            <PropertyRef Name="DownLoad_ID" />
+          </Key>
+          <Property Name="DownLoad_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DownLoad_User" Type="Int32" />
+          <Property Name="DownLoad_Post" Type="Int32" />
+          <Property Name="DownLoad_DateDown" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="DBShareCodeModel.FK_tblDownLoad_tblPost" FromRole="tblDownLoad" ToRole="tblPost" />
+          <NavigationProperty Name="tblUser" Relationship="DBShareCodeModel.FK_tblDownLoad_tblUser" FromRole="tblDownLoad" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblDownLoad_tblPost">
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblDownLoad" Role="tblDownLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblDownLoad">
+              <PropertyRef Name="DownLoad_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDownLoad_tblUser">
+          <End Type="DBShareCodeModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblDownLoad" Role="tblDownLoad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblDownLoad">
+              <PropertyRef Name="DownLoad_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -646,6 +940,11 @@
           <EntitySetMapping Name="tblPosts">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="Post_Code" ColumnName="Post_Code" />
+                <ScalarProperty Name="Post_Trash" ColumnName="Post_Trash" />
+                <ScalarProperty Name="Post_Active" ColumnName="Post_Active" />
+                <ScalarProperty Name="Post_Group" ColumnName="Post_Group" />
+                <ScalarProperty Name="Post_Genres" ColumnName="Post_Genres" />
                 <ScalarProperty Name="Post_Price" ColumnName="Post_Price" />
                 <ScalarProperty Name="Post_TutorialSetup" ColumnName="Post_TutorialSetup" />
                 <ScalarProperty Name="Post_Favorite" ColumnName="Post_Favorite" />
@@ -687,6 +986,9 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="User_Coin" ColumnName="User_Coin" />
+                <ScalarProperty Name="User_Point" ColumnName="User_Point" />
+                <ScalarProperty Name="User_Phone" ColumnName="User_Phone" />
                 <ScalarProperty Name="User_VIP" ColumnName="User_VIP" />
                 <ScalarProperty Name="User_Avata" ColumnName="User_Avata" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -709,6 +1011,43 @@
               <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tblGenres">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblGenre">
+              <MappingFragment StoreEntitySet="tblGenres">
+                <ScalarProperty Name="Genres_Name" ColumnName="Genres_Name" />
+                <ScalarProperty Name="Genres_ID" ColumnName="Genres_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGroupCodes">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblGroupCode">
+              <MappingFragment StoreEntitySet="tblGroupCode">
+                <ScalarProperty Name="Group_Descriptions" ColumnName="Group_Descriptions" />
+                <ScalarProperty Name="Group_Name" ColumnName="Group_Name" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFavorites">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblFavorite">
+              <MappingFragment StoreEntitySet="tblFavorite">
+                <ScalarProperty Name="Favorite_DateAdd" ColumnName="Favorite_DateAdd" />
+                <ScalarProperty Name="Favorite_Post" ColumnName="Favorite_Post" />
+                <ScalarProperty Name="Favorite_User" ColumnName="Favorite_User" />
+                <ScalarProperty Name="Favorite_ID" ColumnName="Favorite_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDownLoads">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblDownLoad">
+              <MappingFragment StoreEntitySet="tblDownLoad">
+                <ScalarProperty Name="DownLoad_DateDown" ColumnName="DownLoad_DateDown" />
+                <ScalarProperty Name="DownLoad_Post" ColumnName="DownLoad_Post" />
+                <ScalarProperty Name="DownLoad_User" ColumnName="DownLoad_User" />
+                <ScalarProperty Name="DownLoad_ID" ColumnName="DownLoad_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

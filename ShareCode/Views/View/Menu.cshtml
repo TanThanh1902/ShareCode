@@ -8,7 +8,7 @@
     <div class="main-menu d-none d-lg-block">
         <nav>
             <ul id="navigation">
-                <li class="active"><a href="index.html">Trang chủ</a></li>
+                <li class="active"><a href="/Home/Index">Trang chủ</a></li>
                 <li><a href="courses.html">Top code</a></li>
                 <li><a href="about.html">Code chất lượng</a></li>
                 <li><a href="contact.html">Code tham thảo</a></li>
@@ -33,7 +33,7 @@
                                     <div class="menu" style=" margin-left: -119px;">
                                         <a href="/User/MyInfo" class="item" style="width: 210px;"><i class="fa fa-user"></i>&nbsp;Thông tin cá nhân</a>
                                         <div class="item" style="width: 210px;">Code tải lên</div>
-                                        <div class="item" style="width: 210px;">Code đã lưu</div>
+                                        <a href="@Url.Action("PostsCollection", "Posts")" class="item" style="width: 210px;">Code đã lưu</a>
                                         <div class="item" style="width: 210px;">Code đã mua</div>
                                         <div class="item" style="width: 210px;">Doanh thu</div>
                                         <div class="item" style="width: 210px;">Lịch sử nạp xu</div>
@@ -54,7 +54,7 @@
                 {
                     <li class="button-header"><a href="" data-toggle="modal" data-target="#login" class="btn btn3"><i class="fa fa-user">&nbsp;</i>Đăng nhập</a></li>
                 }
-                <li class="button-header margin-left"><a href="#" class="btn"  style="font-size: 12px"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
+                <li class="button-header margin-left"><a href="@Url.Action("Create", "Posts")" class="btn"  style="font-size: 12px"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
             </ul>
         </nav>
     </div>

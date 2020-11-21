@@ -20,6 +20,8 @@ namespace ShareCode.Models
             this.tblComments = new HashSet<tblComment>();
             this.tblPosts = new HashSet<tblPost>();
             this.tblRepplies = new HashSet<tblRepply>();
+            this.tblFavorites = new HashSet<tblFavorite>();
+            this.tblDownLoads = new HashSet<tblDownLoad>();
         }
     
         public int User_ID { get; set; }
@@ -33,6 +35,9 @@ namespace ShareCode.Models
         public string User_Email { get; set; }
         public string User_Avata { get; set; }
         public Nullable<int> User_VIP { get; set; }
+        public string User_Phone { get; set; }
+        public Nullable<int> User_Point { get; set; }
+        public Nullable<int> User_Coin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblComment> tblComments { get; set; }
@@ -41,5 +46,9 @@ namespace ShareCode.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRepply> tblRepplies { get; set; }
         public virtual tblRole tblRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFavorite> tblFavorites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDownLoad> tblDownLoads { get; set; }
     }
 }

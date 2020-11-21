@@ -1,16 +1,24 @@
 ﻿@model ShareCode.Models.tblPost
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Đăng bài";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>tblPost</h4>
         <hr />
@@ -26,56 +34,43 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Post_Avata, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Avata, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" class="btn btn-danger" name="fileimg" required />
                 @Html.ValidationMessageFor(model => model.Post_Avata, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Post_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Post_Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Post_Code, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Post_ViewMoreImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_ViewMoreImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_ViewMoreImage, "", new { @class = "text-danger" })
+                <input type="file" name="fileimg_viewmoreimage" onchange="LoadFile(event)" multiple required />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-lg-3" id="chon_anh">
+
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Post_Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Description, new { htmlAttributes = new { @class = "form-control" } })
+                <textarea name="Post_Description"></textarea>
+                <script>
+                    CKEDITOR.replace('Post_Description');
+                </script>
                 @Html.ValidationMessageFor(model => model.Post_Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_View, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_View, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_View, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_Vote, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Vote, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_Vote, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Rate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_Rate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_CountDownLoad, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_CountDownLoad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_CountDownLoad, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -88,34 +83,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Post_DateCreate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_DateCreate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_DateCreate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Post_Cat, "Post_Cat", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Post_Cat", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Post_Cat, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_User, "Post_User", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Post_User", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Post_User, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_Favorite, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Favorite, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_Favorite, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -128,6 +99,30 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Post_Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Post_Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Post_Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Post_Genres, "Post_Genres", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Post_Genres", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Post_Genres, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Post_Group, "Post_Group", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Post_Group", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Post_Group, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -135,6 +130,15 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    var LoadFile = function (event) {
+        var files = event.target.files;
+        if (files.length > 10) {
+            alert("Tối đa 10 ảnh!");
+            return;
+        }
+        for (var i = 0; i < files.length; i++) {
+            $("#chon_anh").append("<img src='" + URL.createObjectURL(event.target.files[i]) + "' /><br />");
+        }
+    }
+</script> 

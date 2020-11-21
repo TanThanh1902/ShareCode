@@ -34,5 +34,9 @@ namespace ShareCode.Models
         public virtual DbSet<tblRepply> tblRepplies { get; set; }
         public virtual DbSet<tblRole> tblRoles { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblGenre> tblGenres { get; set; }
+        public virtual DbSet<tblGroupCode> tblGroupCodes { get; set; }
+        public virtual DbSet<tblFavorite> tblFavorites { get; set; }
+        public virtual DbSet<tblDownLoad> tblDownLoads { get; set; }
     }
 }

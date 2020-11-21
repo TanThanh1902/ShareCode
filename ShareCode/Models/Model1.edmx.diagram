@@ -22,6 +22,16 @@
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.tblPostLang" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblGenre" Width="1.5" PointX="10.375" PointY="0.875" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_tblGenres" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblGroupCode" Width="1.5" PointX="5.375" PointY="10.875" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_GroupCode" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblFavorite" Width="1.5" PointX="10.5" PointY="7" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblPost" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblUser" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblDownLoad" Width="1.5" PointX="13.5" PointY="5.125" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblPost" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
