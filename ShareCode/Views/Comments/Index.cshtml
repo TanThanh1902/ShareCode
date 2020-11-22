@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShareCode.Models.tblComment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_DatePost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblPost.Post_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_DatePost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblPost.Post_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Comment_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Comment_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Comment_ID })
+        </td>
+    </tr>
+}
+
+</table>
