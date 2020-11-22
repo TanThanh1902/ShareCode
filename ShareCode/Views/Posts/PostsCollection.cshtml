@@ -8,118 +8,99 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<h2>PostsCollection</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Title
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        var del = "delfavorite" + item.Post_ID;
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Avata)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Favorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblCategory.Cat_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblGenre.Genres_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblGroupCode.Group_Name)
-            </td>
-            <td>
-                <a href="@Url.Action("Details", new { id = item.Post_ID})" target="_blank" style="color: blue">Chi tiết</a> |
-                <a href="#" id="@del" style="color: blue">Hủy</a>
-            </td>
-        </tr>
-
-        <script>
-            $(document).ready(function () {
-                $("#@del").click(function () {
-                    debugger
-                    let id = @del.Substring(11);
-                    $.ajax({
-                        url: "/Ajax/RemoveFavorite?id=" + id,
-                        contentType: "Json",
-                        success: function (response) {
-                            window.location.href = "/Posts/PostsCollection?id=" + id;
-                        }
-                    })
-                })
-            })
-        </script>
-    }
-
-</table>
-<div class="pagination">
-    @Html.PagedListPager(Model, page => Url.Action("PostsCollection", new { page }))
+<section class="slider-area slider-area2" style="height: 345px;">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-11 col-md-12">
+                        <div class="hero__caption hero__caption2">
+                            <h3 data-animation="bounceIn" data-delay="0.2s">
+                                <div class="ui search">
+                                    <div class="ui icon input w-100">
+                                        <input class="prompt" type="text" placeholder="Nhập từ khóa...">
+                                        <i class="search icon"></i>
+                                    </div>
+                                    <div class="results"></div>
+                                </div>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success">Thông tin cá nhân của bạn chưa cập nhật Số điện thoại, vui lòng cập nhật Số điện thoại <a href="#" class="text-danger">TẠI ĐÂY</a> !</div>
+        </div>
+        <div class="col-lg-8">
+            <div class="alert alert-danger">
+                <h3 class="font-weight-bold">Code đã lưu</h3>
+            </div>
+            <div class="float-right">
+                <div class="ui buttons">
+                    <button class="ui red basic button">Tất cả (1)</button>
+                    <button class="ui blue basic button">Có phí (1)</button>
+                    <button class="ui green basic button">Miển phí (1)</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <table class="table table-striped">
+                <thead class="bg-dark text-white font-weight-bold">
+                    <tr>
+                        <td>Mã</td>
+                        <td>Tên code</td>
+                        <td>Phí tải</td>
+                        <td>Xem</td>
+                        <td>Ngày lưu</td>
+                        <td><i class="fa fa-cog"></i></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var del = "delfavorite" + item.Post_ID;
+                        <tr>
+                            <td>@item.Post_ID</td>
+                            <td><a class="text-success" href="/Posts/Details/@item.Post_ID">@item.Post_Title</a></td>
+                            <td>@item.Post_Price Xu</td>
+                            <td>@item.Post_View</td>
+                            <td>@item.Post_DateCreate</td>
+                            <td>
+                                <a href="#" id="@del" style="color: blue"><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                        <script>
+                            $(document).ready(function () {
+                                $("#@del").click(function () {
+                                    debugger
+                                    let id = @del.Substring(11);
+                                    $.ajax({
+                                        url: "/Ajax/RemoveFavorite?id=" + id,
+                                        contentType: "Json",
+                                        success: function (response) {
+                                            window.location.href = "/Posts/PostsCollection?id=" + id;
+                                        }
+                                    })
+                                })
+                            })
+                        </script>
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("PostsCollection", new { page }))
+            </div>
+        </div>
+        <div class="col-lg-4">
+            @Html.Action("InfoRight", "View")
+        </div>
+    </div>
 </div>
+
 

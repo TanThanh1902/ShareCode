@@ -1,0 +1,16 @@
+﻿@using ShareCode.Models;
+@{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+}
+@{
+    List<tblPost> post = db.tblPosts.ToList();
+}
+<!--Mày mún tìm j thì ghi hiden trong cai đo, như dưới có 1 cái hiden là id, nó tìm cái id r in ra cái title code-->
+<!--Luu ý khong dk xuống dòng, đang thí nghiem-->
+var content = [
+@foreach (var item in post)
+{
+    @:  { title: '<!--Start--> <!--Hiden--><input type="hidden" value="@item.Post_ID" /><!--EndHiden-->     <!--||-->  <div class="row"><div class="col-lg-4">@item.Post_Title</div><div class="col-lg-8"></div></div>                                                             <!--||-->   <!--End-->' },
+}
+];
+

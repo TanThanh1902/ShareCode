@@ -220,5 +220,11 @@ namespace ShareCode.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //Sematic
+        public PartialViewResult Sematic()
+        {
+            return PartialView();
+        }
     }
 }
