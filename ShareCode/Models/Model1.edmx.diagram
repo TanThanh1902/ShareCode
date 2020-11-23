@@ -4,34 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cb40929a7fc3489cba89c8bb3db6c3e8" Name="Diagram1">
-        <EntityTypeShape EntityType="DBShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblCategory" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblComment" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblCustom" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblLanguage" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblPost" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblRepply" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblRole" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblUser" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+      <Diagram DiagramId="5850746831ec44d5834a3b2ba8202f0f" Name="Diagram1">
+        <EntityTypeShape EntityType="DBShareCodeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblCategory" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblComment" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblCustom" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblDownLoad" Width="1.5" PointX="8.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblFavorite" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblGenre" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblGroupCode" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblLanguage" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblPost" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblRepply" Width="1.5" PointX="10.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblRole" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblUser" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblPost_tblCategory" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblComment_tblPost" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblComment_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblComment" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblPost" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblPost" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_tblGenres" ManuallyRouted="false" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_GroupCode" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblPost_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.tblPostLang" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblGenre" Width="1.5" PointX="10.375" PointY="0.875" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_tblGenres" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblGroupCode" Width="1.5" PointX="5.375" PointY="10.875" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblPost_GroupCode" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblFavorite" Width="1.5" PointX="10.5" PointY="7" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblPost" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblFavorite_tblUser" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblDownLoad" Width="1.5" PointX="13.5" PointY="5.125" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblPost" />
-        <AssociationConnector Association="DBShareCodeModel.FK_tblDownLoad_tblUser" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblOrder" Width="1.5" PointX="7.5" PointY="3.625" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblOrder_tblPost" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblOrder_tblUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

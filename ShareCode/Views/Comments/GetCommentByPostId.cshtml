@@ -1,0 +1,56 @@
+﻿@using ShareCode.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblComment>
+@{ 
+    int postid = 0;
+    if (Model.Count > 0)
+    {
+        postid = (int)Model.First().Comment_Post;
+    }
+}
+
+
+<h4>@ViewBag.countCommnent Comments</h4>
+@foreach (var item in Model)
+{
+    <div class="comment-list">
+        <div class="single-comment justify-content-between d-flex">
+            <div class="user justify-content-between d-flex">
+                <div class="thumb">
+                    <img src="~/Images/User/@item.tblUser.User_Avata" alt="@item.tblUser.User_DisplayName" />
+                </div>
+                <div class="desc">
+                    <p class="comment">
+                        @item.Comment_Contents
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <h5>
+                                <a href="#">@item.tblUser.User_DisplayName</a>
+                            </h5>
+                            <p class="date">@item.Comment_DatePost.Value.ToLongDateString() </p>
+                        </div>
+                        <div class="reply-btn">
+                            <a href="#" class="btn-reply text-uppercase">reply</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="pagination">
+    @Html.PagedListPager(Model, pagecmt => Url.Action("GetCommentByPostId", new { pagecmt }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "commentsList", OnSuccess = "onSuccessCmt()" }))
+</div>
+<div class="comment-form" id="formComment">
+    @Html.Action("Create", "Comments", new { id = postid })
+</div>
+
+<script>
+    function onSuccessCmt() {
+        $('html, body').animate({
+            scrollTop: $("#scrollComment").offset().top
+        }, 500);
+    }
+</script>

@@ -1,0 +1,117 @@
+﻿@using ShareCode.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblPost>
+
+@{
+    ViewBag.Title = "MyPosts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyPosts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th><span>titlt</span></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Avata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_ViewMoreImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_View)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Vote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_CountDownLoad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_LinkDown)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_DateCreate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Favorite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_TutorialSetup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Trash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblCategory.Cat_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblGenre.Genres_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblGroupCode.Group_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Post_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Post_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Post_ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("MyPost", new { page }))
+</div>

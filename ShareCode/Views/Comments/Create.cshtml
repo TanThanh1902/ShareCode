@@ -1,60 +1,44 @@
 ﻿@model ShareCode.Models.tblComment
-
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    int postid = ViewBag.postid;
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+<h4>Bình luận</h4>
+@using (Ajax.BeginForm("Create", "Comments", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "formComment", OnSuccess = "LoadListComment()" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>tblComment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment_Contents, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment_Contents, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment_Contents, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment_User, "Comment_User", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Comment_User", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Comment_User, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment_Post, "Comment_Post", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Comment_Post", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Comment_Post, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comment_DatePost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment_DatePost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment_DatePost, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+    <input type="hidden" name="Comment_Post" value="@postid" />
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <textarea class="form-control w-100" name="Comment_Contents" id="comment" cols="30" rows="9"
+                          placeholder="Write Comment"></textarea>
             </div>
         </div>
     </div>
+    <div class="form-group">
+        @if (Session["member"] != null)
+        {
+            <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
+        }
+        else
+        {
+            <a href="#" data-toggle="modal" data-target="#login" class="button button-contactForm btn_1 boxed-btn">Post Comment</a>
+        }
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<input type="hidden" value="@postid" id="post_id" />
+<script>
+    function LoadListComment() {
+        let id = document.getElementById("post_id").value;
+        $.ajax({
+            type: "post",
+            url: "/Comments/GetCommentByPostId?id=" + id,
+            contentType: "html",
+            success: function (result) {
+                $("#commentsList").html(result);
+                onSuccessCmt();
+            }
+        })
+    }
+</script>

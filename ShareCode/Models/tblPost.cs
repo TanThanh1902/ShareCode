@@ -18,9 +18,10 @@ namespace ShareCode.Models
         public tblPost()
         {
             this.tblComments = new HashSet<tblComment>();
-            this.tblLanguages = new HashSet<tblLanguage>();
-            this.tblFavorites = new HashSet<tblFavorite>();
             this.tblDownLoads = new HashSet<tblDownLoad>();
+            this.tblFavorites = new HashSet<tblFavorite>();
+            this.tblLanguages = new HashSet<tblLanguage>();
+            this.tblOrders = new HashSet<tblOrder>();
         }
     
         public int Post_ID { get; set; }
@@ -48,14 +49,16 @@ namespace ShareCode.Models
         public virtual tblCategory tblCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblComment> tblComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDownLoad> tblDownLoads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFavorite> tblFavorites { get; set; }
+        public virtual tblGenre tblGenre { get; set; }
+        public virtual tblGroupCode tblGroupCode { get; set; }
         public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblLanguage> tblLanguages { get; set; }
-        public virtual tblGenre tblGenre { get; set; }
-        public virtual tblGroupCode tblGroupCode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblFavorite> tblFavorites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDownLoad> tblDownLoads { get; set; }
+        public virtual ICollection<tblOrder> tblOrders { get; set; }
     }
 }

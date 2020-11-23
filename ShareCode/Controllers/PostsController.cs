@@ -50,7 +50,27 @@ namespace ShareCode.Controllers
             IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Group == id && t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
+        public ActionResult MyPosts(int? page)
+        {
+            if(Session["member"] == null)
+            {
+                return Redirect("/User/Login");
+            }
+            tblUser user = (tblUser)Session["member"];
+            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(posts);
+        }
 
+        public ActionResult PostBought(int? page)
+        {
+            if (Session["member"] == null)
+            {
+                return Redirect("/User/Login");
+            }
+            tblUser user = (tblUser)Session["member"];
+            IPagedList<tblOrder> orders = db.tblOrders.Where(t => t.Order_User == user.User_ID).OrderByDescending(t => t.Order_DateAdd).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(orders);
+        }
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {

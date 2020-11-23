@@ -18,10 +18,11 @@ namespace ShareCode.Models
         public tblUser()
         {
             this.tblComments = new HashSet<tblComment>();
+            this.tblDownLoads = new HashSet<tblDownLoad>();
+            this.tblFavorites = new HashSet<tblFavorite>();
             this.tblPosts = new HashSet<tblPost>();
             this.tblRepplies = new HashSet<tblRepply>();
-            this.tblFavorites = new HashSet<tblFavorite>();
-            this.tblDownLoads = new HashSet<tblDownLoad>();
+            this.tblOrders = new HashSet<tblOrder>();
         }
     
         public int User_ID { get; set; }
@@ -42,13 +43,15 @@ namespace ShareCode.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblComment> tblComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDownLoad> tblDownLoads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFavorite> tblFavorites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRepply> tblRepplies { get; set; }
         public virtual tblRole tblRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblFavorite> tblFavorites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDownLoad> tblDownLoads { get; set; }
+        public virtual ICollection<tblOrder> tblOrders { get; set; }
     }
 }

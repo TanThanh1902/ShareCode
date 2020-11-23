@@ -103,8 +103,9 @@
                     }
                     else
                     {
-                        <p>Bạn chưa có tài khoản? <a href="@Url.Action("Login","User")" class="text-success">Đăng ký ngay</a></p>
+                        <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register","User")" class="text-success">Đăng ký ngay</a></p>
                         <form class="ui form" action="@Url.Action("Login")" method="post">
+                            <input type="hidden" name="TypeLogin" value="2" />
                             <div class="field">
                                 <label>Email</label>
                                 <input type="Email" name="Email" placeholder="Nhập Email" class="form-control" />
@@ -116,6 +117,7 @@
                             <input type="hidden" value="/Home/Index" name="ReturnUrl" />
                             <input type="checkbox" name="RememberMe" />Nhớ tôi
                             <button class="ui green button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
+                            @ViewBag.NotificationLogin
                         </form>
                     }
                 </div>

@@ -29,14 +29,15 @@ namespace ShareCode.Models
         public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblComment> tblComments { get; set; }
         public virtual DbSet<tblCustom> tblCustoms { get; set; }
+        public virtual DbSet<tblDownLoad> tblDownLoads { get; set; }
+        public virtual DbSet<tblFavorite> tblFavorites { get; set; }
+        public virtual DbSet<tblGenre> tblGenres { get; set; }
+        public virtual DbSet<tblGroupCode> tblGroupCodes { get; set; }
         public virtual DbSet<tblLanguage> tblLanguages { get; set; }
         public virtual DbSet<tblPost> tblPosts { get; set; }
         public virtual DbSet<tblRepply> tblRepplies { get; set; }
         public virtual DbSet<tblRole> tblRoles { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
-        public virtual DbSet<tblGenre> tblGenres { get; set; }
-        public virtual DbSet<tblGroupCode> tblGroupCodes { get; set; }
-        public virtual DbSet<tblFavorite> tblFavorites { get; set; }
-        public virtual DbSet<tblDownLoad> tblDownLoads { get; set; }
+        public virtual DbSet<tblOrder> tblOrders { get; set; }
     }
 }

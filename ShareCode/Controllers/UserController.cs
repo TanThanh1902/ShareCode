@@ -57,7 +57,17 @@ namespace ShareCode.Controllers
             if (logUser != null)
             {
                 Session["member"] = logUser;
+                Session["memberLoad"] = logUser;
+                if(log.TypeLogin == 1)
+                {
+                    return PartialView("ajaxLogin", log);
+                }
                 return Redirect(log.ReturnUrl);
+            }
+            ViewBag.NotificationLogin = "Sai tài khoản hoặc mật khẩu";
+            if(log.TypeLogin == 1)
+            {
+                return PartialView("ajaxLogin", log);
             }
             return View("Register", log);
         }
