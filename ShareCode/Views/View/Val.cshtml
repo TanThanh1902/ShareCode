@@ -151,7 +151,85 @@
                             prompt: 'You must agree to the terms and conditions'
                         }
                     ]
+                },
+                //Them code
+                Post_Title: {
+                    identifier: 'Post_Title',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Tiêu đề không được để trống'
+                        },
+                        {
+                            type: 'minLength[5]',
+                            prompt: 'Tiêu đề phải trên 5 ký tự'
+                        },
+                        {
+                            type: 'maxLength[50]',
+                            prompt: 'Tiêu đề tối thiểu 20 ký tự'
+                        }
+                    ]
+                },
+                fileimg: {
+                    identifier: 'fileimg',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Hình ảnh không để trống'
+                        }
+                    ]
+                },
+                Post_LinkDown: {
+                    identifier: 'Post_LinkDown',
+                    rules: [
+                        {
+                            type: 'url',
+                            prompt: 'Link dowload không đúng định dạng'
+                        },
+                        {
+                            type: 'empty',
+                            prompt: 'Link dowload không được để trống'
+                        }
+                    ]
+                },
+                Post_Description: {
+                    identifier: 'Post_Description',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Mô tả chi tiết không được để trống'
+                        },
+                        {
+                            type: 'minLength[10]',
+                            prompt: 'Mô tả chi tiết phải trên 10 ký tự'
+                        }
+                    ]
+                },
+                Post_TutorialSetup: {
+                    identifier: 'Post_TutorialSetup',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Hướng dẫn cài đặt không được để trống'
+                        },
+                        {
+                            type: 'minLength[10]',
+                            prompt: 'Hướng dẫn cài đặt phải trên 10 ký tự'
+                        }
+                    ]
+                },
+                checkbox: {
+                    identifier: 'checkbox',
+                    rules: [
+                        {
+                            type: 'checkbox',
+                            prompt: 'Vui lòng chọn thỏa thuận điều khoản'
+                        }
+                    ]
                 }
+
+
+
             }
         })
         ;

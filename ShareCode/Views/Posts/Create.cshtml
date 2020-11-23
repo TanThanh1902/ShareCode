@@ -29,7 +29,7 @@
     </div>
 </section>
 
-@using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "ui form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -43,27 +43,43 @@
                     <h3 class="font-weight-bold text-center">UPLOAD CODE CHIA SẺ & KIẾM TIỀN CÙNG TANTHANH.COM</h3>
                 </div>
                 <div class="">
-                    <div class="card">
+                    <div class="card" style="background-color: #faf8f1; border-radius: 0px">
                         <ul class="" style="padding: 10px">
                             <li>
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        <div class="ui black segment">
+                                            <h4><b class="text-danger">Lợi ích tanthanh.com mang lại</b></h4>
+                                            <ul>
+                                                <li><i class="fa fa-check text-success">&nbsp;</i>Tiếp cận trăm nghìn khách hàng tiềm năng mỗi ngày</li>
+                                                <li><i class="fa fa-check text-success">&nbsp;</i>Code được marketting đưa lên top 5 google</li>
+                                                <li><i class="fa fa-check text-success">&nbsp;</i>Hưởng 70% doanh thu trên mỗi code được bán</li>
+                                                <li><i class="fa fa-check text-success">&nbsp;</i>Bạn tự đặt phí cho source code của mình</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mt-5">
+                                <div class="row">
+                                    <div class="col-lg-12 field">
                                         <b>Ảnh Đại diện<b class="text-danger">*</b></b>
                                         <br />
                                         <br />
-                                        <input type="file" accept="image/*" onchange="preview_image(event)" name="fileimg" required />
+                                        <input type="file" accept="image/*" onchange="preview_image(event)" name="fileimg"/>
                                     </div>
                                     <div class="col-lg-5">
                                         <img id="output_image" src="~/Images/Web/images.png" style="width: 100%; height: 200px" class="mt-3" />
                                     </div>
                                     <div class="col-lg-7">
+                                        <br />
                                         <div><i class="fa fa-check text-success">&nbsp;</i>Ảnh đẹp sẽ giúp code có nhiều lượt xem</div>
                                         <div><i class="fa fa-check text-success">&nbsp;</i>Dung lượng tối đa 2MB</div>
                                     </div>
                                     <div class="col-lg-12">
                                         <hr />
                                         <ul>
-                                            <li class="mt-3">
+                                            <li class="mt-3 field">
                                                 <div class="row">
                                                     <div class="col-lg-8">
                                                         <b>Tiêu đề code<b class="text-danger">*</b></b>
@@ -123,7 +139,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="mt-3">
+                                            <li class="mt-3 field">
                                                 <div class="row">
                                                     <div class="col-lg-8">
                                                         <b>Link download<b class="text-danger">*</b></b>
@@ -135,7 +151,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="mt-3">
+                                            <li class="mt-3 field">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <b>Mô tả chi tiết<b class="text-danger">*</b></b>
@@ -147,7 +163,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="mt-3">
+                                            <li class="mt-3 field">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <b>Hướng dẫn cài đặt<b class="text-danger">*</b></b>
@@ -159,7 +175,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="mt-3">
+                                            <li class="mt-3 field">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <b>Từ khóa<b class="text-danger">*</b></b>
@@ -187,13 +203,14 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="ui checkbox">
-                                                        <input type="checkbox" tabindex="0" class="hidden">
+                                                        <input type="checkbox" tabindex="0" >
                                                         <label>Tôi đã đọc và đồng ý với các điều khoản của tanthanh.com </label>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="mt-3">
-                                                <button class="ui red button"><i class="fa fa-upload"></i>Tải code lên</button>
+                                                <button class="ui red button submit"><i class="fa fa-upload"></i>Tải code lên</button>
+                                                <div class="ui error message"></div>
                                             </li>
                                         </ul>
                                     </div>
