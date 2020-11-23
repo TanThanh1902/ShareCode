@@ -8,6 +8,7 @@
     {
         postid = (int)Model.First().Comment_Post;
     }
+    var a = "aa";
 }
 
 
@@ -32,7 +33,7 @@
                             <p class="date">@item.Comment_DatePost.Value.ToLongDateString() </p>
                         </div>
                         <div class="reply-btn">
-                            <a href="#" class="btn-reply text-uppercase">reply</a>
+                            <a data-toggle="collapse" href="#@a@item.Comment_ID" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn-reply text-uppercase">reply</a>
                         </div>
                     </div>
                 </div>
@@ -40,6 +41,11 @@
         </div>
     </div>
 }
+<div class="collapse" id="@a@item.Comment_ID">
+    <div class="card card-body">
+        bl
+    </div>
+</div>
 <div class="pagination">
     @Html.PagedListPager(Model, pagecmt => Url.Action("GetCommentByPostId", new { pagecmt }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "commentsList", OnSuccess = "onSuccessCmt()" }))
 </div>
