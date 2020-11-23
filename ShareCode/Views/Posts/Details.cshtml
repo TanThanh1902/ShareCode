@@ -21,17 +21,32 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-11 col-md-12">
-                        <div class="hero__caption hero__caption2">
-                            <h3 data-animation="bounceIn" data-delay="0.2s">
-                                <div class="ui search">
-                                    <div class="ui icon input w-100">
-                                        <input class="prompt" type="text" placeholder="Nhập từ khóa...">
-                                        <i class="search icon"></i>
+                        <form style="margin-top: 15%">
+                            <div class="row mt-3" style="padding: 5px">
+                                <div class="col-lg-12" style="padding: 5px;">
+                                    <div class="ui search">
+                                        <div class="ui icon input" style="width: 100%">
+                                            <input class="prompt" type="text" placeholder="Nhập tên code, ngôn ngữ, thể loại, nội dung..." style="border-radius: 5px">
+                                            <i class="search icon"></i>
+                                        </div>
+                                        <div class="results"></div>
                                     </div>
-                                    <div class="results"></div>
                                 </div>
-                            </h3>
-                        </div>
+                                <div class="col-lg-6 mt-2" style="padding: 5px;">
+                                    <select class="form-control w-100">
+                                        <option>Chọn danh mục</option>tblPosts
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mt-2" style="padding: 5px">
+                                    <select class="form-control w-100">
+                                        <option>Chọn code</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 mt-2" style="padding: 5px">
+                                    <button class="ui red button w-100" style="height: 44px;"><i class="fa fa-search">&nbsp;</i></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -43,7 +58,7 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-3">
-                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" />
+                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" style="height: 200px" />
                     <br />
                     <div class="row" style="padding-bottom: 10px">
                         @foreach (var img in mulImage)

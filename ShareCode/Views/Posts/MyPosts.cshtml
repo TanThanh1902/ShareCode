@@ -8,110 +8,105 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>MyPosts</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th><span>titlt</span></th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Avata)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_ViewMoreImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_View)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Vote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_CountDownLoad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_LinkDown)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_DateCreate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Favorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_TutorialSetup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Trash)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post_Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblCategory.Cat_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblGenre.Genres_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblGroupCode.Group_Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Post_ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Post_ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Post_ID })
-            </td>
-        </tr>
-    }
-
-</table>
-
-<div class="pagination">
-    @Html.PagedListPager(Model, page => Url.Action("MyPost", new { page }))
+<section class="slider-area slider-area2" style="height: 345px;">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-11 col-md-12">
+                        <form style="margin-top: 15%">
+                            <div class="row mt-3" style="padding: 5px">
+                                <div class="col-lg-12" style="padding: 5px;">
+                                    <div class="ui search">
+                                        <div class="ui icon input" style="width: 100%">
+                                            <input class="prompt" type="text" placeholder="Nhập tên code, ngôn ngữ, thể loại, nội dung..." style="border-radius: 5px">
+                                            <i class="search icon"></i>
+                                        </div>
+                                        <div class="results"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mt-2" style="padding: 5px;">
+                                    <select class="form-control w-100">
+                                        <option>Chọn danh mục</option>tblPosts
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mt-2" style="padding: 5px">
+                                    <select class="form-control w-100">
+                                        <option>Chọn code</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 mt-2" style="padding: 5px">
+                                    <button class="ui red button w-100" style="height: 44px;"><i class="fa fa-search">&nbsp;</i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success">Thông tin cá nhân của bạn chưa cập nhật Số điện thoại, vui lòng cập nhật Số điện thoại <a href="#" class="text-danger">TẠI ĐÂY</a> !</div>
+        </div>
+        <div class="col-lg-8">
+            <div class="alert alert-danger">
+                <h3 class="font-weight-bold">Code đã đăng</h3>
+            </div>
+            <div class="float-left">
+                <div class="ui buttons">
+                    <button class="ui red button" onclick="window.location.href='/Posts/Create'"><i class="fa fa-upload">&nbsp;</i>Tải code</button>
+                </div>
+            </div>  
+            <div class="float-right">
+                <div class="ui buttons">
+                    <button class="ui red basic button">Tất cả (1)</button>
+                    <button class="ui blue basic button">Có phí (1)</button>
+                    <button class="ui green basic button">Miển phí (1)</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <table class="table table-striped">
+                <thead class="bg-dark text-white font-weight-bold">
+                    <tr>
+                        <td>Mã</td>
+                        <td>Tên code</td>
+                        <td>Phí tải</td>
+                        <td>Xem</td>
+                        <td>Ngày tạo</td>
+                        <td><i class="fa fa-cog"></i></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var del = "delfavorite" + item.Post_ID;
+                        <tr>
+                            <td>@item.Post_ID</td>
+                            <td><a class="text-success" href="/Posts/Details/@item.Post_ID">@item.Post_Title</a></td>
+                            <td>@item.Post_Price Xu</td>
+                            <td>@item.Post_View</td>
+                            <td>@item.Post_DateCreate</td>
+                            <td>
+                                <a href="/Posts/Edit/@item.Post_ID" target="_blank" class="text-dark"><i class="fa fa-edit">&nbsp;</i></a> |
+                                <a href="/Posts/Details/@item.Post_ID" target="_blank" class="text-primary"><i class="fa fa-eye">&nbsp;</i></a> |
+                                <a href="" target="_blank" class="text-danger"><i class="fa fa-trash">&nbsp;</i></a>
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.Post_ID })*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("PostsCollection", new { page }))
+            </div>
+        </div>
+        <div class="col-lg-4">
+            @Html.Action("InfoRight", "View")
+        </div>
+    </div>
 </div>

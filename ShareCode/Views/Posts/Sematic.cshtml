@@ -10,7 +10,7 @@
 var content = [
 @foreach (var item in post)
 {
-    @:  { title: '<!--Start--> <!--Hiden--><input type="hidden" value="@item.Post_ID" /><!--EndHiden-->     <!--||-->  <div class="row"><div class="col-lg-4">@item.Post_Title</div><div class="col-lg-8"></div></div>                                                             <!--||-->   <!--End-->' },
+    @:  { title: '<!--Start--> <!--Hiden--><input type="hidden" value="@item.Post_ID" /><!--EndHiden-->     <!--||-->  <div class="row"><div class="col-lg-2"><img src="/Content/Layout/img/post/@item.Post_Avata" style="width: 50px; height: 50px"/></div><div class="col-lg-10">@item.Post_Title</div></div>                                                             <!--||-->   <!--End-->' },
 }
 ];
 
