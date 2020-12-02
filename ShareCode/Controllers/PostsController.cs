@@ -50,6 +50,58 @@ namespace ShareCode.Controllers
             IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Group == id && t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
+        public ActionResult TopPosts(int? page)
+        {
+            ViewBag.Title = "Top Code";
+            ViewBag.couttPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View("Index", post);
+        }
+        public ActionResult QualityPosts(int? page)
+        {
+            ViewBag.Title = "Code chất lượng";
+            ViewBag.couttPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View("Index", post);
+        }
+        public ActionResult ReferPosts(int? page)
+        {
+            ViewBag.Title = "Code chất lượng";
+            ViewBag.couttPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View("Index", post);
+        }
+        public ActionResult FreePosts(int? page)
+        {
+            ViewBag.Title = "Code chất lượng";
+            ViewBag.couttPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View("Index", post);
+        }
+        public ActionResult FilterAdvanced(int? page, string key, int category, int groupcode)
+        {
+            ViewBag.Title = "Tìm kiếm code nâng cao";
+            List<tblPost> posts = new List<tblPost>();
+            if(category != 0 && groupcode != 0)
+            {
+                posts = db.tblPosts.Where(t => t.Post_Cat == category && t.Post_Group == groupcode).ToList();
+            }
+            else if(category != 0 && groupcode == 0)
+            {
+                posts = db.tblPosts.Where(t => t.Post_Cat == category).ToList();
+            }
+            else if(category == 0 && groupcode != 0)
+            {
+                posts = db.tblPosts.Where(t => t.Post_Group == groupcode).ToList();
+            }
+            else
+            {
+                posts = db.tblPosts.ToList();
+            }
+            posts = posts.Where(t => t.Post_Title.Contains(key) || t.tblUser.User_DisplayName.Contains(key) || t.Post_Code.Contains(key) || t.tblCategory.Cat_Name.Contains(key) || t.tblGroupCode.Group_Name.Contains(key) || t.tblGenre.Genres_Name.Contains(key)).ToList();
+            ViewBag.couttPost = posts.Count();
+            return View("Index", posts.OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE));
+        }
         public ActionResult MyPosts(int? page)
         {
             if(Session["member"] == null)

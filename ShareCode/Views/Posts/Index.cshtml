@@ -4,6 +4,8 @@
 @model PagedList.IPagedList<tblPost>
 
 @{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    tblCustom custom = db.tblCustoms.Find(1);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="slider-area slider-area2" style="height: 345px;">
@@ -14,31 +16,31 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-11 col-md-12">
                         <form style="margin-top: 15%">
-                                <div class="row mt-3" style="padding: 5px">
-                                    <div class="col-lg-12" style="padding: 5px;">
-                                        <div class="ui search">
-                                            <div class="ui icon input" style="width: 100%">
-                                                <input class="prompt" type="text" placeholder="Nhập tên code, ngôn ngữ, thể loại, nội dung..." style="border-radius: 5px">
-                                                <i class="search icon"></i>
-                                            </div>
-                                            <div class="results"></div>
+                            <div class="row mt-3" style="padding: 5px">
+                                <div class="col-lg-12" style="padding: 5px;">
+                                    <div class="ui search">
+                                        <div class="ui icon input" style="width: 100%">
+                                            <input class="prompt" type="text" placeholder="Nhập tên code, ngôn ngữ, thể loại, nội dung..." style="border-radius: 5px">
+                                            <i class="search icon"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 mt-2" style="padding: 5px;">
-                                        <select class="form-control w-100">
-                                            <option>Chọn danh mục</option>tblPosts
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-4 mt-2" style="padding: 5px">
-                                        <select class="form-control w-100">
-                                            <option>Chọn code</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 mt-2" style="padding: 5px">
-                                        <button class="ui red button w-100" style="height: 44px;"><i class="fa fa-search">&nbsp;</i></button>
+                                        <div class="results"></div>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="col-lg-6 mt-2" style="padding: 5px;">
+                                    <select class="form-control w-100">
+                                        <option>Chọn danh mục</option>tblPosts
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mt-2" style="padding: 5px">
+                                    <select class="form-control w-100">
+                                        <option>Chọn code</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 mt-2" style="padding: 5px">
+                                    <button class="ui red button w-100" style="height: 44px;"><i class="fa fa-search">&nbsp;</i></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -131,19 +133,8 @@
         <div class="col-lg-3 ">
             <div class="card">
                 <aside class="single_sidebar_widget popular_post_widget" style="padding: 10px">
-                    <b>Code nổi bậc</b>
-                    @for (var i = 0; i < 7; i++)
-                    {
-                        <div class="media post_item mt-2">
-                            <img src="~/Content/Layout/img/post/post_1.png" alt="post">
-                            <div class="media-body ml-2">
-                                <a href="blog_details.html">
-                                    <h5 style="color: #2d2d2d;">From life was you fish...</h5>
-                                </a>
-                                <p>January 12, 2019</p>
-                            </div>
-                        </div>
-                    }
+                    <b>Code nổi bật</b>
+                    @Html.Action("ListHightLightPosts", "View")
                 </aside>
             </div>
             <!--Quảng cáo-->
@@ -173,15 +164,17 @@
 </div>
 <div class="courses-area section-padding40 fix">
     <div class="container">
-        <div class="row justify-content-center">
+        <!--
+            <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8">
                 <div class="section-tittle text-center mb-55">
                     <h2>Có  code được tìm thấy</h2>
                 </div>
             </div>
         </div>
+        -->
         <div class="row">
-            
+
             <div class="pagination">
                 @Html.PagedListPager(Model, page => Url.Action(HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString(), new { page }))
             </div>

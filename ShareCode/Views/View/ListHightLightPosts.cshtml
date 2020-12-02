@@ -1,0 +1,15 @@
+﻿@using ShareCode.Models;
+@model List<tblPost>
+
+@foreach (var item in Model)
+{
+    <div class="media post_item mt-2">
+        <img src="~/Content/Layout/img/post/post_1.png" alt="post">
+        <div class="media-body ml-2">
+            <a href="blog_details.html">
+                <h5 style="color: #2d2d2d;">@(item.Post_Title.Length > 30 ? item.Post_Title.Substring(0, 30) + "..." : item.Post_Title)</h5>
+            </a>
+            <p>@item.Post_DateCreate.Value.ToLongDateString()</p>
+        </div>
+    </div>
+}

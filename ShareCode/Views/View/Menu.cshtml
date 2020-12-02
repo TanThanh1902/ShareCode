@@ -9,10 +9,10 @@
         <nav>
             <ul id="navigation">
                 <li class="active"><a href="/Home/Index">Trang chủ</a></li>
-                <li><a href="courses.html">Top code</a></li>
-                <li><a href="about.html">Code chất lượng</a></li>
-                <li><a href="contact.html">Code tham thảo</a></li>
-                <li><a href="contact.html">Code miễn phí</a></li>
+                <li><a href="@Url.Action("TopPosts", "Posts")">Top code</a></li>
+                <li><a href="@Url.Action("QualityPosts", "Posts")">Code chất lượng</a></li>
+                <li><a href="@Url.Action("ReferPosts", "Posts")">Code tham thảo</a></li>
+                <li><a href="@Url.Action("FreePosts", "Posts")">Code miễn phí</a></li>
                 <!-- Button -->
                 @if (Session["member"] != null)
                 {

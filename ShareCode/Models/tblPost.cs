@@ -20,8 +20,9 @@ namespace ShareCode.Models
             this.tblComments = new HashSet<tblComment>();
             this.tblDownLoads = new HashSet<tblDownLoad>();
             this.tblFavorites = new HashSet<tblFavorite>();
-            this.tblLanguages = new HashSet<tblLanguage>();
             this.tblOrders = new HashSet<tblOrder>();
+            this.tblReports = new HashSet<tblReport>();
+            this.tblLanguages = new HashSet<tblLanguage>();
         }
     
         public int Post_ID { get; set; }
@@ -55,10 +56,12 @@ namespace ShareCode.Models
         public virtual ICollection<tblFavorite> tblFavorites { get; set; }
         public virtual tblGenre tblGenre { get; set; }
         public virtual tblGroupCode tblGroupCode { get; set; }
-        public virtual tblUser tblUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblLanguage> tblLanguages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOrder> tblOrders { get; set; }
+        public virtual tblUser tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblReport> tblReports { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblLanguage> tblLanguages { get; set; }
     }
 }

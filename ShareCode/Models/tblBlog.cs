@@ -12,25 +12,26 @@ namespace ShareCode.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblComment
+    public partial class tblBlog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblComment()
+        public tblBlog()
         {
-            this.tblRepplies = new HashSet<tblRepply>();
+            this.tblComments = new HashSet<tblComment>();
+            this.tblReports = new HashSet<tblReport>();
         }
     
-        public int Comment_ID { get; set; }
-        public string Comment_Contents { get; set; }
-        public Nullable<int> Comment_User { get; set; }
-        public Nullable<System.DateTime> Comment_DatePost { get; set; }
-        public Nullable<int> Comment_Blog { get; set; }
-        public Nullable<int> Comment_Post { get; set; }
+        public int BLog_ID { get; set; }
+        public string Blog_Title { get; set; }
+        public string Blog_Contents { get; set; }
+        public string BLog_Tag { get; set; }
+        public Nullable<int> BLog_User { get; set; }
+        public Nullable<int> Blog_View { get; set; }
+        public Nullable<System.DateTime> BLog_DatePost { get; set; }
     
-        public virtual tblBlog tblBlog { get; set; }
-        public virtual tblPost tblPost { get; set; }
-        public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblRepply> tblRepplies { get; set; }
+        public virtual ICollection<tblComment> tblComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblReport> tblReports { get; set; }
     }
 }

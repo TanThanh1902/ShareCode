@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -14,6 +14,18 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblBlog">
+          <Key>
+            <PropertyRef Name="BLog_ID" />
+          </Key>
+          <Property Name="BLog_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Blog_Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Blog_Contents" Type="nvarchar(max)" />
+          <Property Name="BLog_Tag" Type="nvarchar(max)" />
+          <Property Name="BLog_User" Type="int" />
+          <Property Name="Blog_View" Type="int" />
+          <Property Name="BLog_DatePost" Type="datetime" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -30,8 +42,9 @@
           <Property Name="Comment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Comment_Contents" Type="nvarchar(max)" />
           <Property Name="Comment_User" Type="int" />
-          <Property Name="Comment_Post" Type="int" />
           <Property Name="Comment_DatePost" Type="datetime" />
+          <Property Name="Comment_Blog" Type="int" />
+          <Property Name="Comment_Post" Type="int" />
         </EntityType>
         <EntityType Name="tblCustom">
           <Key>
@@ -150,6 +163,17 @@
           <Property Name="Post_ID" Type="int" Nullable="false" />
           <Property Name="Lang_ID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblReport">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Report_Contents" Type="nvarchar(max)" />
+          <Property Name="Report_DateSend" Type="datetime" />
+          <Property Name="Report_User" Type="int" />
+          <Property Name="Report_Blog" Type="int" />
+          <Property Name="Report_Post" Type="int" />
+        </EntityType>
         <EntityType Name="tblRepply">
           <Key>
             <PropertyRef Name="Rep_ID" />
@@ -186,6 +210,18 @@
           <Property Name="User_Point" Type="int" />
           <Property Name="User_Coin" Type="int" />
         </EntityType>
+        <Association Name="FK_tblComment_tblBlog">
+          <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlog">
+              <PropertyRef Name="BLog_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_Blog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblComment_tblPost">
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
           <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
@@ -354,6 +390,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblReport_tblBlog">
+          <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
+          <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlog">
+              <PropertyRef Name="BLog_ID" />
+            </Principal>
+            <Dependent Role="tblReport">
+              <PropertyRef Name="Report_Blog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblReport_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblReport">
+              <PropertyRef Name="Report_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblRepply_tblComment">
           <End Role="tblComment" Type="Self.tblComment" Multiplicity="0..1" />
           <End Role="tblRepply" Type="Self.tblRepply" Multiplicity="*" />
@@ -392,6 +452,7 @@
         </Association>
         <EntityContainer Name="DBShareCodeModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBlog" EntityType="Self.tblBlog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblComment" EntityType="Self.tblComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCustom" EntityType="Self.tblCustom" Schema="dbo" store:Type="Tables" />
@@ -403,9 +464,14 @@
           <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPostLang" EntityType="Self.tblPostLang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReport" EntityType="Self.tblReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRepply" EntityType="Self.tblRepply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblComment_tblBlog" Association="Self.FK_tblComment_tblBlog">
+            <End Role="tblBlog" EntitySet="tblBlog" />
+            <End Role="tblComment" EntitySet="tblComment" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblComment_tblPost" Association="Self.FK_tblComment_tblPost">
             <End Role="tblPost" EntitySet="tblPost" />
             <End Role="tblComment" EntitySet="tblComment" />
@@ -462,6 +528,14 @@
             <End Role="tblPost" EntitySet="tblPost" />
             <End Role="tblPostLang" EntitySet="tblPostLang" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblBlog" Association="Self.FK_tblReport_tblBlog">
+            <End Role="tblBlog" EntitySet="tblBlog" />
+            <End Role="tblReport" EntitySet="tblReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblPost" Association="Self.FK_tblReport_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblReport" EntitySet="tblReport" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblRepply_tblComment" Association="Self.FK_tblRepply_tblComment">
             <End Role="tblComment" EntitySet="tblComment" />
             <End Role="tblRepply" EntitySet="tblRepply" />
@@ -475,7 +549,8 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -488,6 +563,20 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblBlog">
+          <Key>
+            <PropertyRef Name="BLog_ID" />
+          </Key>
+          <Property Name="BLog_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Blog_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Blog_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BLog_Tag" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BLog_User" Type="Int32" />
+          <Property Name="Blog_View" Type="Int32" />
+          <Property Name="BLog_DatePost" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblBlog" FromRole="tblBlog" ToRole="tblComment" />
+          <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblBlog" FromRole="tblBlog" ToRole="tblReport" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -505,8 +594,10 @@
           <Property Name="Comment_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Comment_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Comment_User" Type="Int32" />
-          <Property Name="Comment_Post" Type="Int32" />
           <Property Name="Comment_DatePost" Type="DateTime" Precision="3" />
+          <Property Name="Comment_Blog" Type="Int32" />
+          <Property Name="Comment_Post" Type="Int32" />
+          <NavigationProperty Name="tblBlog" Relationship="Self.FK_tblComment_tblBlog" FromRole="tblComment" ToRole="tblBlog" />
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblComment_tblPost" FromRole="tblComment" ToRole="tblPost" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblComment_tblUser" FromRole="tblComment" ToRole="tblUser" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblComment" FromRole="tblComment" ToRole="tblRepply" />
@@ -591,6 +682,18 @@
           <Property Name="Lang_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.tblPostLang" FromRole="tblLanguage" ToRole="tblPost" />
         </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_User" Type="Int32" />
+          <Property Name="Order_TotalPrice" Type="Int32" />
+          <Property Name="Order_Post" Type="Int32" />
+          <Property Name="Order_DateAdd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblOrder_tblPost" FromRole="tblOrder" ToRole="tblPost" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblOrder_tblUser" FromRole="tblOrder" ToRole="tblUser" />
+        </EntityType>
         <EntityType Name="tblPost">
           <Key>
             <PropertyRef Name="Post_ID" />
@@ -622,9 +725,23 @@
           <NavigationProperty Name="tblFavorites" Relationship="Self.FK_tblFavorite_tblPost" FromRole="tblPost" ToRole="tblFavorite" />
           <NavigationProperty Name="tblGenre" Relationship="Self.FK_tblPost_tblGenres" FromRole="tblPost" ToRole="tblGenres" />
           <NavigationProperty Name="tblGroupCode" Relationship="Self.FK_tblPost_GroupCode" FromRole="tblPost" ToRole="tblGroupCode" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK_tblOrder_tblPost" FromRole="tblPost" ToRole="tblOrder" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblPost_tblUser" FromRole="tblPost" ToRole="tblUser" />
+          <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblPost" FromRole="tblPost" ToRole="tblReport" />
           <NavigationProperty Name="tblLanguages" Relationship="Self.tblPostLang" FromRole="tblPost" ToRole="tblLanguage" />
-          <NavigationProperty Name="tblOrders" Relationship="DBShareCodeModel.FK_tblOrder_tblPost" FromRole="tblPost" ToRole="tblOrder" />
+        </EntityType>
+        <EntityType Name="tblReport">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Report_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Report_DateSend" Type="DateTime" Precision="3" />
+          <Property Name="Report_User" Type="Int32" />
+          <Property Name="Report_Blog" Type="Int32" />
+          <Property Name="Report_Post" Type="Int32" />
+          <NavigationProperty Name="tblBlog" Relationship="Self.FK_tblReport_tblBlog" FromRole="tblReport" ToRole="tblBlog" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblReport_tblPost" FromRole="tblReport" ToRole="tblPost" />
         </EntityType>
         <EntityType Name="tblRepply">
           <Key>
@@ -667,11 +784,35 @@
           <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblUser" FromRole="tblUser" ToRole="tblComment" />
           <NavigationProperty Name="tblDownLoads" Relationship="Self.FK_tblDownLoad_tblUser" FromRole="tblUser" ToRole="tblDownLoad" />
           <NavigationProperty Name="tblFavorites" Relationship="Self.FK_tblFavorite_tblUser" FromRole="tblUser" ToRole="tblFavorite" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK_tblOrder_tblUser" FromRole="tblUser" ToRole="tblOrder" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblUser" FromRole="tblUser" ToRole="tblPost" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblUser" ToRole="tblRepply" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
-          <NavigationProperty Name="tblOrders" Relationship="DBShareCodeModel.FK_tblOrder_tblUser" FromRole="tblUser" ToRole="tblOrder" />
         </EntityType>
+        <Association Name="FK_tblComment_tblBlog">
+          <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
+          <End Role="tblComment" Type="Self.tblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlog">
+              <PropertyRef Name="BLog_ID" />
+            </Principal>
+            <Dependent Role="tblComment">
+              <PropertyRef Name="Comment_Blog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblReport_tblBlog">
+          <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
+          <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlog">
+              <PropertyRef Name="BLog_ID" />
+            </Principal>
+            <Dependent Role="tblReport">
+              <PropertyRef Name="Report_Blog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPost_tblCategory">
           <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
@@ -792,6 +933,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblOrder_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="Order_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOrder_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="Order_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPost_tblUser">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
@@ -801,6 +966,18 @@
             </Principal>
             <Dependent Role="tblPost">
               <PropertyRef Name="Post_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblReport_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblReport">
+              <PropertyRef Name="Report_Post" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -834,6 +1011,7 @@
         </Association>
         <EntityContainer Name="DBShareCodeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblBlogs" EntityType="Self.tblBlog" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblComments" EntityType="Self.tblComment" />
           <EntitySet Name="tblCustoms" EntityType="Self.tblCustom" />
@@ -842,10 +1020,20 @@
           <EntitySet Name="tblGenres" EntityType="Self.tblGenre" />
           <EntitySet Name="tblGroupCodes" EntityType="Self.tblGroupCode" />
           <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
           <EntitySet Name="tblPosts" EntityType="Self.tblPost" />
+          <EntitySet Name="tblReports" EntityType="Self.tblReport" />
           <EntitySet Name="tblRepplies" EntityType="Self.tblRepply" />
           <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblComment_tblBlog" Association="Self.FK_tblComment_tblBlog">
+            <End Role="tblBlog" EntitySet="tblBlogs" />
+            <End Role="tblComment" EntitySet="tblComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblBlog" Association="Self.FK_tblReport_tblBlog">
+            <End Role="tblBlog" EntitySet="tblBlogs" />
+            <End Role="tblReport" EntitySet="tblReports" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblPost_tblCategory" Association="Self.FK_tblPost_tblCategory">
             <End Role="tblCategory" EntitySet="tblCategories" />
             <End Role="tblPost" EntitySet="tblPosts" />
@@ -886,9 +1074,21 @@
             <End Role="tblGroupCode" EntitySet="tblGroupCodes" />
             <End Role="tblPost" EntitySet="tblPosts" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblOrder_tblPost" Association="Self.FK_tblOrder_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblOrder" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOrder_tblUser" Association="Self.FK_tblOrder_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblOrder" EntitySet="tblOrders" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblPost_tblUser" Association="Self.FK_tblPost_tblUser">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblPost" EntitySet="tblPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblReport_tblPost" Association="Self.FK_tblReport_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblReport" EntitySet="tblReports" />
           </AssociationSet>
           <AssociationSet Name="FK_tblRepply_tblUser" Association="Self.FK_tblRepply_tblUser">
             <End Role="tblUser" EntitySet="tblUsers" />
@@ -902,52 +1102,7 @@
             <End Role="tblLanguage" EntitySet="tblLanguages" />
             <End Role="tblPost" EntitySet="tblPosts" />
           </AssociationSet>
-          <EntitySet Name="tblOrders" EntityType="DBShareCodeModel.tblOrder" />
-          <AssociationSet Name="FK_tblOrder_tblPost" Association="DBShareCodeModel.FK_tblOrder_tblPost">
-            <End Role="tblPost" EntitySet="tblPosts" />
-            <End Role="tblOrder" EntitySet="tblOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblOrder_tblUser" Association="DBShareCodeModel.FK_tblOrder_tblUser">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblOrder" EntitySet="tblOrders" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="tblOrder">
-          <Key>
-            <PropertyRef Name="Order_ID" />
-          </Key>
-          <Property Name="Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Order_User" Type="Int32" />
-          <Property Name="Order_TotalPrice" Type="Int32" />
-          <Property Name="Order_Post" Type="Int32" />
-          <Property Name="Order_DateAdd" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblPost" Relationship="DBShareCodeModel.FK_tblOrder_tblPost" FromRole="tblOrder" ToRole="tblPost" />
-          <NavigationProperty Name="tblUser" Relationship="DBShareCodeModel.FK_tblOrder_tblUser" FromRole="tblOrder" ToRole="tblUser" />
-        </EntityType>
-        <Association Name="FK_tblOrder_tblPost">
-          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="0..1" />
-          <End Type="DBShareCodeModel.tblOrder" Role="tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblPost">
-              <PropertyRef Name="Post_ID" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="Order_Post" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblOrder_tblUser">
-          <End Type="DBShareCodeModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="DBShareCodeModel.tblOrder" Role="tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="User_ID" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="Order_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -962,6 +1117,19 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBlogs">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblBlog">
+              <MappingFragment StoreEntitySet="tblBlog">
+                <ScalarProperty Name="BLog_ID" ColumnName="BLog_ID" />
+                <ScalarProperty Name="Blog_Title" ColumnName="Blog_Title" />
+                <ScalarProperty Name="Blog_Contents" ColumnName="Blog_Contents" />
+                <ScalarProperty Name="BLog_Tag" ColumnName="BLog_Tag" />
+                <ScalarProperty Name="BLog_User" ColumnName="BLog_User" />
+                <ScalarProperty Name="Blog_View" ColumnName="Blog_View" />
+                <ScalarProperty Name="BLog_DatePost" ColumnName="BLog_DatePost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -980,8 +1148,9 @@
                 <ScalarProperty Name="Comment_ID" ColumnName="Comment_ID" />
                 <ScalarProperty Name="Comment_Contents" ColumnName="Comment_Contents" />
                 <ScalarProperty Name="Comment_User" ColumnName="Comment_User" />
-                <ScalarProperty Name="Comment_Post" ColumnName="Comment_Post" />
                 <ScalarProperty Name="Comment_DatePost" ColumnName="Comment_DatePost" />
+                <ScalarProperty Name="Comment_Blog" ColumnName="Comment_Blog" />
+                <ScalarProperty Name="Comment_Post" ColumnName="Comment_Post" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1064,6 +1233,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrder">
+                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
+                <ScalarProperty Name="Order_User" ColumnName="Order_User" />
+                <ScalarProperty Name="Order_TotalPrice" ColumnName="Order_TotalPrice" />
+                <ScalarProperty Name="Order_Post" ColumnName="Order_Post" />
+                <ScalarProperty Name="Order_DateAdd" ColumnName="Order_DateAdd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblPosts">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
@@ -1088,6 +1268,18 @@
                 <ScalarProperty Name="Post_Active" ColumnName="Post_Active" />
                 <ScalarProperty Name="Post_Trash" ColumnName="Post_Trash" />
                 <ScalarProperty Name="Post_Code" ColumnName="Post_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReports">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblReport">
+              <MappingFragment StoreEntitySet="tblReport">
+                <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+                <ScalarProperty Name="Report_Contents" ColumnName="Report_Contents" />
+                <ScalarProperty Name="Report_DateSend" ColumnName="Report_DateSend" />
+                <ScalarProperty Name="Report_User" ColumnName="Report_User" />
+                <ScalarProperty Name="Report_Blog" ColumnName="Report_Blog" />
+                <ScalarProperty Name="Report_Post" ColumnName="Report_Post" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1138,17 +1330,6 @@
               <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="tblOrders">
-            <EntityTypeMapping TypeName="DBShareCodeModel.tblOrder">
-              <MappingFragment StoreEntitySet="tblOrder">
-                <ScalarProperty Name="Order_DateAdd" ColumnName="Order_DateAdd" />
-                <ScalarProperty Name="Order_Post" ColumnName="Order_Post" />
-                <ScalarProperty Name="Order_TotalPrice" ColumnName="Order_TotalPrice" />
-                <ScalarProperty Name="Order_User" ColumnName="Order_User" />
-                <ScalarProperty Name="Order_ID" ColumnName="Order_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
