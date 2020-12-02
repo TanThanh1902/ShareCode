@@ -1,0 +1,104 @@
+﻿@model ShareCode.Models.tblCategory
+
+@{
+    ViewBag.Title = "Thêm danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4>@ViewBag.Title</h4>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <!-- Page body start -->
+        <div class="page-body">
+            <div class="row" ng-controller="myController">
+                <div class="col-sm-12">
+                    <!-- Basic Form Inputs card start -->
+                    <div class="card">
+                        <div class="card-header">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <b class="font-weight-bold control-label col-md-2">Tên danh mục</b>
+                                                <div class="col-md-12">
+                                                    @Html.EditorFor(model => model.Cat_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <b class="font-weight-bold control-label col-md-2">Ảnh danh mục</b>
+                                                <div class="col-md-12">
+                                                    <input type="file" accept="image/*" onchange="preview_image(event)" name="Cat_Image" class="form-control">
+                                                </div>
+                                            </div>
+                                            <script>
+                                                function preview_image(event) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function () {
+                                                        var output = document.getElementById('output_image');
+                                                        output.src = reader.result;
+                                                    }
+                                                    reader.readAsDataURL(event.target.files[0]);
+                                                }
+                                            </script>
+
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <br />
+                                            <img src="~/Content/Layout/img/noimages.jpg"  id="output_image" style="width: 100%; height: 150px"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Thêm danh mục" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <!-- Input Alignment card end -->
+                </div>
+            </div>
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
