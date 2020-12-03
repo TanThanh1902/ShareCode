@@ -1,0 +1,280 @@
+﻿@model ShareCode.Models.tblPost
+
+@{
+    ViewBag.Title = "Sửa code" + Model.Post_Title;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .ck.ck-editor__editable_inline > :last-child {
+        height: 200px
+    }
+</style>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4>@ViewBag.Title</h4>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <!-- Page body start -->
+        <div class="page-body">
+            <div class="row" ng-controller="myController">
+                <div class="col-sm-12">
+                    <!-- Basic Form Inputs card start -->
+                    <div class="card">
+                        <div class="card-header">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Post_ID)
+
+                                <div class="form-horizontal">
+
+
+                                    <h4 class="font-weight-bold"><i class="fa fa-image">&nbsp;</i>Hình ảnh</h4>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Hình ảnh</b>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <input type="file" accept="image/*" onchange="preview_image(event)" name="Post_Avata" class="form-control">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <img id="output_image" src="~/Content/Layout/img/post/@Model.Post_Avata" style="width: 100%; height: 200px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function preview_image(event) {
+                                                var reader = new FileReader();
+                                                reader.onload = function () {
+                                                    var output = document.getElementById('output_image');
+                                                    output.src = reader.result;
+                                                }
+                                                reader.readAsDataURL(event.target.files[0]);
+                                            }
+                                        </script>
+
+                                    </div>
+
+                                    <h4 class="font-weight-bold"><i class="fa fa-file-code">&nbsp;</i>Thông tin code</h4>
+
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Tên code</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Post_Title, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Hình thức</b>
+                                        <div class="col-md-12">
+                                            @Html.DropDownList("Post_Group", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Post_ViewMoreImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Post_ViewMoreImage, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Post_ViewMoreImage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Danh mục</b>
+                                        <div class="col-md-12">
+                                            @Html.DropDownList("Post_Cat", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Thể loại</b>
+                                        <div class="col-md-12">
+                                            @Html.DropDownList("Post_Genres", null, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <h4 class="font-weight-bold"><i class="fa fa-code">&nbsp;</i>Thông tin chi tiết</h4>
+
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Mô tả</b>
+                                        <div class="col-md-12">
+                                            <textarea name="Post_Description" id="de">@Model.Post_Description</textarea>
+                                            @Html.ValidationMessageFor(model => model.Post_Description, "", new { @class = "text-danger" })
+                                        </div>
+                                        <script>
+                                            ClassicEditor
+                                                .create(document.querySelector('#de'))
+                                                .catch(error => {
+                                                    console.error(error);
+                                                });
+                                        </script>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Hướng dẫn chi tiết</b>
+                                        <div class="col-md-12">
+                                            <textarea name="Post_TutorialSetup" id="se">@Model.Post_TutorialSetup</textarea>
+                                        </div>
+                                        <script>
+                                            ClassicEditor
+                                                .create(document.querySelector('#se'))
+                                                .catch(error => {
+                                                    console.error(error);
+                                                });
+                                        </script>
+                                    </div>
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Link download</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Post_LinkDown, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Giá</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Post_Price, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <h4 class="font-weight-bold"><i class="fa fa-cog">&nbsp;</i>Cài đặt</h4>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Lượt xem</b>
+                                        <div class="col-md-12">
+                                            <input type="number" name="Post_View" value="0" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Vote</b>
+                                        <div class="col-md-12">
+                                            <input type="number" name="Post_Vote" value="0" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Lượt đánh giá</b>
+                                        <div class="col-md-12">
+                                            <input type="number" name="Post_Rate" value="0" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Lượt tải</b>
+                                        <div class="col-md-12">
+                                            <input type="number" name="Post_CountDownLoad" value="0" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Lượt yêu thích</b>
+                                        <div class="col-md-12">
+                                            <input type="number" name="Post_Favorite" value="0" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Tình trạng</b>
+                                        <div class="col-md-10">
+                                            <div class="checkbox">
+                                                <select class="form-control" name="Post_Active">
+                                                    <option value="true">Đã duyệt</option>
+                                                    <option value="false">Chưa duyệt</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Post_DateCreate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Post_DateCreate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Post_DateCreate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+
+
+
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Post_User, "Post_User", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("Post_User", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Post_User, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Post_Trash, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <div class="checkbox">
+                                                @Html.EditorFor(model => model.Post_Trash)
+                                                @Html.ValidationMessageFor(model => model.Post_Trash, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                    @*<div class="form-group">
+                                        @Html.LabelFor(model => model.Post_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Post_Code, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Post_Code, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Đăng code" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <!-- Input Alignment card end -->
+                </div>
+            </div>
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+
+

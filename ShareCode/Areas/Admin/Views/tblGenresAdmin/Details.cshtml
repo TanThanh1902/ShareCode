@@ -1,0 +1,27 @@
+﻿@model ShareCode.Models.tblGenre
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblGenre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genres_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Genres_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

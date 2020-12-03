@@ -1,0 +1,80 @@
+﻿@model ShareCode.Models.tblGenre
+
+@{
+    ViewBag.Title = "Thêm thể loại";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4>@ViewBag.Title</h4>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <!-- Page body start -->
+        <div class="page-body">
+            <div class="row" ng-controller="myController">
+                <div class="col-sm-12">
+                    <!-- Basic Form Inputs card start -->
+                    <div class="card">
+                        <div class="card-header">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2 font-weight-bold">Tên thể loại</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Genres_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Genres_Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Thêm thể loại" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <!-- Input Alignment card end -->
+                </div>
+            </div>
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+
