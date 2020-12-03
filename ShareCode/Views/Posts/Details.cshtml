@@ -267,14 +267,7 @@
                             <b>Tag</b>
                             <div class="row mt-2">
                                 <div class="col-lg-12" style="padding: 20px">
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
-                                    <a class="ui tag label">New</a>
+                                    @Html.Action("Top7Tags", "View")
                                 </div>
                             </div>
                         </div>
@@ -282,18 +275,7 @@
                     <div class="card mt-5">
                         <aside class="single_sidebar_widget popular_post_widget" style="padding: 10px">
                             <b>Code tương tự</b>
-                            @for (var i = 0; i < 7; i++)
-                            {
-                                <div class="media post_item mt-2">
-                                    <img src="~/Content/Layout/img/post/post_1.png" alt="post">
-                                    <div class="media-body ml-2">
-                                        <a href="blog_details.html">
-                                            <h5 style="color: #2d2d2d;">From life was you fish...</h5>
-                                        </a>
-                                        <p>January 12, 2019</p>
-                                    </div>
-                                </div>
-                            }
+                            @Html.Action("SamePosts", "View")
                         </aside>
                     </div>
                 </div>

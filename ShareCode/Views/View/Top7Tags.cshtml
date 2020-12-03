@@ -1,0 +1,7 @@
+﻿@using ShareCode.Models;
+@model List<tblTag>
+
+@foreach (var item in Model)
+{
+    <a href="#" class="ui tag label">@item.Tag_Title</a>
+}

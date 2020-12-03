@@ -7,12 +7,12 @@
 @using (Ajax.BeginForm("Create", "Comments", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "formComment", OnSuccess = "LoadListComment()" }))
 {
     @Html.AntiForgeryToken()
-    <input type="hidden" name="Comment_Post" value="@postid" />
+    <input type="hidden" name="Comment_Post" id="post_id" value="@postid" />
     <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <textarea class="form-control w-100" name="Comment_Contents" id="comment" cols="30" rows="9"
-                          placeholder="Write Comment"></textarea>
+                          placeholder="Write Comment" required></textarea>
             </div>
         </div>
     </div>
@@ -27,12 +27,11 @@
         }
     </div>
 }
-<input type="hidden" value="@postid" id="post_id" />
 <script>
     function LoadListComment() {
         let id = document.getElementById("post_id").value;
         $.ajax({
-            type: "post",
+            type: "get",
             url: "/Comments/GetCommentByPostId?id=" + id,
             contentType: "html",
             success: function (result) {

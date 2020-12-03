@@ -146,9 +146,11 @@
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ReppliesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +214,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTag.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUser.cs">
@@ -700,6 +705,18 @@
     <Content Include="Views\View\ListCategorySearchHomePage.cshtml" />
     <Content Include="Views\View\ListGroupCodeSearchHomePage.cshtml" />
     <Content Include="Views\View\ListHightLightPosts.cshtml" />
+    <Content Include="Views\Blogs\Create.cshtml" />
+    <Content Include="Views\Blogs\Delete.cshtml" />
+    <Content Include="Views\Blogs\Details.cshtml" />
+    <Content Include="Views\Blogs\Edit.cshtml" />
+    <Content Include="Views\Blogs\Index.cshtml" />
+    <Content Include="Views\View\Top7Tags.cshtml" />
+    <Content Include="Views\View\SamePosts.cshtml" />
+    <Content Include="Views\Repplies\Create.cshtml" />
+    <Content Include="Views\Repplies\Delete.cshtml" />
+    <Content Include="Views\Repplies\Details.cshtml" />
+    <Content Include="Views\Repplies\Edit.cshtml" />
+    <Content Include="Views\Repplies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

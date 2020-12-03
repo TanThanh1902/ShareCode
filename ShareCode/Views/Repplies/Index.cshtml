@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShareCode.Models.tblRepply>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rep_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rep_DatePost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblComment.Comment_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rep_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rep_DatePost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblComment.Comment_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Rep_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Rep_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Rep_ID })
+        </td>
+    </tr>
+}
+
+</table>

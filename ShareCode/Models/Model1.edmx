@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -190,6 +190,15 @@
           </Key>
           <Property Name="Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblTag">
+          <Key>
+            <PropertyRef Name="Tag_ID" />
+          </Key>
+          <Property Name="Tag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tag_Title" Type="nvarchar(max)" />
+          <Property Name="Tag_CountSearch" Type="int" />
+          <Property Name="Tag_DateAdd" Type="datetime" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -467,6 +476,7 @@
           <EntitySet Name="tblReport" EntityType="Self.tblReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRepply" EntityType="Self.tblRepply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTag" EntityType="Self.tblTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblComment_tblBlog" Association="Self.FK_tblComment_tblBlog">
             <End Role="tblBlog" EntitySet="tblBlog" />
@@ -549,8 +559,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1102,7 +1111,17 @@
             <End Role="tblLanguage" EntitySet="tblLanguages" />
             <End Role="tblPost" EntitySet="tblPosts" />
           </AssociationSet>
+          <EntitySet Name="tblTags" EntityType="DBShareCodeModel.tblTag" />
         </EntityContainer>
+        <EntityType Name="tblTag">
+          <Key>
+            <PropertyRef Name="Tag_ID" />
+          </Key>
+          <Property Name="Tag_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tag_Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tag_CountSearch" Type="Int32" />
+          <Property Name="Tag_DateAdd" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1330,6 +1349,16 @@
               <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tblTags">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblTag">
+              <MappingFragment StoreEntitySet="tblTag">
+                <ScalarProperty Name="Tag_DateAdd" ColumnName="Tag_DateAdd" />
+                <ScalarProperty Name="Tag_CountSearch" ColumnName="Tag_CountSearch" />
+                <ScalarProperty Name="Tag_Title" ColumnName="Tag_Title" />
+                <ScalarProperty Name="Tag_ID" ColumnName="Tag_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

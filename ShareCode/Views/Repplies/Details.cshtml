@@ -1,0 +1,51 @@
+﻿@model ShareCode.Models.tblRepply
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblRepply</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Rep_Contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rep_Contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rep_DatePost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rep_DatePost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblComment.Comment_Contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblComment.Comment_Contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblUser.User_DisplayName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Rep_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
