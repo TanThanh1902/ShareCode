@@ -13,172 +13,122 @@
     int coin = (int)Model.Post_Price;
     DBShareCodeEntities db = new DBShareCodeEntities();
 }
-
-<section class="slider-area slider-area2" style="height: 345px;">
-    <div class="slider-active">
-        <!-- Single Slider -->
-        <div class="single-slider slider-height2">
-            <div class="container">
+<div class="row">
+    <div class="col-lg-9 most-recent">
+        <div class="row">
+            <div class="col-md-12 item">
                 <div class="row">
-                    <div class="col-xl-12 col-lg-11 col-md-12">
-                        <form style="margin-top: 15%">
-                            <div class="row mt-3" style="padding: 5px">
-                                <div class="col-lg-12" style="padding: 5px;">
-                                    <div class="ui search">
-                                        <div class="ui icon input" style="width: 100%">
-                                            <input class="prompt" type="text" placeholder="Nhập tên code, ngôn ngữ, thể loại, nội dung..." style="border-radius: 5px">
-                                            <i class="search icon"></i>
-                                        </div>
-                                        <div class="results"></div>
+                    <div class="col-md-4 item">
+                        <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" style="height: 200px" />
+                    </div>
+                    <div class="col-lg-8">
+                        <b>@Model.Post_Title <b class="text-danger">[Mã code: #@Model.Post_Code]</b></b>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                <i class="fa fa-star text-warning"></i>
+                                @Model.Post_Vote Đánh giá
+                                <i class="fa fa-edit">&nbsp;</i>Viết đánh giá
+                            </div>
+                            <div class="col-lg-4">
+                                <i class="fa fa-eye">&nbsp;</i>@Model.Post_View
+                                <i class="fa fa-download" id="newCountDownLoad">&nbsp;@Model.Post_CountDownLoad</i>
+                                <i class="fa fa-heart" id="newCountFavorite">&nbsp;@Model.Post_Favorite</i>
+                            </div>
+                            <div class="col-lg-12">
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h3 class="font-weight-bold"><b class="text-danger">Phí tải: </b>@coin xu <span style="color: gray; font-size: 15px">(1 xu = 2.000 vnđ)</span></h3>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 mt-2" style="padding: 5px;">
-                                    <select class="form-control w-100">
-                                        <option>Chọn danh mục</option>tblPosts
-                                    </select>
-                                </div>
-                                <div class="col-lg-4 mt-2" style="padding: 5px">
-                                    <select class="form-control w-100">
-                                        <option>Chọn code</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 mt-2" style="padding: 5px">
-                                    <button class="ui red button w-100" style="height: 44px;"><i class="fa fa-search">&nbsp;</i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="row">
-                <div class="col-lg-3">
-                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" style="height: 200px" />
-                    <br />
-                    <div class="row" style="padding-bottom: 10px">
-                        @foreach (var img in mulImage)
-                        {
-                            <div class="col-md-4">
-                                <img src="~/Content/Layout/img/post/@img" style="width: 100%; height: 50px" />
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <b>@Model.Post_Title <b class="text-danger">[Mã code: #@Model.Post_Code]</b></b>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            @Model.Post_Vote Đánh giá
-                            <i class="fa fa-edit">&nbsp;</i>Viết đánh giá
-                        </div>
-                        <div class="col-lg-4">
-                            <i class="fa fa-eye">&nbsp;</i>@Model.Post_View
-                            <i class="fa fa-download" id="newCountDownLoad">&nbsp;@Model.Post_CountDownLoad</i>
-                            <i class="fa fa-heart" id="newCountFavorite">&nbsp;@Model.Post_Favorite</i>
-                        </div>
-                        <div class="col-lg-12">
-                            <hr />
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <h3 class="font-weight-bold"><b class="text-danger">Phí tải: </b>@coin xu <span style="color: gray; font-size: 15px">(1 xu = 2.000 vnđ)</span></h3>
-                                </div>
-                                <div class="col-lg-4" id="favorite">
-                                    @if (user.User_ID == Model.Post_User)
-                                    {
-                                        <button class="ui red button float-right"><i class="fa fa-comments">&nbsp;</i>Xem bình luận</button>
-                                    }
-                                    else
-                                    {
-                                        if (Session["member"] != null)
+                                    <div class="col-lg-4" id="favorite">
+                                        @if (user.User_ID == Model.Post_User)
                                         {
-                                            Boolean checkfavorite = db.tblFavorites.FirstOrDefault(t => t.Favorite_User == user.User_ID && t.Favorite_Post == Model.Post_ID) != null;
-                                            if (checkfavorite)
+                                            <button class="ui red button float-right"><i class="fa fa-comments">&nbsp;</i>Xem bình luận</button>
+                                        }
+                                        else
+                                        {
+                                            if (Session["member"] != null)
                                             {
-                                                <button class="ui red button float-right" id="removefavorite"><i class="fa fa-heart">&nbsp;</i>Hủy yêu thích code</button>
+                                                Boolean checkfavorite = db.tblFavorites.FirstOrDefault(t => t.Favorite_User == user.User_ID && t.Favorite_Post == Model.Post_ID) != null;
+                                                if (checkfavorite)
+                                                {
+                                                    <button class="ui red button float-right" id="removefavorite"><i class="fa fa-heart">&nbsp;</i>Hủy yêu thích code</button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="ui red button float-right" id="addfavorite"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                                }
                                             }
                                             else
                                             {
-                                                <button class="ui red button float-right" id="addfavorite"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
+                                                <button data-toggle="modal" data-target="#login" class="ui red button float-right"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
                                             }
                                         }
-                                        else
+                                    </div>
+                                    <hr />
+                                    <div class="col-lg-8">
+                                        <ul>
+                                            <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat})" style="color: red">@Model.tblCategory.Cat_Name</a></li>
+                                            <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres})" style="color: red">@Model.tblGenre.Genres_Name</a></li>
+                                            <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group})" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
+                                            <li><b>Ngày đăng:</b>@Model.Post_DateCreate.Value.ToLongDateString()</li>
+                                            <li><b>Dung lượng:</b>Chưa có</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        @if (user.User_ID == Model.Post_User)
                                         {
-                                            <button data-toggle="modal" data-target="#login" class="ui red button float-right"><i class="fa fa-heart">&nbsp;</i>Thích code</button>
-                                        }
-                                    }
-                                </div>
-                                <hr />
-                                <div class="col-lg-8">
-                                    <ul>
-                                        <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat})" style="color: red">@Model.tblCategory.Cat_Name</a></li>
-                                        <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres})" style="color: red">@Model.tblGenre.Genres_Name</a></li>
-                                        <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group})" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
-                                        <li><b>Ngày đăng:</b>@Model.Post_DateCreate.Value.ToLongDateString()</li>
-                                        <li><b>Dung lượng:</b>Chưa có</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-4">
-                                    @if (user.User_ID == Model.Post_User)
-                                    {
-                                        <button class="ui green button float-right w-100 mt-2"><i class="fa fa-edit">&nbsp;</i>Chỉnh sửa</button>
-                                    }
-                                    else
-                                    {
-                                        if (Session["member"] != null)
-                                        {
-                                            <button id="download" class="ui green button float-right w-100 mt-2" onclick="window.location.href='#dow'"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                            <button class="ui green button float-right w-100 mt-2"><i class="fa fa-edit">&nbsp;</i>Chỉnh sửa</button>
                                         }
                                         else
                                         {
-                                            <button onclick="window.location.href='#dow'" class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                            if (Session["member"] != null)
+                                            {
+                                                <button id="download" class="ui green button float-right w-100 mt-2" onclick="window.location.href='#dow'"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                            }
+                                            else
+                                            {
+                                                <button onclick="window.location.href='#dow'" class="ui green button float-right w-100 mt-2"><i class="fa fa-download">&nbsp;</i>Download</button>
+                                            }
+                                            <button class="ui gray button float-right w-100 mt-2"><i class="fa fa-desktop">&nbsp;</i>Demo</button>
                                         }
-                                        <button class="ui gray button float-right w-100 mt-2"><i class="fa fa-desktop">&nbsp;</i>Demo</button>
-                                    }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-lg-12">
-                    <div class="ui two column grid">
-                        <div class="column  w-100">
-                            <div class="ui raised segment">
-                                <a class="ui red ribbon label">Mô tả chi tiết</a>
-                                <br />
-                                @Html.Raw(Model.Post_Description)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 mt-4" id="dow">
-                    <div class="ui two column grid">
-                        <div class="column  w-100">
-                            <div class="ui raised segment">
-                                <a class="ui green ribbon label">Hướng dẫn cài đặt</a>
-                                <br />
-                                @Html.Raw(Model.Post_TutorialSetup)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 mt-4" id="scrollComment">
-                    <div class="section-top-border">
-                        <h3 class="mb-30">DOWNLOAD</h3>
+
+                    <div class="col-lg-12 mt-5">
                         <div class="row">
                             <div class="col-lg-12">
-                                <blockquote class="generic-blockquote">
+                                <div class="ui two column grid">
+                                    <div class="column  w-100">
+                                        <div class="ui raised segment">
+                                            <a class="ui red ribbon label">Mô tả chi tiết</a>
+                                            <br />
+                                            @Html.Raw(Model.Post_Description)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-4" id="dow">
+                                <div class="ui two column grid">
+                                    <div class="column  w-100">
+                                        <div class="ui raised segment">
+                                            <a class="ui green ribbon label">Hướng dẫn cài đặt</a>
+                                            <br />
+                                            @Html.Raw(Model.Post_TutorialSetup)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-5 bg-info text-white rounded w-100" id="scrollComment">
+                                <div style="padding: 10px">
+                                    <h3 class="mb-30 text-white">DOWNLOAD</h3>
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <i class="fa fa-file-archive">&nbsp;</i> <b style="color: brown">filetai.zip (45MB)</b>
@@ -195,52 +145,177 @@
                                             <button class="ui red button mt-1" style="font-size: 20px"><i class="fa fa-download">&nbsp;</i>DOWNLOAD <br /> (0 XU)</button>
                                         </div>
                                     </div>
-                                </blockquote>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-3">
+                                @Html.Action("GetCommentByPostId", "Comments", new { id = Model.Post_ID })
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- comment content -->
-                <div class="col-lg-12">
-                    <div class="comments-area" id="commentsList">
-                        @Html.Action("GetCommentByPostId", "Comments", new { id = Model.Post_ID })
-                    </div>
-                </div>
-                <!-- //comment content -->
             </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div style="padding: 10px">
-                            <b>Người bán</b>
-                            <div class="row mt-2">
-                                <div class="col-lg-6">
-                                    <img src="~/Images/User/man-300x300.png" class="w-100" />
-                                </div>
-                                <div class="col-lg-6">
-                                    <b class="text-danger">@Model.tblUser.User_DisplayName</b>
-                                    <ul>
-                                        <li><b>Free:</b> @ViewBag.countPostsFree</li>
-                                        <li><b>Có phí:</b> @ViewBag.countPostsPay</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-12 mt-2">
-                                    <div class="card">
-                                        <div style="padding: 10px">
-                                            <p class="text-danger">Thông tin liên hệ</p>
-                                            <ul>
-                                                <li><b>Email:</b>Ẩn</li>
-                                                <li><b>SĐT:</b>Ẩn</li>
-                                                <li class="text-default">(Chỉ hiển thị khi đã mua code)</li>
-                                            </ul>
+            <div class="col-lg-12 mt-5">
+                <h3 class="section-title-left">Code gần giống </h3>
+                <div class="row">
+                    @for (var i = 0; i < 8;i++)
+                    {
+                        <div class="col-lg-3 mt-3">
+                            <div class="ui special cards">
+                                <div class="card">
+                                    <div class="blurring dimmable image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <a href="" class="ui inverted button">Xem</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="~/Content/Layout/img/post/website-thoi-trang-day-du-chuc-nang-tich-hop-thanh-toan-online-momo-atm-ngan-luong-105739.jpg" style="width: 100%; height: 170px">
+                                    </div>
+                                    <center>
+                                        <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                        </div>
+                                    </center>
+                                    <div class="content">
+                                        <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                        <br />
+                                        <a style="color: brown">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
+                                        <div class="meta">
+                                            <span class="date">22/2</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- //pagination -->
+    </div>
+    <div class="col-lg-3 trending mt-lg-0 mt-5 mb-lg-5">
+        <div class="pos-sticky">
+            <h3 class="section-title-left">Trending </h3>
+
+            <div class="grids5-info">
+                <h4>01.</h4>
+                <div class="blog-info">
+                    <a href="#blog-single" class="blog-desc1">
+                        You can always change your domain name in the future if you like.
+                    </a>
+                    <div class="author align-items-center mt-2 mb-1">
+                        <a href="#author">Johnson smith</a> in <a href="#url">Design</a>
                     </div>
+                    <ul class="blog-meta">
+                        <li class="meta-item blog-lesson">
+                            <span class="meta-value"> April 13, 2020 </span>
+                        </li>
+                        <li class="meta-item blog-students">
+                            <span class="meta-value"> 6min read</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grids5-info">
+                <h4>02.</h4>
+                <div class="blog-info">
+                    <a href="#blog-single" class="blog-desc1">
+                        Pick a domain name & hosting for your blog
+                    </a>
+                    <div class="author align-items-center mt-2 mb-1">
+                        <a href="#author">Johnson smith</a> in <a href="#url">Design</a>
+                    </div>
+                    <ul class="blog-meta">
+                        <li class="meta-item blog-lesson">
+                            <span class="meta-value"> April 13, 2020 </span>
+                        </li>
+                        <li class="meta-item blog-students">
+                            <span class="meta-value"> 6min read</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grids5-info">
+                <h4>03.</h4>
+                <div class="blog-info">
+                    <a href="#blog-single" class="blog-desc1">
+                        How To Start A Blog From Scratch and with No Experience
+
+                    </a>
+                    <div class="author align-items-center mt-2 mb-1">
+                        <a href="#author">Johnson smith</a> in <a href="#url">Design</a>
+                    </div>
+                    <ul class="blog-meta">
+                        <li class="meta-item blog-lesson">
+                            <span class="meta-value"> April 13, 2020 </span>
+                        </li>
+                        <li class="meta-item blog-students">
+                            <span class="meta-value"> 6min read</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grids5-info">
+                <h4>04.</h4>
+                <div class="blog-info">
+                    <a href="#blog-single" class="blog-desc1">
+                        Within few minutes, you will have your blog up and running.
+                    </a>
+                    <div class="author align-items-center mt-3 mb-1">
+                        <a href="#author">Johnson smith</a> in <a href="#url">Design</a>
+                    </div>
+                    <ul class="blog-meta">
+                        <li class="meta-item blog-lesson">
+                            <span class="meta-value"> April 13, 2020 </span>
+                        </li>
+                        <li class="meta-item blog-students">
+                            <span class="meta-value"> 6min read</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-3">
+                    <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" style="height: 200px" />
+                    <br />
+                    <div class="row" style="padding-bottom: 10px">
+                        @foreach (var img in mulImage)
+                        {
+                            <div class="col-md-4">
+                                <img src="~/Content/Layout/img/post/@img" style="width: 100%; height: 50px" />
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                   
+                    
+                </div>
+            </div>
+            <div class="row mt-5">-->
+                
+                
+                
+                <!-- comment content -->
+                <!--<div class="col-lg-12">
+                    
+                </div>-->
+                <!-- //comment content -->
+            <!--</div>
+        </div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    
                     <div class="card mt-5">
                         <div style="padding: 10px">
                             <b>Chia sẻ cho bạn bè</b>
@@ -282,7 +357,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <input type="hidden" id="idpost" value="@Model.Post_ID" />
 <script>
     $(document).ready(function () {
