@@ -55,27 +55,27 @@ namespace ShareCode.Controllers
             List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == Genres_ID && t.Post_Cat == Cat_ID).OrderByDescending(t => t.Post_View).ThenBy(t => t.Post_DateCreate).Take(7).ToList();
             return PartialView(posts);
         }
-        public ActionResult RecentlyPosts()
+        public PartialViewResult RecentlyPostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Code mới nhất";
             List<tblPost> posts = db.tblPosts.OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
-        public ActionResult RecentlyWebsitePosts()
+        public PartialViewResult RecentlyWebsitePostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Website";
-            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
+            List<tblPost> posts = db.tblPosts.OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
-        public ActionResult RecentlyGamePosts()
+        public PartialViewResult RecentlyGamePostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Game";
             List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
-        public ActionResult RecentlyAppPosts()
+        public PartialViewResult RecentlyAppPostsAtHome()
         {
-            ViewBag.TitleRecentlyAtHome = "ỨNg dụng";
+            ViewBag.TitleRecentlyAtHome = "Ứng dụng";
             List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }

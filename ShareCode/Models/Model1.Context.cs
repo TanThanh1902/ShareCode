@@ -40,7 +40,7 @@ namespace ShareCode.Models
         public virtual DbSet<tblReport> tblReports { get; set; }
         public virtual DbSet<tblRepply> tblRepplies { get; set; }
         public virtual DbSet<tblRole> tblRoles { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblTag> tblTags { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
     }
 }

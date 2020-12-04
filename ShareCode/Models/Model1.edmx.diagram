@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6d472f48671d4390981e00dd24a6e28f" Name="Diagram1">
+      <Diagram DiagramId="040063034afc4dbfa1b6de6c3a015d68" Name="Diagram1">
         <EntityTypeShape EntityType="DBShareCodeModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblBlog" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblCategory" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="DBShareCodeModel.tblReport" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblRepply" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblRole" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblTag" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblUser" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblComment_tblBlog" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblReport_tblBlog" ManuallyRouted="false" />
@@ -40,7 +41,6 @@
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.tblPostLang" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblTag" Width="1.5" PointX="10.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

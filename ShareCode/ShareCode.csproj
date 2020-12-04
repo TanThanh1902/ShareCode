@@ -2382,13 +2382,6 @@
     <Content Include="Areas\Admin\Views\ViewAdmin\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\tblPostsAdmin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\tblPostsAdmin\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\tblPostsAdmin\Details.cshtml" />
@@ -2469,6 +2462,13 @@
     <Content Include="Content\UI\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\UI\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\UI\fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
