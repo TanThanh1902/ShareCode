@@ -1,20 +1,7 @@
 ﻿@using ShareCode.Models;
 @model List<tblCategory>
+@foreach (var item in Model)
+{
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="single-topic text-center mb-30">
-                <div class="topic-img">
-                    <img src="~/Content/Layout/img/gallery/@item.Cat_Image" alt="">
-                    <div class="topic-content-box">
-                        <div class="topic-content">
-                            <h3><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = item.Cat_ID})" style="text-decoration: none">@item.Cat_Name</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+    <button type="button" onclick="window.location.href='@Url.Action("FilterPostsByCatID", "Posts", new { id = item.Cat_ID})'" class="list-group-item list-group-item-action"><i class="fa fa-code">&nbsp;</i>@item.Cat_Name</button>
+}

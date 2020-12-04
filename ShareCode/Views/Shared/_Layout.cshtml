@@ -1,595 +1,492 @@
 ﻿@using ShareCode.Models;
-@{ 
+@{
     DBShareCodeEntities db = new DBShareCodeEntities();
     tblCustom custom = db.tblCustoms.Find(1);
 }
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@ViewBag.title</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
+    <!-- Required meta tags -->
 
-    <!--Khong bo-->
+    <link href="~/Content/UI/css/style.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <link href="~/Content/Semantic-UI-CSS-master/semantic.css" rel="stylesheet" />
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
     <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Layout/img/favicon.ico">
+    <title>Design Blog a Blog Category Bootstrap Responsive Website Template | Home : W3layouts</title>
 
-    <!-- CSS here -->
-    <link rel="stylesheet" href="~/Content/Layout/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/slicknav.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/flaticon.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/progressbar_barfiller.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/gijgo.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/animate.min.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/animated-headline.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/magnific-popup.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/themify-icons.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/slick.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/nice-select.css">
-    <link rel="stylesheet" href="~/Content/Layout/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+    <script src="~/Scripts/angular.min.js"></script>
+    <!-- Template CSS -->
+
+    <link rel="stylesheet" href="~/Content/Layout/css/style-starter.css">
+    <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+
     <style>
-        html {
-            font-size: 14px;
+        #menu ul {
+            background: #1F568B;
+            list-style-type: none;
+            text-align: center;
         }
 
-        .slider-area.slider-area2, .slider-area2.slider-area2 {
-            background-image: url(../../Images/pexels-photo-5473337.jpeg);
+        #menu li {
+            color: #f1f1f1;
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: -5px;
         }
+
+        #menu a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+            #menu a:hover {
+                background: #F1F1F1;
+                color: #333;
+            }
     </style>
 </head>
 
 <body>
-    <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="~/Content/Layout/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-        <div class="header-area header-transparent">
-            <div class="main-header ">
-                <div class="header-bottom  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="logo">
-                                    <a href="@Url.Action("Index","Home")"><img src="~/Content/Layout/img/logo/logo.png" alt=""></a>
-                                </div>
+    <!-- header -->
+    <header class="w3l-header sticky-top" style="background-color: white">
+        <!--/nav-->
+        <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <span class="fa fa-pencil-square-o"></span> Design Blog
+                </a>
+                <!-- if logo is image enable this
+                    <a class="navbar-brand" href="#index.html">
+                        <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                    </a> -->
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <!-- <span class="navbar-toggler-icon"></span> -->
+                    <span class="fa icon-expand fa-bars"></span>
+                    <span class="fa icon-close fa-times"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Categories <span class="fa fa-angle-down"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item " href="lifestyle.html">Lifestyle posts</a>
+                                <a class="dropdown-item" href="culture.html">Culture posts</a>
                             </div>
-                            <div class="col-xl-10 col-lg-10">
-                                @Html.Action("Menu", "View")
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+
+                    <!--/search-right-->
+                    <div class="search-right mt-lg-0 mt-2">
+                        <a href="#search" title="search"><span class="fa fa-search" aria-hidden="true"></span></a>
+                        <!-- search popup -->
+                        <div id="search" class="pop-overlay">
+                            <div class="popup">
+                                <h3 class="hny-title two">Search here</h3>
+                                <form action="#" method="Get" class="search-box">
+                                    <input type="search" placeholder="Search for blog posts" name="search"
+                                           required="required" autofocus="">
+                                    <button type="submit" class="btn">Search</button>
+                                </form>
+                                <a class="close" href="#close">×</a>
                             </div>
                         </div>
+                        <!-- /search popup -->
                     </div>
+                    <!--//search-right-->
+                    <!-- author -->
+                    <div class="header-author d-flex ml-lg-4 pl-2 mt-lg-0 mt-3">
+                        <a class="img-circle img-circle-sm" href="#author">
+                            <img src="~/Content/Layout/img/author.jpg" class="img-fluid" alt="...">
+                        </a>
+                        <div class="align-self ml-3">
+                            <a href="#author">
+                                <h5>Alexander</h5>
+                            </a>
+                            <span>Blog Writer</span>
+                        </div>
+                    </div>
+                    <!-- // author-->
                 </div>
+
+                <!-- toggle switch for light and dark theme -->
+                <div class="mobile-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+                <!-- //toggle switch for light and dark theme -->
             </div>
-        </div>
-        <!-- Header End -->
+
+        </nav>
+        <!--//nav-->
+        <!-- //header -->
+
     </header>
-    <main>
-        @RenderBody()
-        <div class="topic-area section-padding40">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>@custom.ct_16</h2>
-                        </div>
+    
+    <div class="w3l-homeblock1 py-5">
+        <div class="container pt-lg-5 pt-md-4" style="max-width: 1400px">
+            <!-- block -->
+            @RenderBody()
+            <!-- //block -->
+            <!-- block -->
+            
+            <!-- //block-->
+            <!-- block -->
+            
+            <!-- //block-->
+            <!-- block -->
+            <div class="row mt-5 pt-5">
+                <div class="col-lg-9 most-recent">
+                    <h3 class="section-title-left">Code mới nhất </h3>
+                    <div class="row">
+                        @for (var i = 0; i < 15; i++)
+                        {
+                            <div class="col-lg-3 mt-3">
+                                <div class="ui special cards">
+                                    <div class="card">
+                                        <div class="blurring dimmable image">
+                                            <div class="ui dimmer">
+                                                <div class="content">
+                                                    <div class="center">
+                                                        <div class="ui inverted button">Xem</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 170px">
+                                        </div>
+                                        <center>
+                                            <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                            </div>
+                                        </center>
+                                        <div class="content">
+                                            <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                            <br />
+                                            <a style="color: brown">Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                            <div class="meta">
+                                                <span class="date">Created in Sep 2014</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
+                    <h3 class="section-title-left mt-5">Code nổi bậc</h3>
+                    <div class="row">
+                        @for (var i = 0; i < 15; i++)
+                        {
+                            <div class="col-lg-3 mt-3">
+                                <div class="ui special cards">
+                                    <div class="card">
+                                        <div class="blurring dimmable image">
+                                            <div class="ui dimmer">
+                                                <div class="content">
+                                                    <div class="center">
+                                                        <div class="ui inverted button">Xem</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 170px">
+                                        </div>
+                                        <center>
+                                            <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                            </div>
+                                        </center>
+                                        <div class="content">
+                                            <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                            <br />
+                                            <a style="color: brown">Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                            <div class="meta">
+                                                <span class="date">Created in Sep 2014</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <h3 class="section-title-left mt-5">Website</h3>
+                    <div class="row">
+                        @for (var i = 0; i < 8; i++)
+                        {
+                            <div class="col-lg-3 mt-3">
+                                <div class="ui special cards">
+                                    <div class="card">
+                                        <div class="blurring dimmable image">
+                                            <div class="ui dimmer">
+                                                <div class="content">
+                                                    <div class="center">
+                                                        <div class="ui inverted button">Xem</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 170px">
+                                        </div>
+                                        <center>
+                                            <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                            </div>
+                                        </center>
+                                        <div class="content">
+                                            <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                            <br />
+                                            <a style="color: brown">Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                            <div class="meta">
+                                                <span class="date">Created in Sep 2014</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <h3 class="section-title-left mt-5">Game</h3>
+                    <div class="row">
+                        @for (var i = 0; i < 8; i++)
+                        {
+                            <div class="col-lg-3 mt-3">
+                                <div class="ui special cards">
+                                    <div class="card">
+                                        <div class="blurring dimmable image">
+                                            <div class="ui dimmer">
+                                                <div class="content">
+                                                    <div class="center">
+                                                        <div class="ui inverted button">Xem</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 170px">
+                                        </div>
+                                        <center>
+                                            <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                            </div>
+                                        </center>
+                                        <div class="content">
+                                            <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                            <br />
+                                            <a style="color: brown">Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                            <div class="meta">
+                                                <span class="date">Created in Sep 2014</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <h3 class="section-title-left mt-5">Ứng dụng</h3>
+                    <div class="row">
+                        @for (var i = 0; i < 8; i++)
+                        {
+                            <div class="col-lg-3 mt-3">
+                                <div class="ui special cards">
+                                    <div class="card">
+                                        <div class="blurring dimmable image">
+                                            <div class="ui dimmer">
+                                                <div class="content">
+                                                    <div class="center">
+                                                        <div class="ui inverted button">Xem</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 170px">
+                                        </div>
+                                        <center>
+                                            <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>1</button>
+                                                <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>1</button>
+                                            </div>
+                                        </center>
+                                        <div class="content">
+                                            <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                            <br />
+                                            <a style="color: brown">Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                            <div class="meta">
+                                                <span class="date">Created in Sep 2014</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <script>
+                        $('.special.cards .image').dimmer({
+                            on: 'hover'
+                        });
+                    </script>
+                    <!-- pagination -->
+                    <div class="pagination-wrapper mt-5">
+                        <ul class="page-pagination">
+                            <li><span aria-current="page" class="page-numbers current">1</span></li>
+                            <li><a class="page-numbers" href="#url">2</a></li>
+                            <li><a class="page-numbers" href="#url">3</a></li>
+                            <li><a class="page-numbers" href="#url">4</a></li>
+                            <li><a class="page-numbers" href="#url">....</a></li>
+                            <li><a class="page-numbers" href="#url">15</a></li>
+                            <li><a class="next" href="#url"><span class="fa fa-angle-right"></span></a></li>
+                        </ul>
+                    </div>
+                    <!-- //pagination -->
                 </div>
-                @Html.Action("Top8Cat", "Home")
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="section-tittle text-center mt-20">
-                            <a href="courses.html" class="border-btn">View More Subjects</a>
+                <div class="col-lg-3 trending mt-lg-0 mt-5 mb-lg-5 border">
+                    <div class="pos-sticky" style="padding: 10px">
+                        <h3 class="section-title-left">Code nổi bậc </h3>
+                        <div class="row">
+                            @for (var i = 0; i < 10; i++)
+                            {
+                                <div class="row mt-2">
+                                    <div class="col-lg-4">
+                                        <img src="https://sharecode.vn/FilesUpload/Code/code-web-ban-hang---web-ban-ruou-kem-bao-cao-145251.jpg" style="width: 100%; height: 70px">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                                        <br />
+                                        <a>Code Web bán hàng - web bán rượu (kèm báo cáo)</a>
+                                        <br />
+                                        <i class="fa fa-download text-primary">&nbsp;</i>1
+                                        <i class="fa fa-eye text-dark">&nbsp;</i>1
+                                        <i class="fa fa-heart text-danger">&nbsp;</i>1
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                            }
                         </div>
+                        
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
+
+            <!-- //block-->
+            <!-- ad block -->
+            <div class="ad-block text-center mt-5">
+                <a href="#url"><img src="~/Content/Layout/img/ad.gif" class="img-fluid" alt="ad image" /></a>
+            </div>
+            <!-- //ad block -->
+
         </div>
-        <div class="courses-area section-padding40 fix">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Our featured courses</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="courses-actives">
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="~/Content/Layout/img/gallery/featured1.png" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>
-                                    The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="~/Content/Layout/img/gallery/featured2.png" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>
-                                    The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single -->
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="~/Content/Layout/img/gallery/featured3.png" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>
-                                    The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
-                    <!-- Single -->
-                    <div class="properties pb-20">
-                        <div class="properties__card">
-                            <div class="properties__img overlay1">
-                                <a href="#"><img src="~/Content/Layout/img/gallery/featured2.png" alt=""></a>
-                            </div>
-                            <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>
-                                    The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
-                                    </div>
-                                    <div class="price">
-                                        <span>$135</span>
-                                    </div>
-                                </div>
-                                <a href="#" class="border-btn border-btn2">Find out more</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Single -->
-                </div>
-            </div>
-        </div>
-        <!-- Courses area End -->
-        <!--? About Area-1 Start -->
-        <section class="about-area1 fix pt-10">
-            <div class="support-wrapper align-items-center">
-                <div class="left-content1">
-                    <div class="about-icon">
-                        <img src="~/Content/Layout/img/icon/about.svg" alt="">
-                    </div>
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-55">
-                        <div class="front-text">
-                            <h2 class="">@custom.ct_11</h2>
-                            <p>
-                                @custom.ct_12
-                            </p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>@custom.ct_13</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>@custom.ct_14</p>
-                        </div>
-                    </div>
-
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>@custom.ct_15</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="right-content1">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="~/Content/Layout/img/gallery/about.png" alt="">
-
-                        <div class="video-icon">
-                            <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i class="fas fa-play"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Area End -->
-        <!--? top subjects Area Start -->
-        <!-- top subjects End -->
-        <!--? About Area-3 Start -->
-        <section class="about-area3 fix">
-            <div class="support-wrapper align-items-center">
-                <div class="right-content3">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="~/Content/Layout/img/gallery/about3.png" alt="">
-                    </div>
-                </div>
-                <div class="left-content3">
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-20">
-                        <div class="front-text">
-                            <h2 class="">@custom.ct_17</h2>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>@custom.ct_18</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>
-                                @custom.ct_19
-                            </p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="~/Content/Layout/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>
-                                @custom.ct_20
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Area End -->
-        <!--? Team -->
-        <section class="team-area section-padding40 fix">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>@custom.ct_21</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-active">
-                    <div class="single-cat text-center">
-                        <div class="cat-icon">
-                            <img src="~/Content/Layout/img/gallery/team1.png" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="services.html">Mr. Urela</a></h5>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                    <div class="single-cat text-center">
-                        <div class="cat-icon">
-                            <img src="~/Content/Layout/img/gallery/team2.png" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="services.html">Mr. Uttom</a></h5>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                    <div class="single-cat text-center">
-                        <div class="cat-icon">
-                            <img src="~/Content/Layout/img/gallery/team3.png" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="services.html">Mr. Shakil</a></h5>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                    <div class="single-cat text-center">
-                        <div class="cat-icon">
-                            <img src="~/Content/Layout/img/gallery/team4.png" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="services.html">Mr. Arafat</a></h5>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                    <div class="single-cat text-center">
-                        <div class="cat-icon">
-                            <img src="~/Content/Layout/img/gallery/team3.png" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="services.html">Mr. saiful</a></h5>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Services End -->
-        <!--? About Area-2 Start -->
-        <section class="about-area2 fix pb-padding">
-            <div class="support-wrapper align-items-center">
-                <div class="right-content2">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="~/Content/Layout/img/gallery/about2.png" alt="">
-                    </div>
-                </div>
-                <div class="left-content2">
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-20">
-                        <div class="front-text">
-                            <h2 class="">
-                                @custom.ct_22
-                            </h2>
-                            <p>@custom.ct_23</p>
-                            <a href="#" class="btn">Join now for Free</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Area End -->
-    </main>
-    <footer>
-        <div class="footer-wrappper footer-bg">
-            <!-- Footer Start-->
-            <div class="footer-area footer-padding">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <div class="single-footer-caption mb-30">
-                                    <!-- logo -->
-                                    <div class="footer-logo mb-25">
-                                        <a href="index.html"><img src="~/Content/Layout/img/logo/logo2_footer.png" alt=""></a>
-                                    </div>
-                                    <div class="footer-tittle">
-                                        <div class="footer-pera">
-                                            <p>The automated process starts as soon as your clothes go into the machine.</p>
-                                        </div>
-                                    </div>
-                                    <!-- social -->
-                                    <div class="footer-social">
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                        <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Our solutions</h4>
-                                    <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Support</h4>
-                                    <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Company</h4>
-                                    <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- footer-bottom area -->
-            <div class="footer-bottom-area">
-                <div class="container">
-                    <div class="footer-border">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-xl-12 ">
-                                <div class="footer-copy-right text-center">
-                                    <p>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;
-                                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End-->
-        </div>
-    </footer>
-    <!-- Scroll Up -->
-    <div id="back-top">
-        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
+    <!-- footer -->
+    <footer class="w3l-footer-16">
+        <div class="footer-content py-lg-5 py-4 text-center">
+            <div class="container">
+                <div class="copy-right">
+                    <h6>
+                        © 2020 Design Blog . Made with <span class="fa fa-heart" aria-hidden="true"></span>, Designed by
+                        <a href="https://w3layouts.com">W3layouts</a>
+                    </h6>
+                </div>
+                <ul class="author-icons mt-4">
+                    <li>
+                        <a class="facebook" href="#url"><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                    </li>
+                    <li><a class="twitter" href="#url"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
+                    <li>
+                        <a class="google" href="#url"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
+                    </li>
+                    <li><a class="linkedin" href="#url"><span class="fa fa-linkedin" aria-hidden="true"></span></a></li>
+                    <li><a class="github" href="#url"><span class="fa fa-github" aria-hidden="true"></span></a></li>
+                    <li><a class="dribbble" href="#url"><span class="fa fa-dribbble" aria-hidden="true"></span></a></li>
+                </ul>
+                <button onclick="topFunction()" id="movetop" title="Go to top">
+                    <span class="fa fa-angle-up"></span>
+                </button>
+            </div>
+        </div>
 
+        <!-- move top -->
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- //move top -->
+    </footer>
+    <!-- //footer -->
+    <!-- Template JavaScript -->
+    <script src="~/Content/Layout/js/theme-change.js"></script>
+
+    <script src="~/Content/Layout/js/jquery-3.3.1.min.js"></script>
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+
+    <script src="~/Content/Layout/js/bootstrap.min.js"></script>
     @Html.Action("Modal", "View")
     @Html.Action("Val", "View")
-
-    <!-- JS here -->
-    <script src="~/Content/Layout/js/vendor/modernizr-3.5.0.min.js"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="~/Content/Layout/js/vendor/jquery-1.12.4.min.js"></script>
-
-    <script src="~/Content/Layout/js/popper.min.js"></script>
-    <script src="~/Content/Layout/js/bootstrap.min.js"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="~/Content/Layout/js/jquery.slicknav.min.js"></script>
-
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="~/Content/Layout/js/owl.carousel.min.js"></script>
-    <script src="~/Content/Layout/js/slick.min.js"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="~/Content/Layout/js/wow.min.js"></script>
-    <script src="~/Content/Layout/js/animated.headline.js"></script>
-    <script src="~/Content/Layout/js/jquery.magnific-popup.js"></script>
-
-    <!-- Date Picker -->
-    <script src="~/Content/Layout/js/gijgo.min.js"></script>
-    <!-- Nice-select, sticky -->
-    <script src="~/Content/Layout/js/jquery.nice-select.min.js"></script>
-    <script src="~/Content/Layout/js/jquery.sticky.js"></script>
-    <!-- Progress -->
-    <script src="~/Content/Layout/js/jquery.barfiller.js"></script>
-
-    <!-- counter , waypoint,Hover Direction -->
-    <script src="~/Content/Layout/js/jquery.counterup.min.js"></script>
-    <script src="~/Content/Layout/js/waypoints.min.js"></script>
-    <script src="~/Content/Layout/js/jquery.countdown.min.js"></script>
-    <script src="~/Content/Layout/js/hover-direction-snake.min.js"></script>
-
-    <!-- contact js -->
-    <script src="~/Content/Layout/js/contact.js"></script>
-    <script src="~/Content/Layout/js/jquery.form.js"></script>
-    <script src="~/Content/Layout/js/jquery.validate.min.js"></script>
-    <script src="~/Content/Layout/js/mail-script.js"></script>
-    <script src="~/Content/Layout/js/jquery.ajaxchimp.min.js"></script>
-
-    <!-- Jquery Plugins, main Jquery -->
-    <script src="~/Content/Layout/js/plugins.js"></script>
-    <script src="~/Content/Layout/js/main.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
+
 </html>

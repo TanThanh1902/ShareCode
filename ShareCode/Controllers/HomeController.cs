@@ -30,7 +30,7 @@ namespace ShareCode.Controllers
         }
         public ActionResult Top8Cat()
         {
-            List<tblCategory> categories = db.tblCategories.Take(8).ToList();
+            List<tblCategory> categories = db.tblCategories.Take(10).ToList();
             return PartialView(categories);
         }
     }
