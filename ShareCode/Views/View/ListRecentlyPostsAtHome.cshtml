@@ -1,0 +1,40 @@
+﻿@using ShareCode.Models;
+@model List<tblPost>
+
+<h3 class="section-title-left">@ViewBag.TitleRecentlyAtHome </h3>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 mt-3">
+            <div class="ui special cards">
+                <div class="card">
+                    <div class="blurring dimmable image">
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <a href="@Url.Action("Details", "Posts", new { id = item.Post_ID})" class="ui inverted button">Xem</a>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="~/Content/Layout/img/post/@item.Post_Avata" style="width: 100%; height: 170px">
+                    </div>
+                    <center>
+                        <div class="btn-group w-100" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-download">&nbsp;</i>@item.Post_CountDownLoad</button>
+                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-eye">&nbsp;</i>@item.Post_View</button>
+                            <button type="button" class="btn btn-secondary" style="border-radius: 0px 0px 0px 0px"><i class="fa fa-heart">&nbsp;</i>@item.Post_Favorite</button>
+                        </div>
+                    </center>
+                    <div class="content">
+                        <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                        <br />
+                        <a style="color: brown">@item.Post_Title</a>
+                        <div class="meta">
+                            <span class="date">@item.Post_DateCreate.Value.ToLongDateString()</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

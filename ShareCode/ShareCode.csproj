@@ -2534,6 +2534,7 @@
     <Content Include="Views\Repplies\Details.cshtml" />
     <Content Include="Views\Repplies\Edit.cshtml" />
     <Content Include="Views\Repplies\Index.cshtml" />
+    <Content Include="Views\View\ListRecentlyPostsAtHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
