@@ -3,59 +3,148 @@
 
     DBShareCodeEntities db = new DBShareCodeEntities();
 }
-<div class="menu-wrapper d-flex align-items-center justify-content-end">
+<header class="w3l-header sticky-top" style="background-color: white">
+    <!--/nav-->
+    <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-pencil-square-o"></span> TanThanh.com
+            </a>
+            <!-- if logo is image enable this
+                <a class="navbar-brand" href="#index.html">
+                    <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                </a> -->
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <span class="fa icon-expand fa-bars"></span>
+                <span class="fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/"><i class="fa fa-home"></i></a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Danh mục <span class="fa fa-angle-down"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item " href="lifestyle.html">Lifestyle posts</a>
+                            <a class="dropdown-item" href="culture.html">Culture posts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Thể loại <span class="fa fa-angle-down"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item " href="lifestyle.html">Lifestyle posts</a>
+                            <a class="dropdown-item" href="culture.html">Culture posts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Code <span class="fa fa-angle-down"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item " href="lifestyle.html">Lifestyle posts</a>
+                            <a class="dropdown-item" href="culture.html">Culture posts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Tin tức</a>
+                    </li>
+                </ul>
+
+                <!--/search-right-->
+                <div class="search-right mt-lg-0 mt-2">
+                    <a href="#search" title="search"><span class="fa fa-search" aria-hidden="true"></span></a>
+                    <!-- search popup -->
+                    <div id="search" class="pop-overlay">
+                        <div class="popup">
+                            <h3 class="hny-title two">Search here</h3>
+                            <form action="#" method="Get" class="search-box">
+                                <input type="search" placeholder="Search for blog posts" name="search"
+                                       required="required" autofocus="">
+                                <button type="submit" class="btn">Search</button>
+                            </form>
+                            <a class="close" href="#close">×</a>
+                        </div>
+                    </div>
+                    <!-- /search popup -->
+                </div>
+                <!--//search-right-->
+                <!-- author -->
+                @if (Session["member"] != null)
+                {
+                    tblUser user = (tblUser)Session["member"];
+                    <div class="header-author d-flex ml-lg-4 pl-2 mt-lg-0 mt-3">
+                        <a class="img-circle img-circle-sm" href="#author">
+                            <img src="~/Content/Layout/img/author.jpg" class="img-fluid" alt="...">
+                        </a>
+                        <div class="align-self ml-3">
+                            <a href="#author">
+                                <h5>Chào: @user.User_DisplayName (0 xu)</h5>
+                            </a>
+                            <div class="ui simple dropdown item">
+                                Tài khoản
+                                <i class="dropdown icon"></i>
+                                <div class="menu" style=" margin-left: -119px;">
+                                    <a href="/User/MyInfo" class="item" style="width: 210px;"><i class="fa fa-user"></i>&nbsp;Thông tin cá nhân</a>
+                                    <a href="@Url.Action("MyPosts", "Posts")" class="item" style="width: 210px;"><i class="fa fa-upload">&nbsp;</i>Code tải lên</a>
+                                    <a href="@Url.Action("PostsCollection", "Posts")" class="item" style="width: 210px;"><i class="fas fa-heart">&nbsp;</i>Code đã lưu</a>
+                                    <a href="@Url.Action("PostBought", "Posts")" class="item" style="width: 210px;"><i class="fa fa-dollar-sign">&nbsp;</i>Code đã mua</a>
+                                    <div class="item" style="width: 210px;">Doanh thu</div>
+                                    <div class="item" style="width: 210px;">Lịch sử nạp xu</div>
+                                    <div class="item" style="width: 210px;">Rút tiền</div>
+                                    <div class="item" style="width: 210px;">Bình luận</div>
+                                    <a href="@Url.Action("ResetPassword", "User")" class="item" style="width: 210px;"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</a>
+                                    <div class="item" style="width: 210px;">Trợ giúp</div>
+                                    <a class="item" href="@Url.Action("LogOut","User")"><i class="sign out alternate icon">&nbsp;</i>Đăng xuất</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="header-author d-flex ml-lg-4 pl-2 mt-lg-0 mt-3">
+                        <a href="" data-toggle="modal" data-target="#login" class="btn btn-danger">Đăng nhập</a>
+                    </div>
+                }
+                <!-- // author-->
+            </div>
+
+            <!-- toggle switch for light and dark theme -->
+            
+            <!-- //toggle switch for light and dark theme -->
+        </div>
+
+    </nav>
+    <!--//nav-->
+    <!-- //header -->
+
+</header>
+<!--<div class="menu-wrapper d-flex align-items-center justify-content-end">-->
     <!-- Main-menu -->
-    <div class="main-menu d-none d-lg-block">
+    <!--<div class="main-menu d-none d-lg-block">
         <nav>
             <ul id="navigation">
                 <li class="active"><a href="/Home/Index">Trang chủ</a></li>
                 <li><a href="@Url.Action("TopPosts", "Posts")">Top code</a></li>
                 <li><a href="@Url.Action("QualityPosts", "Posts")">Code chất lượng</a></li>
                 <li><a href="@Url.Action("ReferPosts", "Posts")">Code tham thảo</a></li>
-                <li><a href="@Url.Action("FreePosts", "Posts")">Code miễn phí</a></li>
+                <li><a href="@Url.Action("FreePosts", "Posts")">Code miễn phí</a></li>-->
                 <!-- Button -->
-                @if (Session["member"] != null)
-                {
-                    tblUser user = (tblUser)Session["member"];
-                    <li>
-                        <div class="bg-white" style="border-radius: 50%; border: 2px solid gray; width:50px; height: 50px">
-                            <img src="~/Images/User/man-300x300.png" style="width: 50px; height: 50px" />
-                        </div>
-                    </li>
-                    <li class="text-white font-weight-bold mt-4" style="margin-left: 10px;">
-                        <div class="nav-link">
-                            <div class="ui compact">
-                                <div class="ui simple dropdown item">
-                                    <b class="font-weight-bold text-white">Chào: @user.User_DisplayName (0 xu)</b>
-                                    <br />
-                                    Tài khoản
-                                    <i class="dropdown icon"></i>
-                                    <div class="menu" style=" margin-left: -119px;">
-                                        <a href="/User/MyInfo" class="item" style="width: 210px;"><i class="fa fa-user"></i>&nbsp;Thông tin cá nhân</a>
-                                        <a href="@Url.Action("MyPosts", "Posts")" class="item" style="width: 210px;"><i class="fa fa-upload">&nbsp;</i>Code tải lên</a>
-                                        <a href="@Url.Action("PostsCollection", "Posts")" class="item" style="width: 210px;"><i class="fas fa-heart">&nbsp;</i>Code đã lưu</a>
-                                        <a href="@Url.Action("PostBought", "Posts")" class="item" style="width: 210px;"><i class="fa fa-dollar-sign">&nbsp;</i>Code đã mua</a>
-                                        <div class="item" style="width: 210px;">Doanh thu</div>
-                                        <div class="item" style="width: 210px;">Lịch sử nạp xu</div>
-                                        <div class="item" style="width: 210px;">Rút tiền</div>
-                                        <div class="item" style="width: 210px;">Bình luận</div>
-                                        <a href="@Url.Action("ResetPassword", "User")" class="item" style="width: 210px;"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</a>
-                                        <div class="item" style="width: 210px;">Trợ giúp</div>
-                                        <a class="item" href="@Url.Action("LogOut","User")"><i class="sign out alternate icon">&nbsp;</i>Đăng xuất</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    @*<li class="button-header"><a href="" class="btn btn3"><i class="fa fa-user">&nbsp;</i></a></li>
-                    <li class="button-header"><a href="" class="btn btn3"><i class="fa fa-sign-out-alt">&nbsp;</i>Đăng xuất</a></li>*@
-                }
-                else
-                {
-                    <li class="button-header"><a href="" data-toggle="modal" data-target="#login" class="btn btn3"><i class="fa fa-user">&nbsp;</i>Đăng nhập</a></li>
-                }
-                <li class="button-header margin-left"><a href="@Url.Action("Create", "Posts")" class="btn"  style="font-size: 12px"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
+                
+                <!--<li class="button-header margin-left"><a href="@Url.Action("Create", "Posts")" class="btn"  style="font-size: 12px"><i class="fa fa-upload">&nbsp;</i>Tải code</a></li>
             </ul>
         </nav>
     </div>
-</div>
+</div>-->
