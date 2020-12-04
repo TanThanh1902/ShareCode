@@ -7,18 +7,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ShareCode.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ShareCode.Controllers
 {
     public class ReppliesController : Controller
     {
         private DBShareCodeEntities db = new DBShareCodeEntities();
-
+        private const int PAGE_SIZE = 7;
         // GET: Repplies
         public ActionResult Index()
         {
             var tblRepplies = db.tblRepplies.Include(t => t.tblComment).Include(t => t.tblUser);
             return View(tblRepplies.ToList());
+        }
+
+        public ActionResult GetRepliesByCmtId(int? pagerep, int? id)
+        {
+            if(id == null)
+            {
+                return HttpNotFound();
+            }
+            IPagedList<tblRepply> replies = db.tblRepplies.Where(t => t.Rep_Comment == id).OrderByDescending(t => t.Rep_DatePost).ToPagedList(pagerep ?? 1, PAGE_SIZE);
+            return PartialView(replies);
         }
 
         // GET: Repplies/Details/5

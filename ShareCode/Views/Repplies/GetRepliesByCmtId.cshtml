@@ -1,0 +1,11 @@
+﻿@using ShareCode.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblRepply>
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li><span>@item.Rep_Contents</span></li>
+    }
+</ul>
+
