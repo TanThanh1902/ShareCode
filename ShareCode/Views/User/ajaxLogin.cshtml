@@ -1,42 +1,14 @@
 ﻿@model ShareCode.Models.ViewLogin
-@{
-
-    if (Session["memberLoad"] != null)
-    {
-        <script>
-            window.location.reload();
-        </script>
-
-        Session["memberLoad"] = null;
-    }
-}
-
-<button class="ui facebook button w-100" style="font-size: 15px">
-    <i class="facebook icon"></i>
-    Facebook
-</button>
-<button class="ui google plus button mt-2 w-100" style="font-size: 15px">
-    <i class="google plus icon"></i>
-    Google
-</button>
-<hr />
-<p>Bạn chưa có tài khoản? <a href="@Url.Action("Register","User")" class="text-success">Đăng ký ngay</a></p>
-@using (Ajax.BeginForm("LogIn", "User", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "ajaxNotifiLogin" }))
+@if (ViewBag.tbsai)
 {
-    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
-    <input type="hidden" name="TypeLogin" value="1" />
-    <div class="field">
-        <label>Email</label>
-        <input type="email" name="Email" placeholder="Nhập Email" class="form-control" value="@Model.Email" />
+    <div class="ui error message">
+        <span>Sai tài khoản hoặc mật khẩu!</span>
     </div>
-    <div class="field">
-        <label>Mật khẩu</label>
-        <input type="password" name="Password" placeholder="Nhập mật khẩu" class="form-control" value="@Model.Password" />
-    </div>
-    <div class="field">
-        <input type="checkbox" name="RememberMe" checked /> Nhớ tôi
-        <b style="font-size: 12px"><a>Quên mật khẩu?</a></b>
-    </div>
-    <div class="ui error message">@ViewBag.NotificationLogin</div>
-    <button class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
+}
+else
+{
+    <input type="hidden" value="@Model.ReturnUrl" id="reurl" />
+    <script>
+        window.location.href = document.getElementById("reurl").value;
+    </script>
 }

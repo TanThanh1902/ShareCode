@@ -29,6 +29,7 @@ namespace ShareCode.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.postid = id;
             ViewBag.countCommnent = db.tblComments.Where(t => t.Comment_Post == id).Count();
             IPagedList<tblComment> comments = db.tblComments.Where(t => t.Comment_Post == id).OrderByDescending(t => t.Comment_DatePost).ToPagedList(pagecmt ?? 1, PAGE_SIZE);
             return PartialView(comments);
@@ -75,7 +76,7 @@ namespace ShareCode.Controllers
                 db.tblComments.Add(tblComment);
                 db.SaveChanges();
                 ViewBag.postid = tblComment.Comment_Post;
-                return View();
+                return RedirectToAction("GetCommentByPostId", new { id = tblComment.Comment_Post});
             }
             return PartialView(tblComment);
         }

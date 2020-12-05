@@ -56,20 +56,12 @@ namespace ShareCode.Controllers
             tblUser logUser = db.tblUsers.SingleOrDefault(t => t.User_Email == log.Email && t.User_Password == log.Password);
             if (logUser != null)
             {
+                ViewBag.tbsai = false;
                 Session["member"] = logUser;
-                Session["memberLoad"] = logUser;
-                if(log.TypeLogin == 1)
-                {
-                    return PartialView("ajaxLogin", log);
-                }
-                return Redirect(log.ReturnUrl);
-            }
-            ViewBag.NotificationLogin = "Sai tài khoản hoặc mật khẩu";
-            if(log.TypeLogin == 1)
-            {
                 return PartialView("ajaxLogin", log);
             }
-            return View("Register", log);
+            ViewBag.tbsai = true;
+            return PartialView("ajaxLogin", log);
         }
 
         public ActionResult LogOut()

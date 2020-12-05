@@ -8,7 +8,7 @@
                     <span aria-hidden="true" style="color: white">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="ajaxNotifiLogin">
+            <div class="modal-body">
                 <button class="ui facebook button w-100" style="font-size: 15px">
                     <i class="facebook icon"></i>
                     Facebook
@@ -19,7 +19,7 @@
                 </button>
                 <hr />
                 <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register","User")" class="text-success">Đăng ký ngay</a></p>
-                @using (Ajax.BeginForm("LogIn", "User", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "ajaxNotifiLogin" }))
+                @using (Ajax.BeginForm("Login", "User", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "ajaxNotifiLogin" }))
                 {
                     <input type="hidden" name="ReturnUrl" value="@HttpContext.Current.Request.Url.AbsoluteUri" />
                     <input type="hidden" name="TypeLogin" value="1" />
@@ -35,7 +35,8 @@
                         <input type="checkbox" name="RememberMe" checked /> Nhớ tôi
                         <b style="font-size: 12px"><a>Quên mật khẩu?</a></b>
                     </div>
-                    <div class="ui error message"></div>
+                    <div id="ajaxNotifiLogin"></div>
+                    <hr />
                     <button type="submit" class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
                 }
             </div>
