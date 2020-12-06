@@ -64,11 +64,12 @@ namespace ShareCode.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Comment_ID,Comment_Contents,Comment_User,Comment_Post,Comment_DatePost")] tblComment tblComment)
         {
-            if (Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
                 return Redirect("/User/Login");
             }
-            tblUser user = (tblUser)Session["member"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             if (ModelState.IsValid)
             {
                 tblComment.Comment_User = user.User_ID;

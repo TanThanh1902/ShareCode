@@ -18,7 +18,8 @@ namespace ShareCode.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            tblUser user = (tblUser)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             tblFavorite favorite = new tblFavorite()
             {
                 Favorite_User = user.User_ID,
@@ -38,7 +39,8 @@ namespace ShareCode.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            tblUser user = (tblUser)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             tblFavorite favorite = db.tblFavorites.SingleOrDefault(t => t.Favorite_Post == id && t.Favorite_User == user.User_ID);
             db.tblFavorites.Remove(favorite);
             db.tblPosts.Find(id).Post_Favorite--;
@@ -52,7 +54,8 @@ namespace ShareCode.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
-            tblUser user = (tblUser)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             tblDownLoad downLoad = new tblDownLoad()
             {
                 DownLoad_Post = id,

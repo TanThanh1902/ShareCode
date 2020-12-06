@@ -1983,7 +1983,7 @@
     <Content Include="Content\Layout\fonts\Flaticon.svg" />
     <Content Include="Content\Layout\fonts\gijgo-material.svg" />
     <Content Include="Content\Layout\fonts\themify.svg" />
-    <Content Include="Content\Layout\img\blog\author.png" />
+    <Content Include="Content\Layout\img\users\author.png" />
     <Content Include="Content\Layout\img\blog\comment_1.png" />
     <Content Include="Content\Layout\img\blog\comment_2.png" />
     <Content Include="Content\Layout\img\blog\comment_3.png" />
@@ -2535,8 +2535,8 @@
     <Content Include="Views\Repplies\Edit.cshtml" />
     <Content Include="Views\Repplies\Index.cshtml" />
     <Content Include="Views\View\ListRecentlyPostsAtHome.cshtml" />
-    <Content Include="Views\Repplies\GetRepliesByCmyId.cshtml" />
     <Content Include="Views\Repplies\GetRepliesByCmtId.cshtml" />
+    <Content Include="Views\User\EditInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -160,7 +160,7 @@
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li>
-                                        <a href="#!">
+                                        <a href="#!" onclick="successCheck()">
                                             <i class="ti-settings"></i> Settings
                                         </a>
                                     </li>
@@ -276,18 +276,7 @@
     <script src="~/Content/LayoutAdmin/js/pcoded.min.js"></script>
     <script src="~/Content/LayoutAdmin/js/demo-12.js"></script>
     <script src="~/Content/LayoutAdmin/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script>
-        var $window = $(window);
-        var nav = $('.fixed-button');
-        $window.scroll(function () {
-            if ($window.scrollTop() >= 200) {
-                nav.addClass('active');
-            }
-            else {
-                nav.removeClass('active');
-            }
-        });
-    </script>
+    
 </body>
 
 </html>

@@ -215,22 +215,24 @@ namespace ShareCode.Controllers
         }
         public ActionResult MyPosts(int? page)
         {
-            if(Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
                 return Redirect("/User/Login");
             }
-            tblUser user = (tblUser)Session["member"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(posts);
         }
 
         public ActionResult PostBought(int? page)
         {
-            if (Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
                 return Redirect("/User/Login");
             }
-            tblUser user = (tblUser)Session["member"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             IPagedList<tblOrder> orders = db.tblOrders.Where(t => t.Order_User == user.User_ID).OrderByDescending(t => t.Order_DateAdd).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(orders);
         }
@@ -256,6 +258,12 @@ namespace ShareCode.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
+            {
+                return Redirect("/User/Login");
+            }
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             ViewBag.Post_Cat = new SelectList(db.tblCategories, "Cat_ID", "Cat_Name");
             ViewBag.Post_User = new SelectList(db.tblUsers, "User_ID", "User_DisplayName");
             ViewBag.Post_Group = new SelectList(db.tblGroupCodes, "Group_ID", "Group_Name");
@@ -271,7 +279,8 @@ namespace ShareCode.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost, HttpPostedFileBase fileimg, List<HttpPostedFileBase> fileimg_viewmoreimage)
         {
-            tblUser user = (tblUser)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             if (ModelState.IsValid)
             {
                 // add properties hidden
@@ -320,6 +329,12 @@ namespace ShareCode.Controllers
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
+            {
+                return Redirect("/User/Login");
+            }
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
