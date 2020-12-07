@@ -7,17 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ShareCode.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ShareCode.Controllers
 {
     public class BlogsController : Controller
     {
         private DBShareCodeEntities db = new DBShareCodeEntities();
-
+        private const int PAGE_SIZE = 20;
         // GET: Blogs
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.tblBlogs.ToList());
+            return View(db.tblBlogs.OrderByDescending(t => t.BLog_DatePost).ToPagedList(page ?? 1, PAGE_SIZE));
         }
 
         // GET: Blogs/Details/5
