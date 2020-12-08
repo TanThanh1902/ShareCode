@@ -10,7 +10,7 @@
         <div class="col-lg-8">
             <a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = item.Post_Cat})" class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>@item.tblCategory.Cat_Name</a>
             <br />
-            <a href="@Url.Action("Details", "Posts", new { id = item.Post_ID})">@item.Post_Title</a>
+            <a href="@Url.Action("Details", "Posts", new { id = item.Post_ID})">@(item.Post_Title.Length < 40 ? item.Post_Title : item.Post_Title.Substring(0,40)+"...")</a>
             <br />
             <i class="fa fa-download text-primary">&nbsp;</i>@item.Post_CountDownLoad
             <i class="fa fa-eye text-dark">&nbsp;</i>@item.Post_View

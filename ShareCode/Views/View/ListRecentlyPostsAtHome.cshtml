@@ -1,13 +1,13 @@
 ﻿@using ShareCode.Models;
 @model List<tblPost>
 
-<h3 class="section-title-left">@ViewBag.TitleRecentlyAtHome </h3>
+<h3 class="section-title-left" style="color: #00838f !important">@ViewBag.TitleRecentlyAtHome </h3>
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-lg-3 mt-3">
+        <div class="col-lg-3 mt-4">
             <div class="ui special cards">
-                <div class="card">
+                <div class="card w-100">
                     <div class="blurring dimmable image">
                         <div class="ui dimmer">
                             <div class="content">
@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img src="~/Content/Layout/img/post/@item.Post_Avata" style="width: 100%; height: 170px">
+                        <img src="~/Content/Layout/img/post/@item.Post_Avata" style="width: 100%; height: 120px">
                     </div>
                     <center>
                         <div class="btn-group w-100" role="group" aria-label="Basic example">
@@ -28,7 +28,7 @@
                     <div class="content">
                         <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
                         <br />
-                        <a style="color: brown">@item.Post_Title</a>
+                        <a style="color: brown">@(item.Post_Title.Length < 40 ? item.Post_Title : item.Post_Title.Substring(0,40)+"...")</a>
                         <div class="meta">
                             <span class="date">@item.Post_DateCreate.Value.ToLongDateString()</span>
                         </div>
@@ -38,3 +38,4 @@
         </div>
     }
 </div>
+<br />
