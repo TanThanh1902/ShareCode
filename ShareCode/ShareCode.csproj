@@ -2577,6 +2577,7 @@
     <Content Include="Views\View\ListRecentlyPostsAtHome.cshtml" />
     <Content Include="Views\Repplies\GetRepliesByCmtId.cshtml" />
     <Content Include="Views\User\EditInfo.cshtml" />
+    <Content Include="Views\View\ListGenresSearchHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

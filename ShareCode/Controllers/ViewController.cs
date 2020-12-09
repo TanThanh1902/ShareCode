@@ -33,6 +33,11 @@ namespace ShareCode.Controllers
             List<tblCategory> categories = db.tblCategories.ToList();
             return PartialView(categories);
         }
+        public PartialViewResult ListGenresSearchHomePage()
+        {
+            List<tblGenre> genres = db.tblGenres.ToList();
+            return PartialView(genres);
+        }
         public PartialViewResult ListGroupCodeSearchHomePage()
         {
             List<tblGroupCode> groupCode = db.tblGroupCodes.ToList();

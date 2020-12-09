@@ -3,5 +3,5 @@
 
 @foreach (var item in Model)
 {
-    <option value="@item.Cat_ID">@item.Cat_Name</option>
+    <a class="dropdown-item " href="@Url.Action("FilterPostsByCatID", "Posts", new { id = item.Cat_ID})">@item.Cat_Name</a>
 }

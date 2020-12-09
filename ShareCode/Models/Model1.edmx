@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBShareCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -26,6 +26,7 @@
           <Property Name="BLog_User" Type="int" />
           <Property Name="Blog_View" Type="int" />
           <Property Name="BLog_DatePost" Type="datetime" />
+          <Property Name="Blog_Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -559,8 +560,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBShareCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -587,6 +587,7 @@
           <Property Name="BLog_DatePost" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblBlog" FromRole="tblBlog" ToRole="tblComment" />
           <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblBlog" FromRole="tblBlog" ToRole="tblReport" />
+          <Property Name="Blog_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -1143,6 +1144,7 @@
           <EntitySetMapping Name="tblBlogs">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblBlog">
               <MappingFragment StoreEntitySet="tblBlog">
+                <ScalarProperty Name="Blog_Image" ColumnName="Blog_Image" />
                 <ScalarProperty Name="BLog_ID" ColumnName="BLog_ID" />
                 <ScalarProperty Name="Blog_Title" ColumnName="Blog_Title" />
                 <ScalarProperty Name="Blog_Contents" ColumnName="Blog_Contents" />

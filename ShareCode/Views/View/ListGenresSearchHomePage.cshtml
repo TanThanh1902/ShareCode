@@ -1,0 +1,7 @@
+﻿@using ShareCode.Models;
+@model List<tblGenre>
+    
+@foreach(var item in Model)
+{
+    <a class="dropdown-item " href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = item.Genres_ID})">@item.Genres_Name</a>
+}

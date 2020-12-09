@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -82,10 +83,24 @@ namespace ShareCode.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_ID,User_DisplayName,User_Password,User_DateLogin,User_Active,User_Trash,User_Token,User_Role,User_Email,User_Avata,User_VIP,User_Phone,User_Point,User_Coin")] tblUser tblUser)
+        public ActionResult Edit([Bind(Include = "User_ID,User_DisplayName,User_Password,User_DateLogin,User_Active,User_Trash,User_Token,User_Role,User_Email,User_Avata,User_VIP,User_Phone,User_Point,User_Coin")] tblUser tblUser, HttpPostedFileBase file_img)
         {
             if (ModelState.IsValid)
             {
+                if (file_img != null)
+                {
+                    // delete old image
+                    if (tblUser.User_Avata != null)
+                    {
+                        string fullPath = Request.MapPath("~/Content/Layout/img/users/" + tblUser.User_Avata);
+                        System.IO.File.Delete(fullPath);
+                    }
+                    // update new image
+                    var img = Guid.NewGuid().ToString() + Path.GetExtension(file_img.FileName);
+                    var pathimg = Path.Combine(Server.MapPath("~/Content/Layout/img/users"), img);
+                    file_img.SaveAs(pathimg);
+                    tblUser.User_Avata = img;
+                }
                 db.Entry(tblUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,27 +110,9 @@ namespace ShareCode.Areas.Admin.Controllers
         }
 
         // GET: Admin/tblUsersAdmin/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblUser tblUser = db.tblUsers.Find(id);
-            if (tblUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblUser);
-        }
-
-        // POST: Admin/tblUsersAdmin/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            tblUser tblUser = db.tblUsers.Find(id);
-            db.tblUsers.Remove(tblUser);
+            db.tblUsers.Find(id).User_Trash = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

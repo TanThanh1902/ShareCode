@@ -33,13 +33,16 @@ namespace ShareCode.Controllers
                     User_Role = 1,
                     User_Active = true,
                     User_Trash = false,
-                    User_Token = Guid.NewGuid().ToString()
+                    User_Token = Guid.NewGuid().ToString(),
+                    User_VIP = 0,
+                    User_Coin = 0,
+                    User_Point = 0
                 };
 
                 db.tblUsers.Add(user);
                 db.SaveChanges();
 
-                tblUser logUser = db.tblUsers.SingleOrDefault(t => t.User_Email == register.Email && t.User_Password == register.Password);
+                tblUser logUser = db.tblUsers.SingleOrDefault(t => t.User_Email == register.Email && t.User_Password == register.Password && t.User_Trash == false);
 
                 HttpCookie cookie = new HttpCookie("member_id", logUser.User_ID.ToString());
                 cookie.Expires.AddDays(10);
@@ -58,7 +61,7 @@ namespace ShareCode.Controllers
         [HttpPost]
         public ActionResult Login(ViewLogin log)
         {
-            tblUser logUser = db.tblUsers.SingleOrDefault(t => t.User_Email == log.Email && t.User_Password == log.Password);
+            tblUser logUser = db.tblUsers.SingleOrDefault(t => t.User_Email == log.Email && t.User_Password == log.Password && t.User_Trash == false);
             if (logUser != null)
             {
                 ViewBag.tbsai = false;
