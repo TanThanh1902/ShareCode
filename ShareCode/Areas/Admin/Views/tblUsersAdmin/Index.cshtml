@@ -21,6 +21,7 @@
                         <i class="icofont icofont-file-code bg-c-blue"></i>
                         <div class="d-inline">
                             <h4>@ViewBag.Title</h4>
+                            Có tổng cộng <b>@Model.Count()</b> tài khoản
                         </div>
 
                     </div>
@@ -29,15 +30,12 @@
                     <div class="page-header-breadcrumb">
                         <ul class="breadcrumb-title">
                             <li class="breadcrumb-item">
-                                <a href="index.html">
+                                <a href="/Admin/HomeAdmin/Index">
                                     <i class="icofont icofont-home"></i>
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
+                                <a href="/Admin/tblUsersAdmin/Index">@ViewBag.Title</a>
                             </li>
                         </ul>
                     </div>
@@ -53,67 +51,15 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <label class="font-weight-bold">Tìm kiếm từ khóa</label>
-                                    <input type="text" class="form-control w-100" placeholder="Mã người dùng" ng-model="textSearch.id" />
+                                <div class="col-lg-10">
+                                    <button class="btn btn-success" onclick="window.location.href='/Admin/tblUsersAdmin/create'"><i class="fa fa-plus"></i>Thêm người dùng</button>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label class="font-weight-bold">Tình trạng</label>
-                                    <select class="form-control" ng-model="textSearch.ac">
-                                        <option value="">Tất cả</option>
-                                        <option value="True">Hoạt động</option>
-                                        <option value="False">Không hoạt động</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="font-weight-bold">Thùng rác</label>
-                                    <select class="form-control" ng-model="textSearch.del">
+                                <div class="col-lg-2">
+                                    <select class="form-control" ng-model="textSearch.del" style="float: right">
                                         <option value="">Tất cả</option>
                                         <option value="False">Không thùng rác</option>
                                         <option value="True">Thùng rác</option>
                                     </select>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="font-weight-bold">Vai trò</label>
-                                    <select class="form-control" ng-model="textSearch.role">
-                                        <option value="">Tất cả</option>
-                                        @foreach (var item in tblRole)
-                                        {
-                                            <option value="@item.Role_Name">@item.Role_Name</option>
-                                        }
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 mt-3">
-                                    <label class="font-weight-bold">Email</label>
-                                    <input type="text" class="form-control w-100" placeholder="Nhập email" ng-model="textSearch.email" />
-                                </div>
-                                <div class="col-lg-3  mt-3">
-                                    <label class="font-weight-bold">Số điện thoại</label>
-                                    <input type="text" class="form-control w-100" placeholder="Nhập số điện thoại" ng-model="textSearch.phone" />
-                                </div>
-                                <div class="col-lg-2 mt-3">
-                                    <label class="font-weight-bold text-primary">Ngày</label>
-                                    <select class="form-control" ng-model="textSearch.date">
-                                        <option value="">Tất cả</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 mt-3">
-                                    <label class="font-weight-bold text-primary">Tháng</label>
-                                    <select class="form-control" ng-model="textSearch.month">
-                                        <option value="">Tất cả</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 mt-3">
-                                    <label class="font-weight-bold text-primary">Năm</label>
-                                    <select class="form-control" ng-model="textSearch.year">
-                                        <option value="">Tất cả</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-lg-12 mt-3">
-                                    <button class="btn btn-success" onclick="window.location.href='/Admin/tblUsersAdmin/create'"><i class="fa fa-plus"></i>Thêm người dùng</button>
                                 </div>
                             </div>
 
@@ -128,36 +74,132 @@
                                     content: '\25b2';
                                 }
                             </style>
-                            <table class="table">
+                            <table class="table table-hover table-bordered table-striped">
                                 <thead class="bg-dark">
                                     <tr class="font-weight-bold">
                                         <td ng-click="sortBy('id')">Mã người dùng<span class="sortorder" ng-show="propertyName === 'id'" ng-class="{reverse: reverse}"></span></td>
                                         <td>Ảnh</td>
                                         <td ng-click="sortBy('name')">Tên người dùng<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span></td>
                                         <td ng-click="sortBy('email')">Email<span class="sortorder" ng-show="propertyName === 'Email'" ng-class="{reverse: reverse}"></span></td>
+                                        <td ng-click="sortBy('phone')">Số điên thoại<span class="sortorder" ng-show="propertyName === 'Email'" ng-class="{reverse: reverse}"></span></td>
                                         <td ng-click="sortBy('pass')">Mật khẩu<span class="sortorder" ng-show="propertyName === 'pass'" ng-class="{reverse: reverse}"></span></td>
-                                        <td ng-click="sortBy('ac')">Tình trang<span class="sortorder" ng-show="propertyName === 'ac'" ng-class="{reverse: reverse}"></span></td>
-                                        <td ng-click="sortBy('role')">Vai trò<span class="sortorder" ng-show="propertyName === 'role'" ng-class="{reverse: reverse}"></span>Tình trạng</td>
+                                        <td ng-click="sortBy('ac')">Tình trạng<span class="sortorder" ng-show="propertyName === 'ac'" ng-class="{reverse: reverse}"></span></td>
+                                        <td ng-click="sortBy('role')">Vai trò<span class="sortorder" ng-show="propertyName === 'role'" ng-class="{reverse: reverse}"></span></td>
+                                        <td>Ngày đăng nhập</td>
                                         <td><i class="fa fa-cog">&nbsp;</i></td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="user in user | filter:textSearch | orderBy:propertyName:reverse">
-                                        <td style="width: 50px">{{user.id}}</td>
-                                        <td><img style="width: 50px; height: 50px" src="~/Content/Layout/img/gallery/{{user.img}}" /></td>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.email}}</td>
-                                        <td>{{user.pass}}</td>
-                                        <td>{{user.ac}}</td>
-                                        <td>{{user.role}}</td>
+                                    <tr>
+                                        <td style="width: 30px">
+                                            <input type="text" class="form-control w-100" placeholder="Mã" ng-model="textSearch.id" />
+                                        </td>
+                                        <td></td>
                                         <td>
-                                            <a href="/Admin/tblusersAdmin/Details/{{user.id}}"><i class="fa fa-eye"></i></a> |
-                                            <a href="/Admin/tblusersAdmin/Edit/{{user.id}}"><i class="fa fa-edit"></i></a> |
-                                            <a href="/Admin/tblusersAdmin/Delete/{{user.id}}"><i class="fa fa-trash"></i></a>
+                                            <input type="text" class="form-control w-100" placeholder="Tên người dùng" ng-model="textSearch.name" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control w-100" placeholder="Nhập email" ng-model="textSearch.email" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control w-100" placeholder="Nhập số điện thoại" ng-model="textSearch.phone" />
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <select class="form-control" ng-model="textSearch.ac">
+                                                <option value="">Tất cả</option>
+                                                <option value="True">Hoạt động</option>
+                                                <option value="False">Không hoạt động</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="textSearch.role">
+                                                <option value="">Tất cả</option>
+                                                @foreach (var item in tblRole)
+                                                {
+                                                    <option value="@item.Role_Name">@item.Role_Name</option>
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control w-100" placeholder="Nhập email" ng-model="" />
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-repeat="todo in filteredTodos | filter:textSearch">
+                                        <td style="width: 50px">{{todo.id}}</td>
+                                        <td><img style="width: 50px; height: 50px" src="~/Content/Layout/img/gallery/{{todo.img}}" /></td>
+                                        <td>{{todo.name}}</td>
+                                        <td>{{todo.email}}</td>
+                                        <td>{{todo.phone}}</td>
+                                        <td>{{todo.pass}}</td>
+                                        <td>{{todo.ac}}</td>
+                                        <td>{{todo.role}}</td>
+                                        <td>{{todo.datelogin}}</td>
+                                        <td>
+                                            <a href="" data-toggle="modal" data-target="#verticalModal{{todo.id}}"><i class="fa fa-eye"></i></a> |
+                                            <a href="/Admin/tblusersAdmin/Edit/{{todo.id}}"><i class="fa fa-edit"></i></a> |
+                                            <a href="/Admin/tblusersAdmin/Delete/{{todo.id}}"><i class="fa fa-trash"></i></a>
+                                            <!--Xem chi tiết user-->
+                                            <div class="modal fade" id="verticalModal{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="verticalModalTitle"><b>Email:</b> {{todo.email}}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="badge-box">
+                                                                <div class="sub-title text-danger">
+                                                                    Thông tin đăng nhập
+
+                                                                </div>
+                                                                <ul>
+                                                                    <li><b>Email:</b> {{todo.email}}</li>
+                                                                    <li><b>Mật khẩu:</b> {{todo.pass}}</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="badge-box">
+                                                                <div class="sub-title text-danger">
+                                                                    Thông tin chung
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-3">
+                                                                        <img class="w-100" style="height: 150px" src="~/Content/Layout/img/gallery/{{todo.img}}" />
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <ul>
+                                                                            <li><b>Mã người dùng:</b> {{todo.id}}</li>
+                                                                            <li><b>Tên hiển thị:</b> {{todo.name}}</li>
+                                                                            <li><b>Số điện thoại:</b> {{todo.phone}}</li>
+                                                                            <li><b>Tình trạng:</b> {{todo.ac}}</li>
+                                                                            <li><b>Ngày đăng nhập:</b> {{todo.datelogin}}</li>
+                                                                            <li><b>Vai trò:</b> {{todo.role}}</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <center>
+                                <pagination ng-model="currentPage"
+                                            total-items="todos.length"
+                                            max-size="maxSize"
+                                            boundary-links="true">
+                                </pagination>
+                            </center>
                         </div>
                     </div>
                     <!-- Input Alignment card end -->
@@ -167,31 +209,32 @@
         <!-- Page body end -->
     </div>
 </div>
-@*<td>
-
-    </td>*@
 <script>
-    var app = angular
-        .module("myModule", [])
-        .controller("myControllerUser", function ($scope) {
+    var todos = angular.module('myModule', ['ui.bootstrap']);
 
-            var user = [
+    todos.controller('myControllerUser', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 5;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
                 @foreach(var item in Model.OrderByDescending(n=>n.User_DateLogin))
                 {
-                    @: { id: @item.User_ID,img: "@item.User_Avata",email: "@item.User_Email",name: "@item.User_DisplayName", role: "@item.tblRole.Role_Name", datelogin: "@item.User_DateLogin",ac: "@item.User_Active", del: "@item.User_Trash", pass: "@item.User_Password",phone: "@item.User_Phone" },
+                    @: { id: @item.User_ID, img: "@item.User_Avata", email: "@item.User_Email", name: "@item.User_DisplayName", role: "@item.tblRole.Role_Name", datelogin: "@item.User_DateLogin", ac: "@item.User_Active", del: "@item.User_Trash", pass: "@item.User_Password", phone: "@item.User_Phone" },
                 }
             ];
 
-            $scope.user = user;
-            $scope.propertyName = 'datelogin';
-            $scope.reverse = true;
-            $scope.user = user;
+        };
+        $scope.makeTodos();
 
-            $scope.sortBy = function (propertyName) {
-                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-                $scope.propertyName = propertyName;
-            };
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
 
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
         });
+    });
 </script>
 

@@ -4,7 +4,6 @@
     ViewBag.Title = "Thêm người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="main-body">
     <div class="page-wrapper">
         <!-- Page-header start -->
@@ -23,15 +22,12 @@
                     <div class="page-header-breadcrumb">
                         <ul class="breadcrumb-title">
                             <li class="breadcrumb-item">
-                                <a href="index.html">
+                                <a href="/Admin/tblUsersAdmin/Index">
                                     <i class="icofont icofont-home"></i>
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
+                                <a href="/Admin/tblUsersAdmin/create">@ViewBag.Title</a>
                             </li>
                         </ul>
                     </div>
@@ -41,153 +37,136 @@
         <!-- Page-header end -->
         <!-- Page body start -->
         <div class="page-body">
-            <div class="row" ng-controller="myController">
+            <div class="row">
                 <div class="col-sm-12">
                     <!-- Basic Form Inputs card start -->
                     <div class="card">
-                        <div class="card-header">
+                        
+                        <div class="card-block">
                             @using (Html.BeginForm())
                             {
                                 @Html.AntiForgeryToken()
 
-                            <div class="form-horizontal">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Ảnh đại diện</b>
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-lg-8">
-                                                <input type="file" accept="image/*" onchange="preview_image(event)" name="User_Avata" class="form-control">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <img id="output_image" src="~/Content/Layout/img/noimages.jpg" style="width: 100%; height: 200px" />
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Ảnh đại diện</b>
+                                        <div class="col-md-12">
+                                            <input type="file" accept="image/*" onchange="preview_image(event)" name="User_Avata" class="form-control">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Tên hiển thị</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Email</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Mật khẩu đăng nhập</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Số điện thoại</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Điểm</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_Point, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Xu</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_Coin, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Tình trạng</b>
+                                        <div class="col-md-12">
+                                            <select class="form-control" name="User_Active">
+                                                <option value="true">Hoạt động</option>
+                                                <option value="false">Không hoạt động</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.User_DateLogin, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User_DateLogin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User_DateLogin, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Thùng rác</b>
+                                        <div class="col-md-10">
+                                            <div class="checkbox">
+                                                @Html.EditorFor(model => model.User_Trash,new { htmlAttributes = new { @class = "form-control" } })
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        function preview_image(event) {
-                                            var reader = new FileReader();
-                                            reader.onload = function () {
-                                                var output = document.getElementById('output_image');
-                                                output.src = reader.result;
-                                            }
-                                            reader.readAsDataURL(event.target.files[0]);
-                                        }
-                                    </script>
 
-                                </div>
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Tên hiển thị</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                    @*<div class="form-group">
+                    @Html.LabelFor(model => model.User_Token, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User_Token, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User_Token, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Vai trò</b>
+                                        <div class="col-md-12">
+                                            @Html.DropDownList("User_Role", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.User_Role, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Email</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                    <div class="form-group">
+                                        <b class="control-label col-md-2">Vip</b>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.User_VIP, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.User_VIP, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Mật khẩu đăng nhập</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_Password, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Số điện thoại</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Điểm</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_Point, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Xu</b>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.User_Coin, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group">
-                                    <b class="control-label col-md-2">Tình trạng</b>
-                                    <div class="col-md-12">
-                                        <select class="form-control" name="User_Active">
-                                            <option value="true">Hoạt động</option>
-                                            <option value="false">Không hoạt động</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                @*<div class="form-group">
-            @Html.LabelFor(model => model.User_DateLogin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_DateLogin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_DateLogin, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
 
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.User_Trash, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        <div class="checkbox">
-                                            @Html.EditorFor(model => model.User_Trash)
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Thêm tài khoản" class="btn btn-success" />
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                                @*<div class="form-group">
-            @Html.LabelFor(model => model.User_Token, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Token, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Token, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.User_Role, "User_Role", htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DropDownList("User_Role", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.User_Role, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.User_VIP, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.User_VIP, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.User_VIP, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-
-
-
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Create" class="btn btn-default" />
-                                    </div>
-                                </div>
-                            </div>
                             }
-
                         </div>
                     </div>
                     <!-- Input Alignment card end -->
