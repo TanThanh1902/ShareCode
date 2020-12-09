@@ -4,114 +4,83 @@
     ViewBag.Title = "Quản lý danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<!-- Main-body start -->
-<div class="main-body">
-    <div class="page-wrapper">
-        <!-- Page-header start -->
-        <div class="page-header card">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <i class="icofont icofont-file-code bg-c-blue"></i>
-                        <div class="d-inline">
-                            <h4>@ViewBag.Title</h4>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="page-header-breadcrumb">
-                        <ul class="breadcrumb-title">
-                            <li class="breadcrumb-item">
-                                <a href="index.html">
-                                    <i class="icofont icofont-home"></i>
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<div class="page-body" ng-app="myModule">
+    <!-- Basic table card start -->
+    <div class="card">
+        <div class="card-header">
+            <h2>@ViewBag.Title</h2>
+            <button class="btn btn-success" onclick="window.location.href='/Admin/tblCategoriesAdmin/Create'"><i class="fa fa-plus"></i>Thêm danh mục</button>
+            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+        </div>
+        <div class="card-block table-border-style" ng-controller="myControllerCate">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="bg-dark">
+                        <tr class="font-weight-bold">
+                            <td ng-click="sortBy('idca')">Mã danh mục<span class="sortorder" ng-show="propertyName === 'idp'" ng-class="{reverse: reverse}"></span></td>
+                            <td>Ảnh</td>
+                            <td ng-click="sortBy('name')">Tên danh mục<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span></td>
+                            <td><i class="fa fa-cog">&nbsp;</i></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 100px">
+                                <input type="text" class="form-control" ng-model="textSearch.idca" placeholder="Mã" />
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="textSearch.name" placeholder="Tên danh mục" />
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr ng-repeat="todo in filteredTodos | filter:textSearch | orderBy:propertyName:reverse">
+                            <td style="width: 100px">{{todo.idca}}</td>
+                            <td style="width: 200px"><img style="width: 100%; height: 80px" src="~/Content/Layout/img/gallery/{{todo.img}}" /></td>
+                            <td>{{todo.name}}</td>
+                            <td>
+                                <a href="/Admin/tblCategoriesAdmin/Edit/{{todo.idca}}"><i class="fa fa-edit"></i></a> |
+                                <a href="/Admin/tblCategoriesAdmin/Delete/{{todo.idca}}"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <center>
+                    <pagination ng-model="currentPage"
+                                total-items="todos.length"
+                                max-size="maxSize"
+                                boundary-links="true">
+                    </pagination>
+                </center>
             </div>
         </div>
-        <!-- Page-header end -->
-        <!-- Page body start -->
-        <div class="page-body" ng-app="myModule">
-            <div class="row" ng-controller="myControllerCate">
-                <div class="col-sm-12">
-                    <!-- Basic Form Inputs card start -->
-                    <div class="card">
-                        <div class="card-header">
-                            <button class="btn btn-success" onclick="window.location.href='/Admin/tblCategoriesAdmin/Create'"><i class="fa fa-plus"></i>Thêm danh mục</button>
-                        </div>
-                        <div class="card-block">
-                            <style>
-                                .sortorder:after {
-                                    content: '\25bc';
-                                }
-
-                                .sortorder.reverse:after {
-                                    content: '\25b2';
-                                }
-                            </style>
-                            <table class="table">
-                                <thead class="bg-dark">
-                                    <tr class="font-weight-bold">
-                                        <td ng-click="sortBy('idca')">Mã danh mục<span class="sortorder" ng-show="propertyName === 'idp'" ng-class="{reverse: reverse}"></span></td>
-                                        <td>Ảnh</td>
-                                        <td ng-click="sortBy('name')">Tên danh mục<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span></td>
-                                        <td><i class="fa fa-cog">&nbsp;</i></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="cate in cate | filter:textSearch | orderBy:propertyName:reverse">
-                                        <td style="width: 100px">{{cate.idca}}</td>
-                                        <td style="width: 200px"><img style="width: 100%; height: 80px" src="~/Content/Layout/img/gallery/{{cate.img}}" /></td>
-                                        <td>{{cate.name}}</td>
-                                        <td>
-                                            <a href="/Admin/tblCategoriesAdmin/Edit/{{cate.idca}}"><i class="fa fa-edit"></i></a> |
-                                            <a href="/Admin/tblCategoriesAdmin/Delete/{{cate.idca}}"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Input Alignment card end -->
-                </div>
-            </div>
-        </div>
-        <!-- Page body end -->
     </div>
 </div>
-@*<td>
-
-    </td>*@
 <script>
-    var app = angular
-        .module("myModule", [])
-        .controller("myControllerCate", function ($scope) {
+    var todos = angular.module('myModule', ['ui.bootstrap']);
 
-            var cate = [
+    todos.controller('myControllerCate', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 5;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
                 @foreach(var item in Model)
                 {
                     @: { idca: "@Html.Raw(item.Cat_ID)",img: "@item.Cat_Image",name: "@Html.Raw(item.Cat_Name)"},
                 }
             ];
 
-            $scope.cate = cate;
-            $scope.propertyName = 'idca';
-            $scope.reverse = true;
-            $scope.cate = cate;
+        };
+        $scope.makeTodos();
 
-            $scope.sortBy = function (propertyName) {
-                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-                $scope.propertyName = propertyName;
-            };
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
 
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
         });
+    });
 </script>

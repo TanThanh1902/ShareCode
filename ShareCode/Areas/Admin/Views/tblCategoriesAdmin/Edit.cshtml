@@ -1,7 +1,7 @@
 ﻿@model ShareCode.Models.tblCategory
 
 @{
-    ViewBag.Title = "Thêm danh mục";
+    ViewBag.Title = "Sửa danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -23,15 +23,12 @@
                     <div class="page-header-breadcrumb">
                         <ul class="breadcrumb-title">
                             <li class="breadcrumb-item">
-                                <a href="index.html">
+                                <a href="/Admin/tblCategoriesAdmin/Index">
                                     <i class="icofont icofont-home"></i>
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#!">Form Components</a>
+                                <a href="#!">@ViewBag.Title</a>
                             </li>
                         </ul>
                     </div>
