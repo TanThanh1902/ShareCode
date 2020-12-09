@@ -2,7 +2,11 @@
 @{ 
     HttpCookie member_cookie = Request.Cookies["member_id"];
     DBShareCodeEntities db = new DBShareCodeEntities();
-    tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+    tblUser user = new tblUser();
+    if(member_cookie != null)
+    {
+        user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+    }
 }
 <div class="card" style="padding: 20px;">
     <div class="row">

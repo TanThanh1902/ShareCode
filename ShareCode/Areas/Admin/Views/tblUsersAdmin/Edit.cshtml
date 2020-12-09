@@ -7,7 +7,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "tblUsersAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -16,6 +16,21 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.User_ID)
+        @Html.HiddenFor(model => model.User_Active)
+        @Html.HiddenFor(model => model.User_Avata)
+        @Html.HiddenFor(model => model.User_DateLogin)
+        @Html.HiddenFor(model => model.User_Point)
+        @Html.HiddenFor(model => model.User_Token)
+        @Html.HiddenFor(model => model.User_Trash)
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User_Avata, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img src="~/Content/Layout/img/users/@Model.User_Avata" />
+                <input type="file" class="btn btn-danger" name="file_img" />
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.User_DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,42 +45,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.User_Password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User_Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_DateLogin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_DateLogin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_DateLogin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.User_Active)
-                    @Html.ValidationMessageFor(model => model.User_Active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Trash, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.User_Trash)
-                    @Html.ValidationMessageFor(model => model.User_Trash, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Token, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Token, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Token, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -86,14 +65,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.User_Avata, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Avata, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Avata, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.User_VIP, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.User_VIP, new { htmlAttributes = new { @class = "form-control" } })
@@ -106,14 +77,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.User_Phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Point, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Point, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Point, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -133,6 +96,3 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
