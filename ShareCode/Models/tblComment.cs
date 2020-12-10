@@ -26,6 +26,7 @@ namespace ShareCode.Models
         public Nullable<System.DateTime> Comment_DatePost { get; set; }
         public Nullable<int> Comment_Blog { get; set; }
         public Nullable<int> Comment_Post { get; set; }
+        public Nullable<bool> Comment_Trash { get; set; }
     
         public virtual tblBlog tblBlog { get; set; }
         public virtual tblPost tblPost { get; set; }

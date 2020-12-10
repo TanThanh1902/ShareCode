@@ -15,11 +15,11 @@ namespace ShareCode.Controllers
     public class BlogsController : Controller
     {
         private DBShareCodeEntities db = new DBShareCodeEntities();
-        private const int PAGE_SIZE = 20;
+        private const int PAGE_SIZE = 7;
         // GET: Blogs
         public ActionResult Index(int? page)
         {
-            return View(db.tblBlogs.OrderByDescending(t => t.BLog_DatePost).ToPagedList(page ?? 1, PAGE_SIZE));
+            return View(db.tblBlogs.Where(t => t.Blog_Trash == false).OrderByDescending(t => t.BLog_DatePost).ToPagedList(page ?? 1, PAGE_SIZE));
         }
 
         // GET: Blogs/Details/5
@@ -48,7 +48,7 @@ namespace ShareCode.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BLog_ID,Blog_Title,Blog_Contents,BLog_Tag,BLog_User,Blog_View,BLog_DatePost")] tblBlog tblBlog)
+        public ActionResult Create([Bind(Include = "BLog_ID,Blog_Title,Blog_Contents,BLog_Tag,Blog_View,BLog_DatePost")] tblBlog tblBlog)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace ShareCode.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BLog_ID,Blog_Title,Blog_Contents,BLog_Tag,BLog_User,Blog_View,BLog_DatePost")] tblBlog tblBlog)
+        public ActionResult Edit([Bind(Include = "BLog_ID,Blog_Title,Blog_Contents,BLog_Tag,Blog_View,BLog_DatePost")] tblBlog tblBlog)
         {
             if (ModelState.IsValid)
             {

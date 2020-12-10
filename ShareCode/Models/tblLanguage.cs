@@ -23,6 +23,7 @@ namespace ShareCode.Models
         public int Lang_ID { get; set; }
         public string Lang_Name { get; set; }
         public string Lang_Logo { get; set; }
+        public Nullable<bool> Lang_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts { get; set; }

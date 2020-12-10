@@ -1,60 +1,23 @@
 ﻿@model ShareCode.Models.tblRepply
-
+@using ShareCode.Models;
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    var a = "aa";
 }
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+@Html.Action("GetRepliesByCmtId", "Repplies", new { id = Model.Rep_Comment })
+@if (member_cookie != null)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>tblRepply</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rep_Contents, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rep_Contents, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rep_Contents, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rep_User, "Rep_User", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Rep_User", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Rep_User, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rep_Comment, "Rep_Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Rep_Comment", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Rep_Comment, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rep_DatePost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rep_DatePost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rep_DatePost, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+    using (Ajax.BeginForm("Create", "Repplies", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = a + Model.Rep_Comment }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@Model.Rep_Comment" name="Rep_Comment" />
+        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/Content/Layout/img/users/@user.User_Avata" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="Rep_Contents"></textarea></div>
+        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="submit">Post repply</button></div>
+    }
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+else
+{
+    <a href="#" data-target="#login" data-toggle="modal">Đăng nhập để trả lời</a>
+}

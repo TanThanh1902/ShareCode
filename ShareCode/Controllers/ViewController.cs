@@ -30,17 +30,17 @@ namespace ShareCode.Controllers
         }
         public PartialViewResult ListCategorySearchHomePage()
         {
-            List<tblCategory> categories = db.tblCategories.ToList();
+            List<tblCategory> categories = db.tblCategories.Where(t => t.Cat_Trash == false).ToList();
             return PartialView(categories);
         }
         public PartialViewResult ListGenresSearchHomePage()
         {
-            List<tblGenre> genres = db.tblGenres.ToList();
+            List<tblGenre> genres = db.tblGenres.Where(t => t.Genres_Trash == false).ToList();
             return PartialView(genres);
         }
         public PartialViewResult ListGroupCodeSearchHomePage()
         {
-            List<tblGroupCode> groupCode = db.tblGroupCodes.ToList();
+            List<tblGroupCode> groupCode = db.tblGroupCodes.Where(t => t.Group_Trash == false).ToList();
             return PartialView(groupCode);
         }
         public PartialViewResult ListHightLightPosts()
@@ -57,32 +57,37 @@ namespace ShareCode.Controllers
         {
             int Cat_ID = (int)db.tblPosts.Find(id).Post_Cat;
             int Genres_ID = (int)db.tblPosts.Find(id).Post_Genres;
-            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == Genres_ID && t.Post_Cat == Cat_ID).OrderByDescending(t => t.Post_View).ThenBy(t => t.Post_DateCreate).Take(7).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == Genres_ID && t.Post_Cat == Cat_ID && t.Post_Trash == false).OrderByDescending(t => t.Post_View).ThenBy(t => t.Post_DateCreate).Take(7).ToList();
             return PartialView(posts);
         }
         public PartialViewResult RecentlyPostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Code mới nhất";
-            List<tblPost> posts = db.tblPosts.OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
         public PartialViewResult RecentlyWebsitePostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Website";
-            List<tblPost> posts = db.tblPosts.OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
         public PartialViewResult RecentlyGamePostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Game";
-            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1 && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
         }
         public PartialViewResult RecentlyAppPostsAtHome()
         {
             ViewBag.TitleRecentlyAtHome = "Ứng dụng";
-            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Genres == 1 && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).Take(11).ToList();
             return PartialView("ListRecentlyPostsAtHome", posts);
+        }
+        public PartialViewResult HighlightBlogs()
+        {
+            List<tblBlog> blogs = db.tblBlogs.Where(t => t.Blog_Trash == false).OrderByDescending(t => t.Blog_View).ThenBy(t => t.BLog_DatePost).Take(7).ToList();
+            return PartialView(blogs);
         }
     }
 }

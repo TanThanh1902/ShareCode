@@ -3,6 +3,8 @@
 @using PagedList.Mvc;
 @model PagedList.IPagedList<tblComment>
 @{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
     int postid = ViewBag.postid;
     var a = "aa";
 }
@@ -33,9 +35,22 @@
                     </div>
                 </div>
                 <div id="@a@item.Comment_ID" class="bg-light p-2 collapse" data-parent="#myGroup">
-                    @Html.Action("GetRepliesByCmtId", "Repplies", new { id = item.Comment_ID})
-                    <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
-                    <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                    @Html.Action("GetRepliesByCmtId", "Repplies", new { id = item.Comment_ID })
+                    @if (member_cookie != null)
+                    {
+                        tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+                        using (Ajax.BeginForm("Create", "Repplies", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = a + item.Comment_ID }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" value="@item.Comment_ID" name="Rep_Comment" />
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/Content/Layout/img/users/@user.User_Avata" width="40"><textarea class="form-control ml-1 shadow-none textarea" name="Rep_Contents"></textarea></div>
+                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="submit">Post repply</button></div>
+                        }
+                    }
+                    else
+                    {
+                        <a href="#" data-target="#login" data-toggle="modal">Đăng nhập để trả lời</a>
+                    }
                 </div>
                 <div id="collapse-2" class="bg-light p-2 collapse" data-parent="#myGroup">
                     <div class="d-flex flex-row align-items-start"><i class="fa fa-facebook border p-3 rounded mr-1"></i><i class="fa fa-twitter border p-3 rounded mr-1"></i><i class="fa fa-linkedin border p-3 rounded mr-1"></i><i class="fa fa-instagram border p-3 rounded mr-1"></i><i class="fa fa-dribbble border p-3 rounded mr-1"></i> <i class="fa fa-pinterest-p border p-3 rounded mr-1"></i> </div>

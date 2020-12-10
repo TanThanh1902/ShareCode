@@ -29,7 +29,7 @@ namespace ShareCode.Controllers
             {
                 return HttpNotFound();
             }
-            IPagedList<tblRepply> replies = db.tblRepplies.Where(t => t.Rep_Comment == id).OrderByDescending(t => t.Rep_DatePost).ToPagedList(pagerep ?? 1, PAGE_SIZE);
+            IPagedList<tblRepply> replies = db.tblRepplies.Where(t => t.Rep_Comment == id && t.Rep_Trash == false).OrderBy(t => t.Rep_DatePost).ToPagedList(pagerep ?? 1, PAGE_SIZE);
             return PartialView(replies);
         }
 
@@ -60,14 +60,19 @@ namespace ShareCode.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Rep_ID,Rep_Contents,Rep_User,Rep_Comment,Rep_DatePost")] tblRepply tblRepply)
         {
+            tblUser user = db.tblUsers.Find(int.Parse(Request.Cookies["member_id"].Value.ToString()));
             if (ModelState.IsValid)
             {
+                tblRepply.Rep_Trash = false;
+                tblRepply.Rep_DatePost = DateTime.Now;
+                tblRepply.Rep_User = user.User_ID;
                 db.tblRepplies.Add(tblRepply);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(tblRepply);
             }
 
             ViewBag.Rep_Comment = new SelectList(db.tblComments, "Comment_ID", "Comment_Contents", tblRepply.Rep_Comment);

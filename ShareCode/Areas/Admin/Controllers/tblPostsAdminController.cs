@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -90,11 +91,27 @@ namespace ShareCode.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost)
+        public ActionResult Edit([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost, HttpPostedFileBase file_img)
         {
             if (ModelState.IsValid)
             {
+                // update avata
+                if (file_img != null)
+                {
+                    // delete old image
+                    if (tblPost.Post_Avata != null)
+                    {
+                        string fullPath = Request.MapPath("~/Content/Layout/img/post/" + tblPost.Post_Avata);
+                        System.IO.File.Delete(fullPath);
+                    }
+                    // update new image
+                    var img = Guid.NewGuid().ToString() + Path.GetExtension(file_img.FileName);
+                    var pathimg = Path.Combine(Server.MapPath("~/Content/Layout/img/post"), img);
+                    file_img.SaveAs(pathimg);
+                    tblPost.Post_Avata = img;
+                }
                 db.Entry(tblPost).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -22,6 +22,7 @@ namespace ShareCode.Models
     
         public int Genres_ID { get; set; }
         public string Genres_Name { get; set; }
+        public Nullable<bool> Genres_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts { get; set; }

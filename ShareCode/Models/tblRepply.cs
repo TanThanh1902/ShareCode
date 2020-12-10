@@ -19,6 +19,7 @@ namespace ShareCode.Models
         public Nullable<int> Rep_User { get; set; }
         public Nullable<int> Rep_Comment { get; set; }
         public Nullable<System.DateTime> Rep_DatePost { get; set; }
+        public Nullable<bool> Rep_Trash { get; set; }
     
         public virtual tblComment tblComment { get; set; }
         public virtual tblUser tblUser { get; set; }

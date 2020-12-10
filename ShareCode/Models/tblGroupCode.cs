@@ -23,6 +23,7 @@ namespace ShareCode.Models
         public int Group_ID { get; set; }
         public string Group_Name { get; set; }
         public string Group_Descriptions { get; set; }
+        public Nullable<bool> Group_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts { get; set; }

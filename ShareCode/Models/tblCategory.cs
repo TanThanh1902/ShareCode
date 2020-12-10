@@ -23,6 +23,7 @@ namespace ShareCode.Models
         public int Cat_ID { get; set; }
         public string Cat_Name { get; set; }
         public string Cat_Image { get; set; }
+        public Nullable<bool> Cat_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts { get; set; }

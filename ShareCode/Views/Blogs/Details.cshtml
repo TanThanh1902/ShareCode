@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> tags = new List<string>();
+    if(Model.BLog_Tag != null)
+    {
+        tags = Model.BLog_Tag.Split(';').ToList();
+    }
 }
 
 <h2>Details</h2>
@@ -36,14 +41,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BLog_User)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BLog_User)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Blog_View)
         </dt>
 
@@ -59,9 +56,16 @@
             @Html.DisplayFor(model => model.BLog_DatePost)
         </dd>
 
+        <dt>
+            <span>Tag</span>
+        </dt>
+
+        <dd>
+            @foreach(var itemTag in tags)
+            {
+                <a href="#">@itemTag</a>
+            }
+        </dd>
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BLog_ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

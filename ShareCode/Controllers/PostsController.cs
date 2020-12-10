@@ -209,7 +209,7 @@ namespace ShareCode.Controllers
             {
                 posts = db.tblPosts.ToList();
             }
-            posts = posts.Where(t => t.Post_Title.Contains(key) || t.tblUser.User_DisplayName.Contains(key) || t.Post_Code.Contains(key) || t.tblCategory.Cat_Name.Contains(key) || t.tblGroupCode.Group_Name.Contains(key) || t.tblGenre.Genres_Name.Contains(key)).ToList();
+            posts = posts.Where(t => t.Post_Title.Contains(key) || t.tblUser.User_DisplayName.Contains(key) || t.Post_Code.Contains(key) || t.tblCategory.Cat_Name.Contains(key) || t.tblGroupCode.Group_Name.Contains(key) || t.tblGenre.Genres_Name.Contains(key) && t.Post_Trash == false).ToList();
             ViewBag.couttPost = posts.Count();
             return View("Index", posts.OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE));
         }
@@ -221,7 +221,7 @@ namespace ShareCode.Controllers
                 return Redirect("/User/Login");
             }
             tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
-            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
+            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(posts);
         }
 

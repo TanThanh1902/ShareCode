@@ -25,10 +25,10 @@ namespace ShareCode.Models
         public string Blog_Title { get; set; }
         public string Blog_Contents { get; set; }
         public string BLog_Tag { get; set; }
-        public Nullable<int> BLog_User { get; set; }
         public Nullable<int> Blog_View { get; set; }
         public Nullable<System.DateTime> BLog_DatePost { get; set; }
         public string Blog_Image { get; set; }
+        public Nullable<bool> Blog_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblComment> tblComments { get; set; }

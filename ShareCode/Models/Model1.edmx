@@ -23,10 +23,10 @@
           <Property Name="Blog_Title" Type="nvarchar" MaxLength="255" />
           <Property Name="Blog_Contents" Type="nvarchar(max)" />
           <Property Name="BLog_Tag" Type="nvarchar(max)" />
-          <Property Name="BLog_User" Type="int" />
           <Property Name="Blog_View" Type="int" />
           <Property Name="BLog_DatePost" Type="datetime" />
           <Property Name="Blog_Image" Type="nvarchar(max)" />
+          <Property Name="Blog_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -35,6 +35,7 @@
           <Property Name="Cat_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cat_Name" Type="nvarchar" MaxLength="70" />
           <Property Name="Cat_Image" Type="nvarchar(max)" />
+          <Property Name="Cat_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblComment">
           <Key>
@@ -46,6 +47,7 @@
           <Property Name="Comment_DatePost" Type="datetime" />
           <Property Name="Comment_Blog" Type="int" />
           <Property Name="Comment_Post" Type="int" />
+          <Property Name="Comment_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblCustom">
           <Key>
@@ -103,6 +105,7 @@
           </Key>
           <Property Name="Genres_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Genres_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Genres_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblGroupCode">
           <Key>
@@ -111,6 +114,7 @@
           <Property Name="Group_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Group_Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Group_Descriptions" Type="nvarchar" MaxLength="1024" />
+          <Property Name="Group_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
@@ -119,6 +123,7 @@
           <Property Name="Lang_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Lang_Name" Type="nvarchar" MaxLength="70" />
           <Property Name="Lang_Logo" Type="nvarchar(max)" />
+          <Property Name="Lang_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblOrder">
           <Key>
@@ -184,6 +189,7 @@
           <Property Name="Rep_User" Type="int" />
           <Property Name="Rep_Comment" Type="int" />
           <Property Name="Rep_DatePost" Type="datetime" />
+          <Property Name="Rep_Trash" Type="bit" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
@@ -582,12 +588,12 @@
           <Property Name="Blog_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Blog_Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BLog_Tag" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BLog_User" Type="Int32" />
           <Property Name="Blog_View" Type="Int32" />
           <Property Name="BLog_DatePost" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblComments" Relationship="Self.FK_tblComment_tblBlog" FromRole="tblBlog" ToRole="tblComment" />
           <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblBlog" FromRole="tblBlog" ToRole="tblReport" />
           <Property Name="Blog_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Blog_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblCategory">
           <Key>
@@ -597,6 +603,7 @@
           <Property Name="Cat_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Cat_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblCategory" FromRole="tblCategory" ToRole="tblPost" />
+          <Property Name="Cat_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblComment">
           <Key>
@@ -612,6 +619,7 @@
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblComment_tblPost" FromRole="tblComment" ToRole="tblPost" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblComment_tblUser" FromRole="tblComment" ToRole="tblUser" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblComment" FromRole="tblComment" ToRole="tblRepply" />
+          <Property Name="Comment_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblCustom">
           <Key>
@@ -674,6 +682,7 @@
           <Property Name="Genres_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Genres_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblGenres" FromRole="tblGenres" ToRole="tblPost" />
+          <Property Name="Genres_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblGroupCode">
           <Key>
@@ -683,6 +692,7 @@
           <Property Name="Group_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Group_Descriptions" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_GroupCode" FromRole="tblGroupCode" ToRole="tblPost" />
+          <Property Name="Group_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
@@ -692,6 +702,7 @@
           <Property Name="Lang_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Lang_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblPosts" Relationship="Self.tblPostLang" FromRole="tblLanguage" ToRole="tblPost" />
+          <Property Name="Lang_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblOrder">
           <Key>
@@ -765,6 +776,7 @@
           <Property Name="Rep_DatePost" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblComment" Relationship="Self.FK_tblRepply_tblComment" FromRole="tblRepply" ToRole="tblComment" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblRepply" ToRole="tblUser" />
+          <Property Name="Rep_Trash" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
@@ -1144,12 +1156,12 @@
           <EntitySetMapping Name="tblBlogs">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblBlog">
               <MappingFragment StoreEntitySet="tblBlog">
+                <ScalarProperty Name="Blog_Trash" ColumnName="Blog_Trash" />
                 <ScalarProperty Name="Blog_Image" ColumnName="Blog_Image" />
                 <ScalarProperty Name="BLog_ID" ColumnName="BLog_ID" />
                 <ScalarProperty Name="Blog_Title" ColumnName="Blog_Title" />
                 <ScalarProperty Name="Blog_Contents" ColumnName="Blog_Contents" />
                 <ScalarProperty Name="BLog_Tag" ColumnName="BLog_Tag" />
-                <ScalarProperty Name="BLog_User" ColumnName="BLog_User" />
                 <ScalarProperty Name="Blog_View" ColumnName="Blog_View" />
                 <ScalarProperty Name="BLog_DatePost" ColumnName="BLog_DatePost" />
               </MappingFragment>
@@ -1158,6 +1170,7 @@
           <EntitySetMapping Name="tblCategories">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblCategory">
               <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Cat_Trash" ColumnName="Cat_Trash" />
                 <ScalarProperty Name="Cat_ID" ColumnName="Cat_ID" />
                 <ScalarProperty Name="Cat_Name" ColumnName="Cat_Name" />
                 <ScalarProperty Name="Cat_Image" ColumnName="Cat_Image" />
@@ -1167,6 +1180,7 @@
           <EntitySetMapping Name="tblComments">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblComment">
               <MappingFragment StoreEntitySet="tblComment">
+                <ScalarProperty Name="Comment_Trash" ColumnName="Comment_Trash" />
                 <ScalarProperty Name="Comment_ID" ColumnName="Comment_ID" />
                 <ScalarProperty Name="Comment_Contents" ColumnName="Comment_Contents" />
                 <ScalarProperty Name="Comment_User" ColumnName="Comment_User" />
@@ -1232,6 +1246,7 @@
           <EntitySetMapping Name="tblGenres">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblGenre">
               <MappingFragment StoreEntitySet="tblGenres">
+                <ScalarProperty Name="Genres_Trash" ColumnName="Genres_Trash" />
                 <ScalarProperty Name="Genres_ID" ColumnName="Genres_ID" />
                 <ScalarProperty Name="Genres_Name" ColumnName="Genres_Name" />
               </MappingFragment>
@@ -1240,6 +1255,7 @@
           <EntitySetMapping Name="tblGroupCodes">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblGroupCode">
               <MappingFragment StoreEntitySet="tblGroupCode">
+                <ScalarProperty Name="Group_Trash" ColumnName="Group_Trash" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Group_Name" ColumnName="Group_Name" />
                 <ScalarProperty Name="Group_Descriptions" ColumnName="Group_Descriptions" />
@@ -1249,6 +1265,7 @@
           <EntitySetMapping Name="tblLanguages">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblLanguage">
               <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="Lang_Trash" ColumnName="Lang_Trash" />
                 <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
                 <ScalarProperty Name="Lang_Name" ColumnName="Lang_Name" />
                 <ScalarProperty Name="Lang_Logo" ColumnName="Lang_Logo" />
@@ -1308,6 +1325,7 @@
           <EntitySetMapping Name="tblRepplies">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblRepply">
               <MappingFragment StoreEntitySet="tblRepply">
+                <ScalarProperty Name="Rep_Trash" ColumnName="Rep_Trash" />
                 <ScalarProperty Name="Rep_ID" ColumnName="Rep_ID" />
                 <ScalarProperty Name="Rep_Contents" ColumnName="Rep_Contents" />
                 <ScalarProperty Name="Rep_User" ColumnName="Rep_User" />
