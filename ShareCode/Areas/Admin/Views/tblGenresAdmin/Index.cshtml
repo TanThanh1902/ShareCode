@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Quản lý thể loại";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var del = "del";
 }
 
 <div class="main-body">
@@ -67,16 +68,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="ge in ge | filter:textSearch | orderBy:propertyName:reverse">
-                                        <td style="width: 100px">{{ge.id}}</td>
-                                        <td>{{ge.name}}</td>
+                                    <tr style="width: 100px">
+                                        <td><input type="text" class="form-control" placeholder="Mã" ng-model="textSearch.id" /></td>
+                                        <td><input type="text" class="form-control" placeholder="Tên thể loại" ng-model="textSearch.name" /></td>
+                                    </tr>
+                                    <tr ng-repeat="todo in filteredTodos | filter:textSearch">
+                                        <td style="width: 100px">{{todo.id}}</td>
+                                        <td>{{todo.name}}</td>
                                         <td>
-                                            <a href="/Admin/tblGenresAdmin/Edit/{{ge.id}}"><i class="fa fa-edit"></i></a> |
-                                            <a href="/Admin/tblGenresAdmin/Delete/{{ge.id}}"><i class="fa fa-trash"></i></a>
+                                            <a href="/Admin/tblGenresAdmin/Edit/{{todo.id}}"><i class="fa fa-edit"></i></a> |
+                                            <a href="/Admin/tblGenresAdmin/Delete/{{todo.id}}" data-toggle="modal" data-target="#@del{{todo.id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <center>
+                                <pagination ng-model="currentPage"
+                                            total-items="todos.length"
+                                            max-size="maxSize"
+                                            boundary-links="true">
+                                </pagination>
+                            </center>
                         </div>
                     </div>
                     <!-- Input Alignment card end -->
@@ -86,31 +98,56 @@
         <!-- Page body end -->
     </div>
 </div>
-@*<td>
 
-    </td>*@
+
 <script>
-    var app = angular
-        .module("myModule", [])
-        .controller("myControllerGe", function ($scope) {
+    var todos = angular.module('myModule', ['ui.bootstrap']);
 
-            var ge = [
+    todos.controller('myControllerGe', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 5;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
                 @foreach(var item in Model)
                 {
                     @: { id: @item.Genres_ID,name: "@item.Genres_Name"},
                 }
             ];
 
-            $scope.ge = ge;
-            $scope.propertyName = 'id';
-            $scope.reverse = true;
-            $scope.ge = ge;
+        };
+        $scope.makeTodos();
 
-            $scope.sortBy = function (propertyName) {
-                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-                $scope.propertyName = propertyName;
-            };
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
 
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
         });
+    });
 </script>
-
+@foreach (var item in Model)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="@del@item.Genres_ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa "@item.Genres_Name"</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc muốn xóa "@item.Genres_Name" này không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

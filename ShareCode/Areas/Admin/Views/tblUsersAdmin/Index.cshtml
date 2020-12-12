@@ -6,9 +6,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 
     DBShareCodeEntities db = new DBShareCodeEntities();
+    var del = "del";
 }
-@{ 
-    List<tblRole> tblRole = db.tblRoles.ToList();
+@{
+    List <tblRole> tblRole = db.tblRoles.ToList();
 }
 
 <div class="main-body">
@@ -139,7 +140,7 @@
                                         <td>
                                             <a href="" data-toggle="modal" data-target="#verticalModal{{todo.id}}"><i class="fa fa-eye"></i></a> |
                                             <a href="/Admin/tblusersAdmin/Edit/{{todo.id}}"><i class="fa fa-edit"></i></a> |
-                                            <a href="/Admin/tblusersAdmin/Delete/{{todo.id}}"><i class="fa fa-trash"></i></a>
+                                            <a href="/Admin/tblusersAdmin/Delete/{{todo.id}}" data-toggle="modal" data-target="#@del{{todo.id}}"><i class="fa fa-trash"></i></a>
                                             <!--Xem chi tiết user-->
                                             <div class="modal fade" id="verticalModal{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -237,4 +238,27 @@
         });
     });
 </script>
+@foreach (var item in Model)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="@del@item.User_ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@item.User_Email</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn muốn xóa người dùng "@item.User_Email" này không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+}
