@@ -1,0 +1,75 @@
+﻿@model ShareCode.Models.tblBlog
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblBlog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog_Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog_Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog_Contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog_Contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BLog_Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BLog_Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog_View)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog_View)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BLog_DatePost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BLog_DatePost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog_Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Blog_Trash)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Blog_Trash)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BLog_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

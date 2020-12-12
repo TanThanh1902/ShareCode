@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ShareCode.Models.tblBlog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Blog_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blog_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BLog_Tag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blog_View)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BLog_DatePost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blog_Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blog_Trash)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blog_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blog_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BLog_Tag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blog_View)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BLog_DatePost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blog_Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blog_Trash)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BLog_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BLog_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BLog_ID })
+        </td>
+    </tr>
+}
+
+</table>

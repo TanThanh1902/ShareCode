@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ShareCode.Models.tblReport>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Report_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Report_DateSend)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Report_User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblBlog.Blog_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblPost.Post_Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report_DateSend)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report_User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblBlog.Blog_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblPost.Post_Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Report_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Report_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Report_ID })
+        </td>
+    </tr>
+}
+
+</table>

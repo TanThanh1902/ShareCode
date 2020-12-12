@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ShareCode.Models.tblComment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_Contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_DatePost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment_Trash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblBlog.Blog_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblPost.Post_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_Contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_DatePost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment_Trash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblBlog.Blog_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblPost.Post_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Comment_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Comment_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Comment_ID })
+        </td>
+    </tr>
+}
+
+</table>

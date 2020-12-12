@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ShareCode.Models.tblLanguage>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lang_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lang_Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lang_Trash)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lang_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lang_Logo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lang_Trash)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Lang_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Lang_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Lang_ID })
+        </td>
+    </tr>
+}
+
+</table>

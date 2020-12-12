@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShareCode.Models.tblOrder>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Order_TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order_DateAdd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblPost.Post_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order_TotalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order_DateAdd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblPost.Post_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Order_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Order_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Order_ID })
+        </td>
+    </tr>
+}
+
+</table>
