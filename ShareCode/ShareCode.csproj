@@ -392,6 +392,9 @@
     <Compile Include="Models\tblPost.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblRate.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblReport.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -30,8 +30,9 @@ namespace ShareCode.Controllers
                 db.SaveChanges();
                 db.tblUsers.Find(payCoin.UserID).User_Coin -= (int)payCoin.Amount;
                 db.SaveChanges();
+                Session["paycoin"] = true;
             }
-            return Redirect("/");
+            return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult Index()
         {

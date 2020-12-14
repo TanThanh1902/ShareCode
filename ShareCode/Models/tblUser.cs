@@ -23,6 +23,7 @@ namespace ShareCode.Models
             this.tblOrders = new HashSet<tblOrder>();
             this.tblPosts = new HashSet<tblPost>();
             this.tblRepplies = new HashSet<tblRepply>();
+            this.tblRates = new HashSet<tblRate>();
         }
     
         public int User_ID { get; set; }
@@ -53,5 +54,7 @@ namespace ShareCode.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRepply> tblRepplies { get; set; }
         public virtual tblRole tblRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRate> tblRates { get; set; }
     }
 }

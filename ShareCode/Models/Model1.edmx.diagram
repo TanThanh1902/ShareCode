@@ -41,6 +41,9 @@
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblUser_tblRole" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.tblPostLang" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblRate" Width="1.5" PointX="13.5" PointY="8.125" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblRate_tblPost" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblRate_tblUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -145,8 +145,6 @@
           <Property Name="Post_ViewMoreImage" Type="nvarchar(max)" />
           <Property Name="Post_Description" Type="nvarchar(max)" />
           <Property Name="Post_View" Type="int" />
-          <Property Name="Post_Vote" Type="int" />
-          <Property Name="Post_Rate" Type="float" />
           <Property Name="Post_CountDownLoad" Type="int" />
           <Property Name="Post_LinkDown" Type="nvarchar(max)" />
           <Property Name="Post_DateCreate" Type="datetime" />
@@ -168,6 +166,16 @@
           </Key>
           <Property Name="Post_ID" Type="int" Nullable="false" />
           <Property Name="Lang_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRate">
+          <Key>
+            <PropertyRef Name="Rate_ID" />
+          </Key>
+          <Property Name="Rate_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rate_Star" Type="int" />
+          <Property Name="Rate_User" Type="int" />
+          <Property Name="Rate_Post" Type="int" />
+          <Property Name="Rate_DateVote" Type="datetime" />
         </EntityType>
         <EntityType Name="tblReport">
           <Key>
@@ -406,6 +414,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblRate_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblRate" Type="Self.tblRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblRate">
+              <PropertyRef Name="Rate_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRate_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblRate" Type="Self.tblRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblRate">
+              <PropertyRef Name="Rate_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblReport_tblBlog">
           <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
           <End Role="tblReport" Type="Self.tblReport" Multiplicity="*" />
@@ -480,6 +512,7 @@
           <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPostLang" EntityType="Self.tblPostLang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRate" EntityType="Self.tblRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblReport" EntityType="Self.tblReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRepply" EntityType="Self.tblRepply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
@@ -544,6 +577,14 @@
           <AssociationSet Name="FK_tblPostLang_tblPost" Association="Self.FK_tblPostLang_tblPost">
             <End Role="tblPost" EntitySet="tblPost" />
             <End Role="tblPostLang" EntitySet="tblPostLang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRate_tblPost" Association="Self.FK_tblRate_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblRate" EntitySet="tblRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRate_tblUser" Association="Self.FK_tblRate_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblRate" EntitySet="tblRate" />
           </AssociationSet>
           <AssociationSet Name="FK_tblReport_tblBlog" Association="Self.FK_tblReport_tblBlog">
             <End Role="tblBlog" EntitySet="tblBlog" />
@@ -726,8 +767,6 @@
           <Property Name="Post_ViewMoreImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Post_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Post_View" Type="Int32" />
-          <Property Name="Post_Vote" Type="Int32" />
-          <Property Name="Post_Rate" Type="Double" />
           <Property Name="Post_CountDownLoad" Type="Int32" />
           <Property Name="Post_LinkDown" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Post_DateCreate" Type="DateTime" Precision="3" />
@@ -751,6 +790,7 @@
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblPost_tblUser" FromRole="tblPost" ToRole="tblUser" />
           <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblPost" FromRole="tblPost" ToRole="tblReport" />
           <NavigationProperty Name="tblLanguages" Relationship="Self.tblPostLang" FromRole="tblPost" ToRole="tblLanguage" />
+          <NavigationProperty Name="tblRates" Relationship="DBShareCodeModel.FK_tblRate_tblPost" FromRole="tblPost" ToRole="tblRate" />
         </EntityType>
         <EntityType Name="tblReport">
           <Key>
@@ -820,6 +860,7 @@
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_tblUser" FromRole="tblUser" ToRole="tblPost" />
           <NavigationProperty Name="tblRepplies" Relationship="Self.FK_tblRepply_tblUser" FromRole="tblUser" ToRole="tblRepply" />
           <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+          <NavigationProperty Name="tblRates" Relationship="DBShareCodeModel.FK_tblRate_tblUser" FromRole="tblUser" ToRole="tblRate" />
         </EntityType>
         <Association Name="FK_tblComment_tblBlog">
           <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
@@ -1135,7 +1176,52 @@
             <End Role="tblLanguage" EntitySet="tblLanguages" />
             <End Role="tblPost" EntitySet="tblPosts" />
           </AssociationSet>
+          <EntitySet Name="tblRates" EntityType="DBShareCodeModel.tblRate" />
+          <AssociationSet Name="FK_tblRate_tblPost" Association="DBShareCodeModel.FK_tblRate_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblRate" EntitySet="tblRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRate_tblUser" Association="DBShareCodeModel.FK_tblRate_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblRate" EntitySet="tblRates" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblRate">
+          <Key>
+            <PropertyRef Name="Rate_ID" />
+          </Key>
+          <Property Name="Rate_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rate_Star" Type="Int32" />
+          <Property Name="Rate_User" Type="Int32" />
+          <Property Name="Rate_Post" Type="Int32" />
+          <Property Name="Rate_DateVote" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="DBShareCodeModel.FK_tblRate_tblPost" FromRole="tblRate" ToRole="tblPost" />
+          <NavigationProperty Name="tblUser" Relationship="DBShareCodeModel.FK_tblRate_tblUser" FromRole="tblRate" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblRate_tblPost">
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblRate" Role="tblRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblRate">
+              <PropertyRef Name="Rate_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRate_tblUser">
+          <End Type="DBShareCodeModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="DBShareCodeModel.tblRate" Role="tblRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="tblRate">
+              <PropertyRef Name="Rate_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1292,8 +1378,6 @@
                 <ScalarProperty Name="Post_ViewMoreImage" ColumnName="Post_ViewMoreImage" />
                 <ScalarProperty Name="Post_Description" ColumnName="Post_Description" />
                 <ScalarProperty Name="Post_View" ColumnName="Post_View" />
-                <ScalarProperty Name="Post_Vote" ColumnName="Post_Vote" />
-                <ScalarProperty Name="Post_Rate" ColumnName="Post_Rate" />
                 <ScalarProperty Name="Post_CountDownLoad" ColumnName="Post_CountDownLoad" />
                 <ScalarProperty Name="Post_LinkDown" ColumnName="Post_LinkDown" />
                 <ScalarProperty Name="Post_DateCreate" ColumnName="Post_DateCreate" />
@@ -1380,6 +1464,17 @@
               <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tblRates">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblRate">
+              <MappingFragment StoreEntitySet="tblRate">
+                <ScalarProperty Name="Rate_DateVote" ColumnName="Rate_DateVote" />
+                <ScalarProperty Name="Rate_Post" ColumnName="Rate_Post" />
+                <ScalarProperty Name="Rate_User" ColumnName="Rate_User" />
+                <ScalarProperty Name="Rate_Star" ColumnName="Rate_Star" />
+                <ScalarProperty Name="Rate_ID" ColumnName="Rate_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -31,8 +31,22 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
-                                @Model.Post_Vote Đánh giá
-                                <i class="fa fa-edit">&nbsp;</i>Viết đánh giá
+                                @Model.tblRates.Count() Đánh giá
+                                @if (member_cookie != null)
+                                {
+                                    if (Model.tblOrders.Where(t => t.Order_User == user.User_ID && t.Order_Post == Model.Post_ID).Count() != 0)
+                                    {
+                                        <a data-toggle="modal" data-target="#votepost"><i class="fa fa-edit">&nbsp;</i>Đánh giá </a>
+                                    }
+                                    else
+                                    {
+                                        <a data-toggle="modal" data-target="#notifybuycode"><i class="fa fa-edit">&nbsp;</i>Đánh giá</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a data-toggle="modal" data-target="#login"><i class="fa fa-edit">&nbsp;</i>Đánh giá</a>
+                                }
                             </div>
                             <div class="col-lg-4">
                                 <i class="fa fa-eye">&nbsp;</i>@Model.Post_View
@@ -73,9 +87,9 @@
                                     <hr />
                                     <div class="col-lg-8">
                                         <ul>
-                                            <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat})" style="color: red">@Model.tblCategory.Cat_Name</a></li>
-                                            <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres})" style="color: red">@Model.tblGenre.Genres_Name</a></li>
-                                            <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group})" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
+                                            <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat })" style="color: red">@Model.tblCategory.Cat_Name</a></li>
+                                            <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres })" style="color: red">@Model.tblGenre.Genres_Name</a></li>
+                                            <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group })" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
                                             <li><b>Ngày đăng:</b>@Model.Post_DateCreate.Value.ToLongDateString()</li>
                                             <li><b>Dung lượng:</b>Chưa có</li>
                                         </ul>
@@ -87,7 +101,7 @@
                                         }
                                         else
                                         {
-                                            if (Session["member"] != null)
+                                            if (member_cookie != null)
                                             {
                                                 <button id="download" class="ui green button float-right w-100 mt-2" onclick="window.location.href='#dow'"><i class="fa fa-download">&nbsp;</i>Download</button>
                                             }
@@ -140,14 +154,33 @@
                                             <br />
                                             <br />
                                             <br />
-                                            <a href="#" style="color: red; font-weight: bold"><i class="fas fa-exclamation">&nbsp;</i>Báo cáo</a>
+                                            @if (member_cookie != null)
+                                            {
+                                                if (user.User_ID == Model.Post_User)
+                                                {
+                                                    <a href="#" style="color: red; font-weight: bold; pointer-events: none; cursor: default"><i class="fas fa-exclamation">&nbsp;</i>Báo cáo</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" data-toggle="modal" data-target="#reportPost" style="color: red; font-weight: bold"><i class="fas fa-exclamation">&nbsp;</i>Báo cáo</a>
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <a href="#" data-toggle="modal" data-target="#login" style="color: red; font-weight: bold"><i class="fas fa-exclamation">&nbsp;</i>Báo cáo</a>
+                                            }
                                             <a href="#" style="color: red; font-weight: bold"><i class="fas fa-exclamation-triangle">&nbsp;</i>Lỗi</a>
                                         </div>
                                         <div class="col-lg-4">
                                             <center><b class="text-center">Pass giải nén: Không</b></center>
                                             @if (member_cookie != null)
                                             {
-                                                if (Model.tblOrders.FirstOrDefault(t => t.Order_User == user.User_ID && t.Order_Post == Model.Post_ID) != null)
+                                                if (Model.Post_User == user.User_ID)
+                                                {
+                                                    <button disabled class="ui red button mt-1" style="font-size: 20px"><i class="fa fa-download">&nbsp;</i>DOWNLOAD <br /> (@((int)Model.Post_Price) XU)</button>
+                                                }
+                                                else if (Model.tblOrders.FirstOrDefault(t => t.Order_User == user.User_ID && t.Order_Post == Model.Post_ID) != null)
                                                 {
                                                     <button class="ui default button mt-1" style="font-size: 20px"><i class="fa fa-buy-n-large">&nbsp;</i>Đã mua <br /></button>
                                                 }
@@ -179,13 +212,16 @@
                                                                         Google
                                                                     </button>
                                                                     <hr />
-                                                                    <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register","User")" class="text-success">Thanh toan</a></p>
+                                                                    <p>Bạn chưa có tài khoản? <a href="@Url.Action("Register", "User")" class="text-success">Thanh toan</a></p>
                                                                     @using (Html.BeginForm("PayCoin", "Payments", FormMethod.Post))
                                                                     {
                                                                         @Html.AntiForgeryToken()
                                                                         <input type="hidden" name="PostID" value="@Model.Post_ID" />
+
                                                                         <input type="hidden" name="UserID" value="@user.User_ID" />
+
                                                                         <input type="hidden" name="Amount" value="@Model.Post_Price" />
+
                                                                         <button type="submit" class="ui green submit button w-100"><i class="fas fa-buy-n-large">&nbsp;</i>Thanh toan</button>
                                                                     }
                                                                 </div>
@@ -281,28 +317,54 @@
 
             <div class="card">
                 <b>Điểm trung bình</b>
-                <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+                <div class="d-flex align-items-center" style="color: #ffe623!important">
+                    @{
+                        int intStar = Model.tblRates.Average(t => t.Rate_Star) != null ? (int)Model.tblRates.Average(t => t.Rate_Star) : 0;
+                        for (int i = 1; i <= intStar; i++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                        if (intStar != Model.tblRates.Average(t => t.Rate_Star) && intStar != 0)
+                        {
+                            <i class="fas fa-star-half-alt"></i>
+                            for (int i = intStar + 1; i <= 4; i++)
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = intStar + 1; i <= 5; i++)
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                        }
+                    }
                 </div>
                 <div class="d-flex align-items-center">
-                    <b class="text-danger" style="font-size: 25px">3</b>
+                    <b class="text-danger" style="font-size: 25px">
+                        @{
+                            double sum = Model.tblRates.Average(t => t.Rate_Star) != null ? (double)Model.tblRates.Average(t => t.Rate_Star) : 0;
+                            sum = Math.Round(sum, 1);
+                        }@sum
+                    </b>
                 </div>
                 <br />
-                <b>1 đánh giá</b>
+                <b>@Model.tblRates.Count() đánh giá</b>
                 <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt (1)
+                    <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt (@Model.tblRates.Where(t => t.Rate_Star == 5).Count())
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt (1)
+                    <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt (@Model.tblRates.Where(t => t.Rate_Star == 4).Count())
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="3" data-max-rating="5"></div>Code rất hay (1)
+                    <div class="ui star rating" data-rating="3" data-max-rating="5"></div>Code bình thường (@Model.tblRates.Where(t => t.Rate_Star == 3).Count())
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="3" data-max-rating="5"></div>Code hay (1)
+                    <div class="ui star rating" data-rating="2" data-max-rating="5"></div>Code tạm ổn (@Model.tblRates.Where(t => t.Rate_Star == 2).Count())
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="ui star rating" data-rating="1" data-max-rating="5"></div>Bình thường (1)
+                    <div class="ui star rating" data-rating="1" data-max-rating="5"></div>Code tệ (@Model.tblRates.Where(t => t.Rate_Star == 1).Count())
                 </div>
             </div>
             <script>
@@ -314,6 +376,79 @@
         </div>
     </div>
 </div>
+
+@if (Model.tblRates.Where(t => t.Rate_User == user.User_ID) != null)
+{
+    <!-- thanh toan -->
+    <div class="modal fade" id="votepost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: url('../../Content/Layout/img/hero/h1_hero.png'); background-repeat: no-repeat">
+                    <h2 class="font-weight-bold" id="exampleModalLabel"><b class="text-center" style="color: white">Sharecodeonline.com</b></h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=5'">
+                        <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt
+                    </div>
+                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=4'">
+                        <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt
+                    </div>
+                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=3'">
+                        <div class="ui star rating" data-rating="3" data-max-rating="5"></div>Code bình thường
+                    </div>
+                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=2'">
+                        <div class="ui star rating" data-rating="2" data-max-rating="5"></div>Code tạm ổn
+                    </div>
+                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=1'">
+                        <div class="ui star rating" data-rating="1" data-max-rating="5"></div>Code tệ
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bao cao xau -->
+    <div class="modal fade" id="reportPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: url('../../Content/Layout/img/hero/h1_hero.png'); background-repeat: no-repeat">
+                    <h2 class="font-weight-bold" id="exampleModalLabel"><b class="text-center" style="color: white">Sharecodeonline.com</b></h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Report", "Posts"))
+                    {
+                        Html.AntiForgeryToken();
+                        <input type="hidden" name="id" value="@Model.Post_ID" />
+                        <div class="d-flex align-items-center">
+                            <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code không đúng mô tả
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code không chạy
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code chứa file độc hại
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code đồi trụy
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code có giá quá cao
+                        </div>
+                        <textarea name="Report_Contents"></textarea>
+                        <input type="submit" value="Báo cáo" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
 <!--<div class="container mt-5">
     <div class="row">
         <div class="col-lg-9">
