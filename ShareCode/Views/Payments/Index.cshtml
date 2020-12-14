@@ -1,0 +1,15 @@
+﻿@using ShareCode.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div>
+        <form action="@Url.Action("PayMomo", "Payments")" method="post">
+            <input type="hidden" value="20000" name="Amount" />
+            <input type="submit" value="Thanh toan" class="btn btn-success" />
+        </form>
+    </div>
+</div>

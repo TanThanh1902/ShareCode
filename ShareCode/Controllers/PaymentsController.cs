@@ -11,20 +11,41 @@ namespace ShareCode.Controllers
 {
     public class PaymentsController : Controller
     {
+        DBShareCodeEntities db = new DBShareCodeEntities();
         // GET: Payments
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PayCoin(ViewPayCoin payCoin)
+        {
+            if (ModelState.IsValid)
+            {
+                tblOrder order = new tblOrder()
+                {
+                    Order_Post = payCoin.PostId,
+                    Order_User = payCoin.UserID,
+                    Order_TotalPrice = (int)payCoin.Amount,
+                    Order_DateAdd = DateTime.Now
+                };
+                db.tblOrders.Add(order);
+                db.SaveChanges();
+                db.tblUsers.Find(payCoin.UserID).User_Coin -= (int)payCoin.Amount;
+                db.SaveChanges();
+            }
+            return Redirect("/");
+        }
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult PayMomo(ViewPayMomo momo)
         {
-            string endpoint = ConfigurationManager.AppSettings["endpoint"].ToString();
-            string partnerCode = ConfigurationManager.AppSettings["partnerCode"].ToString();
-            string accessKey = ConfigurationManager.AppSettings["accessKey"].ToString();
-            string serectKey = ConfigurationManager.AppSettings["serectKey"].ToString();
+            string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+            string partnerCode = "MOMO828G20201211";
+            string accessKey = "I0M0E6bt9OC7nBfz";
+            string serectKey = "Bz4LGbbJ9AHHFRRSb92zL18B1Vq5XbfA";
             string orderInfo = "DH" + DateTime.Now.ToString("yyyyMMddHHmmss");
-            string returnUrl = ConfigurationManager.AppSettings["returnUrl"].ToString();
-            string notifyUrl = ConfigurationManager.AppSettings["notifyUrl"].ToString();
+            string returnUrl = "/Payments/Index";
+            string notifyUrl = "/Payments/Index";
 
             string amount = momo.Amount;
             string orderId = Guid.NewGuid().ToString();
@@ -40,7 +61,7 @@ namespace ShareCode.Controllers
                 "&orderId=" + orderId +
                 "&orderInfo=" + orderInfo +
                 "&returnUrl=" + returnUrl +
-                "&notifyUrl=" + notifyUrl +
+                "&notifyUrl=" + notifyUrl + 
                 "&extraData=" + extraData;
             MoMoSecurity crypto = new MoMoSecurity();
             string signature = crypto.signSHA256(rawHash, serectKey);
@@ -52,14 +73,28 @@ namespace ShareCode.Controllers
                 {"amount", amount },
                 {"orderId", orderId },
                 {"orderInfo", orderInfo },
-                {"returnUrl", returnUrl },
+                {"returnUrl", returnUrl },  
                 {"notifyUrl", notifyUrl },
                 {"requestType", "captureMoMoWallet" },
-                {"extraData", extraData }
+                {"extraData", extraData },
+                {"signature", signature }
             };
-
-            //string responesFromMoMo = PaymentRequest
-            return View();
+            string url =
+                "partnerCode=" + partnerCode +
+                "&accessKey=" + accessKey +
+                "&requestId=" + requestId +
+                "&amount=" + amount +
+                "&orderId=" + orderId +
+                "&signature=" + signature +
+                "&orderInfo=" + orderInfo +
+                "&returnUrl=" + returnUrl +
+                "&notifyUrl=" + notifyUrl +
+                "&extraData=" + extraData +
+                "&requestType=" + "captureMoMoWallet";
+            string responesFromMoMo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+            JObject jmessage = JObject.Parse(responesFromMoMo);
+            string payUrl = jmessage.ToString();
+            return Redirect("https://test-payment.momo.vn/gw_payment/payment/qr?" + url);
         }
     }
 }
