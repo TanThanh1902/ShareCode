@@ -116,8 +116,8 @@ namespace ShareCode.Controllers
         public ActionResult TopPosts(int? page)
         {
             ViewBag.Title = "Top Code";
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
         public ActionResult QualityPosts(int? page)
@@ -139,8 +139,8 @@ namespace ShareCode.Controllers
                 db.tblTags.Add(tag);
                 db.SaveChanges();
             }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
         public ActionResult ReferPosts(int? page)
@@ -162,8 +162,8 @@ namespace ShareCode.Controllers
                 db.tblTags.Add(tag);
                 db.SaveChanges();
             }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
         public ActionResult FreePosts(int? page)
@@ -185,8 +185,8 @@ namespace ShareCode.Controllers
                 db.tblTags.Add(tag);
                 db.SaveChanges();
             }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.Post_Rate).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
+            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
+            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
             return View("Index", post);
         }
         public ActionResult FilterAdvanced(int? page, string key, int category, int groupcode)
@@ -288,11 +288,9 @@ namespace ShareCode.Controllers
                 tblPost.Post_CountDownLoad = 0;
                 tblPost.Post_DateCreate = DateTime.Now;
                 tblPost.Post_Favorite = 0;
-                tblPost.Post_Rate = 0;
                 tblPost.Post_Trash = false;
                 tblPost.Post_User = user.User_ID;
                 tblPost.Post_View = 0;
-                tblPost.Post_Vote = 0;
 
                 // add image 
                 // add single image
@@ -349,6 +347,36 @@ namespace ShareCode.Controllers
             ViewBag.Post_Group = new SelectList(db.tblGroupCodes, "Group_ID", "Group_Name", tblPost.Post_Group);
             ViewBag.Post_Genres = new SelectList(db.tblGenres, "Genres_ID", "Genres_Name", tblPost.Post_Genres);
             return View(tblPost);
+        }
+        public ActionResult Vote(int? id, int star)
+        {
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+            tblRate addItem = new tblRate()
+            {
+                Rate_User = user.User_ID,
+                Rate_Star = star,
+                Rate_Post = id,
+                Rate_DateVote = DateTime.Now
+            };
+            db.tblRates.Add(addItem);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id });
+        }
+
+        public ActionResult Report(int? id, string Report_Contents)
+        {
+            tblUser user = db.tblUsers.Find(int.Parse(Request.Cookies["member_id"].Value.ToString()));
+            tblReport addItem = new tblReport()
+            {
+                Report_Contents = Report_Contents,
+                Report_DateSend = DateTime.Now,
+                Report_Post = id,
+                Report_User = user.User_ID
+            };
+            db.tblReports.Add(addItem);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id });
         }
 
         // POST: Posts/Edit/5

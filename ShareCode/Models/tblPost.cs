@@ -23,6 +23,7 @@ namespace ShareCode.Models
             this.tblOrders = new HashSet<tblOrder>();
             this.tblReports = new HashSet<tblReport>();
             this.tblLanguages = new HashSet<tblLanguage>();
+            this.tblRates = new HashSet<tblRate>();
         }
     
         public int Post_ID { get; set; }
@@ -31,8 +32,6 @@ namespace ShareCode.Models
         public string Post_ViewMoreImage { get; set; }
         public string Post_Description { get; set; }
         public Nullable<int> Post_View { get; set; }
-        public Nullable<int> Post_Vote { get; set; }
-        public Nullable<double> Post_Rate { get; set; }
         public Nullable<int> Post_CountDownLoad { get; set; }
         public string Post_LinkDown { get; set; }
         public Nullable<System.DateTime> Post_DateCreate { get; set; }
@@ -63,5 +62,7 @@ namespace ShareCode.Models
         public virtual ICollection<tblReport> tblReports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblLanguage> tblLanguages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRate> tblRates { get; set; }
     }
 }

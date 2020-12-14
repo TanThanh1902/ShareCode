@@ -45,7 +45,7 @@ namespace ShareCode.Controllers
         }
         public PartialViewResult ListHightLightPosts()
         {
-            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ThenBy(t => t.Post_View).ThenBy(t => t.Post_Rate).Take(7).ToList();
+            List<tblPost> posts = db.tblPosts.Where(t => t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ThenBy(t => t.Post_View).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).Take(7).ToList();
             return PartialView(posts);
         }
         public PartialViewResult Top7Tags()
