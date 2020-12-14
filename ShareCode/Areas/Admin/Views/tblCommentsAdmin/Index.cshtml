@@ -1,64 +1,144 @@
-﻿@model IEnumerable<ShareCode.Models.tblComment>
+﻿@using ShareCode.Models;
+@model IEnumerable<ShareCode.Models.tblComment>
 
 @{
+    DBShareCodeEntities db = new DBShareCodeEntities();
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var d = "d";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment_Contents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment_DatePost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment_Trash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblBlog.Blog_Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblPost.Post_Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblUser.User_DisplayName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment_Contents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment_DatePost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment_Trash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tblBlog.Blog_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tblPost.Post_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tblUser.User_DisplayName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Comment_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Comment_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Comment_ID })
-        </td>
-    </tr>
+@{
+    List<tblRepply> tblRepply = db.tblRepplies.ToList();
 }
+<div class="page-body" ng-app="myModule">
+    <!-- Basic table card start -->
+    <div class="card">
+        <div class="card-header">
+            <button class="btn btn-success" onclick="window.location.href='/Admin/tblPostsAdmin/Create'"><i class="fa fa-plus"></i>Thêm code</button>
+        </div>
+        <div class="card-block table-border-style" ng-controller="myControllerCm">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="bg-dark">
+                        <tr class="font-weight-bold">
+                            <td ng-click="sortBy('id')">Mã bình luận<span class="sortorder" ng-show="propertyName === 'id'" ng-class="{reverse: reverse}"></span></td>
+                            <td>Email</td>
+                            <td>Code</td>
+                            <td>Nội dung</td>
+                            <td>Ngày đăng</td>
+                            <td><i class="fa fa-cog">&nbsp;</i></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="todo in filteredTodos | filter:textSearch">
+                            <td>{{todo.id}}</td>
+                            <td>{{todo.email}}</td>
+                            <td>{{todo.p}}</td>
+                            <td>{{todo.c}}</td>
+                            <td>{{todo.crdate}}</td>
+                            <td>
+                                <a data-toggle="modal" data-target="#d{{todo.id}}" href=""><i class="fa fa-eye"></i></a> |
+                                <a data-toggle="modal" data-target="#del{{todo.id}}" href=""><i class="fa fa-trash"></i></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="del{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Xóa bình luận</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn có chắc muốn xóa bình luận này?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-primary">Xác nhận</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <center>
+                    <pagination ng-model="currentPage"
+                                total-items="todos.length"
+                                max-size="maxSize"
+                                boundary-links="true">
+                    </pagination>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var todos = angular.module('myModule', ['ui.bootstrap']);
 
-</table>
+    todos.controller('myControllerCm', function ($scope) {
+    $scope.filteredTodos = []
+        , $scope.currentPage = 1
+        , $scope.numPerPage = 15
+        , $scope.maxSize = 5;
+
+    $scope.makeTodos = function () {
+        $scope.todos = [
+            @foreach(var item in Model.OrderByDescending(n=>n.Comment_DatePost))
+            {
+                @: { id: @item.Comment_ID, crdate: "@item.Comment_DatePost",bin: "@item.Comment_Trash", c: "@item.Comment_Contents", email: "@item.tblUser.User_Email", p: "@Html.Raw(item.tblPost.Post_Title)" },
+            }
+        ];
+
+    };
+    $scope.makeTodos();
+
+    $scope.$watch('currentPage + numPerPage', function () {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+            , end = begin + $scope.numPerPage;
+
+        $scope.filteredTodos = $scope.todos.slice(begin, end);
+    });
+});
+</script>
+@foreach (var item in Model)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="@d@item.Comment_ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Trả lời bình luận</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item2 in tblRepply.Where(n=>n.Rep_Comment == item.Comment_ID))
+                    {
+                        <div class="ui comments">
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="~/Content/Layout/img/users/@item2.tblUser.User_Avata">
+                                </a>
+                                <div class="content">
+                                    <a class="author">@item2.tblUser.User_Email</a>
+                                    <div class="metadata">
+                                        <span class="date">@item2.Rep_DatePost</span>
+                                    </div>
+                                    <div class="text">
+                                        @item.Comment_Contents
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
