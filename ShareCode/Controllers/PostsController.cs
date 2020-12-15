@@ -314,7 +314,7 @@ namespace ShareCode.Controllers
 
                 db.tblPosts.Add(tblPost);
                 db.SaveChanges();
-                return RedirectToAction("/User/MyInfo");
+                return Redirect("/User/MyInfo");
             }
 
             ViewBag.Post_Cat = new SelectList(db.tblCategories, "Cat_ID", "Cat_Name", tblPost.Post_Cat);
