@@ -1,70 +1,157 @@
 ﻿@model IEnumerable<ShareCode.Models.tblBlog>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- Page-header start -->
+        <div class="page-header card">
+            <div class="row align-items-end">
+                <div class="col-lg-8">
+                    <div class="page-header-title">
+                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                        <div class="d-inline">
+                            <h4>@ViewBag.Title</h4>
+                        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog_Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog_Contents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BLog_Tag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog_View)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BLog_DatePost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog_Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Blog_Trash)
-        </th>
-        <th></th>
-    </tr>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="icofont icofont-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#!">Form Components</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <!-- Page body start -->
+        <div class="page-body" ng-app="myModule">
+            <div class="row" ng-controller="myControlleNews">
+                <div class="col-sm-12">
+                    <!-- Basic Form Inputs card start -->
+                    <div class="card">
+                        <div class="card-header">
+                            <button class="btn btn-success" onclick="window.location.href='/Admin/tblBlogsAdmin/create'"><i class="fa fa-plus"></i>Thêm tin tức</button>
+                            <br />
+                            <br />
+                            <input class="form-control" ng-model="textSearch" placeholder="Nhập bất cứ gì bạn muốn" />
+                        </div>
+                        <div class="card-block">
+                            <style>
+                                .sortorder:after {
+                                    content: '\25bc';
+                                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Blog_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Blog_Contents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BLog_Tag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Blog_View)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BLog_DatePost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Blog_Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Blog_Trash)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BLog_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BLog_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BLog_ID })
-        </td>
-    </tr>
-}
+                                .sortorder.reverse:after {
+                                    content: '\25b2';
+                                }
+                            </style>
+                            <table class="table">
+                                <thead class="bg-dark">
+                                    <tr class="font-weight-bold">
+                                        <td>Mã</td>
+                                        <td>Ảnh</td>
+                                        <td>Tiêu đề</td>
+                                        <td>Tag</td>
+                                        <td>Lượt xem</td>
+                                        <td>Ngày đăng</td>
+                                        <td><i class="fa fa-cog">&nbsp;</i></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="todo in filteredTodos | filter:textSearch">
+                                        <td style="width: 100px">{{todo.id}}</td>
+                                        <td><img src="~/Content/Layout/img/blog/{{todo.img}}" style="width: 50px; height: 50px;" /></td>
+                                        <td>{{todo.name}}</td>
+                                        <td>{{todo.tag}}</td>
+                                        <td>{{todo.view}}</td>
+                                        <td>{{todo.crdate}}</td>
+                                        <td>
+                                            <a href="/Admin/tblBlogsAdmin/Details/{{todo.id}}"><i class="fa fa-eye"></i></a> |
+                                            <a href="/Admin/tblBlogsAdmin/Edit/{{todo.id}}"><i class="fa fa-edit"></i></a> |
+                                            <a href="/Admin/tblBlogsAdmin/Delete/{{todo.id}}" data-toggle="modal" data-target="#del{{todo.id}}"><i class="fa fa-trash"></i></a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="del{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Xóa tin tức</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc muốn xóa tin tức này?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <center>
+                                <pagination ng-model="currentPage"
+                                            total-items="todos.length"
+                                            max-size="maxSize"
+                                            boundary-links="true">
+                                </pagination>
+                            </center>
+                        </div>
+                    </div>
+                    <!-- Input Alignment card end -->
+                </div>
+            </div>
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
 
-</table>
+
+<script>
+    var todos = angular.module('myModule', ['ui.bootstrap']);
+
+    todos.controller('myControlleNews', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 5;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
+                @foreach(var item in Model.OrderByDescending(n=>n.BLog_DatePost))
+                {
+                    @: { id: @item.BLog_ID,name: "@Html.Raw(item.Blog_Title)", tag: "@Html.Raw(item.BLog_Tag)",view: "@item.Blog_View", crdate: "@item.BLog_DatePost", img : "@item.Blog_Image", bin: "@item.Blog_Trash" },
+                }
+            ];
+
+        };
+        $scope.makeTodos();
+
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
+
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
+        });
+    });
+</script>
