@@ -4,30 +4,6 @@
     ViewBag.Title = "Đăng bài";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="slider-area slider-area2" style="height: 345px;">
-    <div class="slider-active">
-        <!-- Single Slider -->
-        <div class="single-slider slider-height2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-11 col-md-12">
-                        <div class="hero__caption hero__caption2">
-                            <h3 data-animation="bounceIn" data-delay="0.2s">
-                                <div class="ui search">
-                                    <div class="ui icon input w-100">
-                                        <input class="prompt" type="text" placeholder="Nhập từ khóa...">
-                                        <i class="search icon"></i>
-                                    </div>
-                                    <div class="results"></div>
-                                </div>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "ui form" }))
 {
