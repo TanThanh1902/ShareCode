@@ -1,0 +1,6 @@
+﻿@model IEnumerable<ShareCode.Models.tblCategory>
+
+@foreach(var item in Model)
+{
+    <option value="@item.Cat_ID">@item.Cat_Name</option>
+}

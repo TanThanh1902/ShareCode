@@ -4,68 +4,35 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<string> tags = new List<string>();
-    if(Model.BLog_Tag != null)
+    if (Model.BLog_Tag != null)
     {
         tags = Model.BLog_Tag.Split(';').ToList();
     }
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>tblBlog</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Blog_Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Blog_Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Blog_Contents)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Blog_Contents)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BLog_Tag)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BLog_Tag)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Blog_View)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Blog_View)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BLog_DatePost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BLog_DatePost)
-        </dd>
-
-        <dt>
-            <span>Tag</span>
-        </dt>
-
-        <dd>
-            @foreach(var itemTag in tags)
-            {
-                <a href="#">@itemTag</a>
-            }
-        </dd>
-
-    </dl>
+<div class="row mt-4">
+    <div class="col-lg-8 most-recent">
+        <h3 class="section-title-left" style="margin-bottom: 10px">@Model.Blog_Title</h3>
+        <div class="card" style="border: 1px solid grey; margin-bottom: 40px; padding: 10px 10px 10px 10px">
+            <b>Người chia sẻ: Admin </b>
+            <b>Vào lúc: @Model.BLog_DatePost.Value.ToLongDateString()</b>
+        </div>
+        <p>@Html.Raw(Model.Blog_Contents)</p>
+        <hr />
+        @foreach(var item in tags)
+        {
+            <a>@item </a>
+        }
+    </div>
+    @Html.Action("HighlightBlogs", "View")
 </div>
+@*<ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="#">@item.Blog_Title</a>
+            </li>
+        }
+    </ul>*@

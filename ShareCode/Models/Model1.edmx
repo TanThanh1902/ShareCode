@@ -166,6 +166,7 @@
           </Key>
           <Property Name="Post_ID" Type="int" Nullable="false" />
           <Property Name="Lang_ID" Type="int" Nullable="false" />
+          <Property Name="PostLang_DateAdd" Type="datetime" />
         </EntityType>
         <EntityType Name="tblRate">
           <Key>
@@ -735,16 +736,6 @@
           <NavigationProperty Name="tblPosts" Relationship="Self.FK_tblPost_GroupCode" FromRole="tblGroupCode" ToRole="tblPost" />
           <Property Name="Group_Trash" Type="Boolean" />
         </EntityType>
-        <EntityType Name="tblLanguage">
-          <Key>
-            <PropertyRef Name="Lang_ID" />
-          </Key>
-          <Property Name="Lang_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Lang_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="Lang_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblPosts" Relationship="Self.tblPostLang" FromRole="tblLanguage" ToRole="tblPost" />
-          <Property Name="Lang_Trash" Type="Boolean" />
-        </EntityType>
         <EntityType Name="tblOrder">
           <Key>
             <PropertyRef Name="Order_ID" />
@@ -789,8 +780,8 @@
           <NavigationProperty Name="tblOrders" Relationship="Self.FK_tblOrder_tblPost" FromRole="tblPost" ToRole="tblOrder" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblPost_tblUser" FromRole="tblPost" ToRole="tblUser" />
           <NavigationProperty Name="tblReports" Relationship="Self.FK_tblReport_tblPost" FromRole="tblPost" ToRole="tblReport" />
-          <NavigationProperty Name="tblLanguages" Relationship="Self.tblPostLang" FromRole="tblPost" ToRole="tblLanguage" />
           <NavigationProperty Name="tblRates" Relationship="DBShareCodeModel.FK_tblRate_tblPost" FromRole="tblPost" ToRole="tblRate" />
+          <NavigationProperty Name="tblPostLangs" Relationship="DBShareCodeModel.FK_tblPostLang_tblPost" FromRole="tblPost" ToRole="tblPostLang" />
         </EntityType>
         <EntityType Name="tblReport">
           <Key>
@@ -1078,10 +1069,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tblPostLang">
-          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="*" />
-          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="DBShareCodeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tblBlogs" EntityType="Self.tblBlog" />
@@ -1092,7 +1079,6 @@
           <EntitySet Name="tblFavorites" EntityType="Self.tblFavorite" />
           <EntitySet Name="tblGenres" EntityType="Self.tblGenre" />
           <EntitySet Name="tblGroupCodes" EntityType="Self.tblGroupCode" />
-          <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
           <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
           <EntitySet Name="tblPosts" EntityType="Self.tblPost" />
           <EntitySet Name="tblReports" EntityType="Self.tblReport" />
@@ -1172,10 +1158,6 @@
             <End Role="tblRole" EntitySet="tblRoles" />
             <End Role="tblUser" EntitySet="tblUsers" />
           </AssociationSet>
-          <AssociationSet Name="tblPostLang" Association="Self.tblPostLang">
-            <End Role="tblLanguage" EntitySet="tblLanguages" />
-            <End Role="tblPost" EntitySet="tblPosts" />
-          </AssociationSet>
           <EntitySet Name="tblRates" EntityType="DBShareCodeModel.tblRate" />
           <AssociationSet Name="FK_tblRate_tblPost" Association="DBShareCodeModel.FK_tblRate_tblPost">
             <End Role="tblPost" EntitySet="tblPosts" />
@@ -1184,6 +1166,16 @@
           <AssociationSet Name="FK_tblRate_tblUser" Association="DBShareCodeModel.FK_tblRate_tblUser">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblRate" EntitySet="tblRates" />
+          </AssociationSet>
+          <EntitySet Name="tblLanguages" EntityType="DBShareCodeModel.tblLanguage" />
+          <EntitySet Name="tblPostLangs" EntityType="DBShareCodeModel.tblPostLang" />
+          <AssociationSet Name="FK_tblPostLang_tblLanguage" Association="DBShareCodeModel.FK_tblPostLang_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguages" />
+            <End Role="tblPostLang" EntitySet="tblPostLangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPostLang_tblPost" Association="DBShareCodeModel.FK_tblPostLang_tblPost">
+            <End Role="tblPost" EntitySet="tblPosts" />
+            <End Role="tblPostLang" EntitySet="tblPostLangs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblRate">
@@ -1219,6 +1211,51 @@
             </Principal>
             <Dependent Role="tblRate">
               <PropertyRef Name="Rate_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="Lang_ID" />
+          </Key>
+          <Property Name="Lang_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lang_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Lang_Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lang_Trash" Type="Boolean" />
+          <NavigationProperty Name="tblPostLangs" Relationship="DBShareCodeModel.FK_tblPostLang_tblLanguage" FromRole="tblLanguage" ToRole="tblPostLang" />
+        </EntityType>
+        <EntityType Name="tblPostLang">
+          <Key>
+            <PropertyRef Name="Post_ID" />
+            <PropertyRef Name="Lang_ID" />
+          </Key>
+          <Property Name="Post_ID" Type="Int32" Nullable="false" />
+          <Property Name="Lang_ID" Type="Int32" Nullable="false" />
+          <Property Name="PostLang_DateAdd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblLanguage" Relationship="DBShareCodeModel.FK_tblPostLang_tblLanguage" FromRole="tblPostLang" ToRole="tblLanguage" />
+          <NavigationProperty Name="tblPost" Relationship="DBShareCodeModel.FK_tblPostLang_tblPost" FromRole="tblPostLang" ToRole="tblPost" />
+        </EntityType>
+        <Association Name="FK_tblPostLang_tblLanguage">
+          <End Type="DBShareCodeModel.tblLanguage" Role="tblLanguage" Multiplicity="1" />
+          <End Type="DBShareCodeModel.tblPostLang" Role="tblPostLang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="Lang_ID" />
+            </Principal>
+            <Dependent Role="tblPostLang">
+              <PropertyRef Name="Lang_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPostLang_tblPost">
+          <End Type="DBShareCodeModel.tblPost" Role="tblPost" Multiplicity="1" />
+          <End Type="DBShareCodeModel.tblPostLang" Role="tblPostLang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="Post_ID" />
+            </Principal>
+            <Dependent Role="tblPostLang">
+              <PropertyRef Name="Post_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1348,16 +1385,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblLanguages">
-            <EntityTypeMapping TypeName="DBShareCodeModel.tblLanguage">
-              <MappingFragment StoreEntitySet="tblLanguage">
-                <ScalarProperty Name="Lang_Trash" ColumnName="Lang_Trash" />
-                <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
-                <ScalarProperty Name="Lang_Name" ColumnName="Lang_Name" />
-                <ScalarProperty Name="Lang_Logo" ColumnName="Lang_Logo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblOrders">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblOrder">
               <MappingFragment StoreEntitySet="tblOrder">
@@ -1456,14 +1483,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="tblPostLang" TypeName="DBShareCodeModel.tblPostLang" StoreEntitySet="tblPostLang">
-            <EndProperty Name="tblLanguage">
-              <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
-            </EndProperty>
-            <EndProperty Name="tblPost">
-              <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="tblRates">
             <EntityTypeMapping TypeName="DBShareCodeModel.tblRate">
               <MappingFragment StoreEntitySet="tblRate">
@@ -1472,6 +1491,25 @@
                 <ScalarProperty Name="Rate_User" ColumnName="Rate_User" />
                 <ScalarProperty Name="Rate_Star" ColumnName="Rate_Star" />
                 <ScalarProperty Name="Rate_ID" ColumnName="Rate_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLanguages">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblLanguage">
+              <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="Lang_Trash" ColumnName="Lang_Trash" />
+                <ScalarProperty Name="Lang_Logo" ColumnName="Lang_Logo" />
+                <ScalarProperty Name="Lang_Name" ColumnName="Lang_Name" />
+                <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPostLangs">
+            <EntityTypeMapping TypeName="DBShareCodeModel.tblPostLang">
+              <MappingFragment StoreEntitySet="tblPostLang">
+                <ScalarProperty Name="PostLang_DateAdd" ColumnName="PostLang_DateAdd" />
+                <ScalarProperty Name="Lang_ID" ColumnName="Lang_ID" />
+                <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -27,7 +27,9 @@
             <table class="table table-striped">
                 <thead class="bg-dark text-white font-weight-bold">
                     <tr>
-                        <td>Title</td>
+                        <td>Tên code</td>
+                        <td>Người mua</td>
+                        <td>Thời gian mua</td>
                         <td><i class="fa fa-cog"></i></td>
                     </tr>
                 </thead>
@@ -36,13 +38,15 @@
                     {
                         <tr>
                             <td>@item.tblPost.Post_Title</td>
+                            <td>@item.tblUser.User_DisplayName</td>
+                            <td>@item.Order_DateAdd</td>
                             <td><a href="@Url.Action("Details", "Posts", new { id = item.Order_Post})" target="_blank"><i class="fa fa-eye"></i></a></td>
                         </tr>
                     }
                 </tbody>
             </table>
             <div class="pagination">
-                @Html.PagedListPager(Model, page => Url.Action("PostBought", new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("PoatBought", new { page }))
             </div>
         </div>
         <div class="col-lg-4">

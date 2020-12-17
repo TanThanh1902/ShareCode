@@ -28,9 +28,7 @@
             <div class="container">
                 <ul>
                     <li><b>Email đăng ký:</b> <b class="text-danger" style="float: right">@Model.User_Email</b> </li>
-                    <li><b>Họ và tên:</b> <b class="text-danger" style="float: right">Chưa có</b> </li>
                     <li><b>Tên hiển thị:</b> <b class="text-danger" style="float: right">@Model.User_DisplayName</b> </li>
-                    <li><b>Email TK ngân lượng:</b> <b class="text-danger" style="float: right">Chưa có</b> </li>
                     <li><b>Số điện thoại:</b> <b class="text-danger" style="float: right">@Model.User_Phone</b> </li>
                     <hr />
                     <li><b>Ảnh:</b> <b class="text-danger" style="float: right"><img src="~/Content/Layout/img/users/@Model.User_Avata" style="width: 60px; height: 60px" /></b> </li>
@@ -42,7 +40,7 @@
                     <hr />
                     <li><b>Đăng nhập gần đây:</b> <b class="text-danger" style="float: right">@Model.User_DateLogin.Value.ToLongDateString()</b> </li>
                     <hr />
-                    <li><button class="ui red button"><i class="fa fa-cog">&nbsp;</i>Cài đặt thông tin</button></li>
+                    <li><button onclick="window.location.href='/User/EditInfo'" class="ui red button"><i class="fa fa-cog">&nbsp;</i>Cài đặt thông tin</button></li>
                 </ul>
             </div>
         </div>

@@ -1,4 +1,22 @@
-﻿
+﻿@using ShareCode.Models;
+@{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    if (member_cookie == null)
+    {
+        <script>
+            window.location.href = "/Home/Index";
+        </script>
+    }
+    int id = int.Parse(member_cookie.Value.ToString());
+    if (db.tblUsers.SingleOrDefault(t => t.User_ID == id && t.User_Role == 1) == null)
+    {
+        <script>
+            window.location.href = "/Home/Index";
+        </script>
+    }
+    tblUser user = db.tblUsers.Find(id);
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -164,8 +182,8 @@
                             </li>
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    <img src="~/Content/LayoutAdmin/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <img src="~/Content/Layout/img/users/@user.User_Avata" class="img-radius" alt="@user.User_DisplayName">
+                                    <span>@user.User_DisplayName</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -190,7 +208,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/User/Logout">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -204,7 +222,7 @@
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        @Html.Action("Menu","ViewAdmin")
+                        @Html.Action("Menu", "ViewAdmin")
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
@@ -286,7 +304,7 @@
     <script src="~/Content/LayoutAdmin/js/pcoded.min.js"></script>
     <script src="~/Content/LayoutAdmin/js/demo-12.js"></script>
     <script src="~/Content/LayoutAdmin/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    
+
 </body>
 
 </html>

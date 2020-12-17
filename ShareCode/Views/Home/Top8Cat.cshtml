@@ -3,5 +3,5 @@
 @foreach (var item in Model)
 {
 
-    <button type="button" onclick="window.location.href='@Url.Action("FilterPostsByCatID", "Posts", new { id = item.Cat_ID})'" class="list-group-item list-group-item-action"><i class="fa fa-code">&nbsp;</i>@item.Cat_Name</button>
+    <button type="button" onclick="window.location.href='@Url.Action("FilterPostsByCatID", "Search", new { id = item.Cat_ID})'" class="list-group-item list-group-item-action"><i class="fa fa-code">&nbsp;</i>@item.Cat_Name</button>
 }

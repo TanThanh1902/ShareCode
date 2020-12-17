@@ -5,65 +5,80 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditInfo</h2>
-
-@using (Html.BeginForm("EditInfo", "User", FormMethod.Post, new { @enctype = "multipart/form-data"}))
+@if (Session["notifi_resetpass"] != null)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>tblUser</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.User_ID)
-        @Html.HiddenFor(model => model.User_Avata)
-        @Html.HiddenFor(model => model.User_Active)
-        @Html.HiddenFor(model => model.User_Coin)
-        @Html.HiddenFor(model => model.User_DateLogin)
-        @Html.HiddenFor(model => model.User_Password)
-        @Html.HiddenFor(model => model.User_Point)
-        @Html.HiddenFor(model => model.User_Role)
-        @Html.HiddenFor(model => model.User_Token)
-        @Html.HiddenFor(model => model.User_Trash)
-        @Html.HiddenFor(model => model.User_VIP)
+    <div class="alert alert-success">
+        <span>@Session["notifi_resetpass"]</span>
+    </div>
+    Session["notifi_resetpass"] = null;
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            @if (Model.User_Phone == null || Model.User_Avata == null)
+            {
+                <div class="alert alert-success">Thông tin cá nhân của bạn chưa cập nhật Số điện thoại, vui lòng cập nhật Số điện thoại <a href="#" class="text-danger">TẠI ĐÂY</a> !</div>
+            }
+        </div>
+        <div class="col-lg-8">
+            <div class="alert alert-danger">
+                <h3 class="font-weight-bold">Cập nhật thông tin cá nhân</h3>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="email" value="@Model.User_Email" name="User_Email" class="form-control" disabled />
+            <div class="container">
+                <ul>
+                    @using (Html.BeginForm("EditInfo", "User", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.User_ID)
+                        @Html.HiddenFor(model => model.User_Avata)
+                        @Html.HiddenFor(model => model.User_Active)
+                        @Html.HiddenFor(model => model.User_Coin)
+                        @Html.HiddenFor(model => model.User_DateLogin)
+                        @Html.HiddenFor(model => model.User_Password)
+                        @Html.HiddenFor(model => model.User_Point)
+                        @Html.HiddenFor(model => model.User_Role)
+                        @Html.HiddenFor(model => model.User_Token)
+                        @Html.HiddenFor(model => model.User_Trash)
+                        @Html.HiddenFor(model => model.User_VIP)
+                        @Html.HiddenFor(model => model.User_Email)
+
+                        <li><b>Email đăng ký:</b> <input type="email" value="@Model.User_Email" name="User_Email" class="form-control" disabled /></li>
+                        <li>
+                            <b>Tên hiển thị:</b>
+                            @Html.EditorFor(model => model.User_DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.User_DisplayName, "", new { @class = "text-danger" })
+                        </li>
+                        <li>
+                            <b>Số điện thoại:</b>
+                            @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.User_Phone, "", new { @class = "text-danger" })
+                        </li>
+                        <hr />
+                        <li>
+                            <b>Ảnh:</b>
+                            <b class="text-danger" style="float: right"><img src="~/Content/Layout/img/users/@Model.User_Avata" style="width: 60px; height: 60px" /></b>
+                            <input type="file" name="file_img" class="btn btn-danger" />
+                        </li>
+                        <br />
+                        <hr />
+                        <li><b>Yêu thích:</b> <b class="text-danger" style="float: right">@Model.tblFavorites.Count() yêu thích</b> </li>
+                        <li><b>Bình luận:</b> <b class="text-danger" style="float: right">@Model.tblComments.Count() bình luận</b> </li>
+                        <li><b>Trả lời bình luận:</b> <b class="text-danger" style="float: right">@Model.tblRepplies.Count() trả lời bình luận</b> </li>
+                        <hr />
+                        <li><b>Đăng nhập gần đây:</b> <b class="text-danger" style="float: right">@Model.User_DateLogin.Value.ToLongDateString()</b> </li>
+                        <hr />
+                        <li><button type="submit" class="ui red button"><i class="fa fa-cog">&nbsp;</i>Lưu thay đổi</button></li>
+                    }
+                </ul>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_DisplayName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_DisplayName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Avata, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div>
-                    <img src="~/Content/Layout/img/users/@Model.User_Avata" style="width: 200px; height: 200px" />
-                </div>
-                <input type="file" name="file_img" class="btn btn-danger" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div class="col-lg-4">
+            @Html.Action("InfoRight", "View")
         </div>
     </div>
-}
+</div>
+
+

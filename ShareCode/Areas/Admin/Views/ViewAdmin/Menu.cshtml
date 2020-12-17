@@ -1,10 +1,29 @@
-﻿<div class="pcoded-inner-navbar main-menu">
+﻿@using ShareCode.Models;
+@{
+    DBShareCodeEntities db = new DBShareCodeEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    if (member_cookie == null)
+    {
+        <script>
+            window.location.href = "/Home/Index";
+        </script>
+    }
+    int id = int.Parse(member_cookie.Value.ToString());
+    if (db.tblUsers.SingleOrDefault(t => t.User_ID == id && t.User_Role == 1) == null)
+    {
+        <script>
+            window.location.href = "/Home/Index";
+        </script>
+    }
+    tblUser user = db.tblUsers.Find(id);
+}
+<div class="pcoded-inner-navbar main-menu">
     <div class="">
         <div class="main-menu-header">
-            <img class="img-40 img-radius" src="~/Content/LayoutAdmin/images/avatar-4.jpg" alt="User-Profile-Image">
+            <img class="img-40 img-radius" src="~/Content/Layout/img/users/@user.User_Avata" alt="@user.User_DisplayName">
             <div class="user-details">
-                <span>John Doe</span>
-                <span id="more-details">UX Designer<i class="ti-angle-down"></i></span>
+                <span>@user.User_DisplayName</span>
+                <span id="more-details">Admin<i class="ti-angle-down"></i></span>
             </div>
         </div>
 
@@ -13,7 +32,7 @@
                 <li class="more-details">
                     <a href="#"><i class="ti-user"></i>View Profile</a>
                     <a href="#!"><i class="ti-settings"></i>Settings</a>
-                    <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                    <a href="/User/Logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
                 </li>
             </ul>
         </div>
@@ -31,6 +50,13 @@
             <a href="/Admin/HomeAdmin/Index">
                 <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                 <span class="pcoded-mtext" data-i18n="nav.dash.main">Trang chủ</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/Admin/HomeAdmin/Index">
+                <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Danh sách code đợi duyệt(@db.tblPosts.Where(t => t.Post_Active == false && t.Post_Trash == false).Count())</span>
                 <span class="pcoded-mcaret"></span>
             </a>
         </li>

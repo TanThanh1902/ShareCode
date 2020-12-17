@@ -30,13 +30,14 @@ namespace ShareCode.Controllers
                     User_DisplayName = register.DisplayName,
                     User_Password = register.Password,
                     User_DateLogin = DateTime.Now,
-                    User_Role = 1,
+                    User_Role = 2,
                     User_Active = true,
                     User_Trash = false,
                     User_Token = Guid.NewGuid().ToString(),
                     User_VIP = 0,
                     User_Coin = 0,
-                    User_Point = 0
+                    User_Point = 0,
+                    User_Avata = "man-300x300.png"
                 };
 
                 db.tblUsers.Add(user);

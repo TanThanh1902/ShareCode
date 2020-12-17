@@ -26,7 +26,7 @@
                         </div>
                     </center>
                     <div class="content">
-                        <a class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>ASP.net</a>
+                        <a href="@Url.Action("FilterPostsByCatID", "Search", new { id = item.Post_Cat})" class="text-danger"><i class="fa fa-bookmark">&nbsp;</i>@item.tblCategory.Cat_Name</a>
                         <br />
                         <a style="color: brown">@(item.Post_Title.Length < 40 ? item.Post_Title : item.Post_Title.Substring(0,40)+"...")</a>
                         <div class="meta">

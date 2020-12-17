@@ -93,9 +93,17 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <b class="control-label col-md-2">Hình thức</b>
+                                        <b class="control-label col-md-2">Ngôn ngữ code</b>
                                         <div class="col-md-12">
-                                            @Html.DropDownList("Post_Group", null, htmlAttributes: new { @class = "form-control" })
+                                            <select class="ui fluid search dropdown" name="lan_id" multiple="">
+                                                <option value="">Chọn ngôn ngữ</option>
+                                                @Html.Action("getListSelectLanguage", "Search")
+                                            </select>
+                                            <script>
+                                                $('.ui.dropdown')
+                                                    .dropdown()
+                                                    ;
+                                            </script>
                                         </div>
                                     </div>
 

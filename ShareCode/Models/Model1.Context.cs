@@ -34,7 +34,6 @@ namespace ShareCode.Models
         public virtual DbSet<tblFavorite> tblFavorites { get; set; }
         public virtual DbSet<tblGenre> tblGenres { get; set; }
         public virtual DbSet<tblGroupCode> tblGroupCodes { get; set; }
-        public virtual DbSet<tblLanguage> tblLanguages { get; set; }
         public virtual DbSet<tblOrder> tblOrders { get; set; }
         public virtual DbSet<tblPost> tblPosts { get; set; }
         public virtual DbSet<tblReport> tblReports { get; set; }
@@ -43,5 +42,7 @@ namespace ShareCode.Models
         public virtual DbSet<tblTag> tblTags { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblRate> tblRates { get; set; }
+        public virtual DbSet<tblLanguage> tblLanguages { get; set; }
+        public virtual DbSet<tblPostLang> tblPostLangs { get; set; }
     }
 }

@@ -1,0 +1,6 @@
+﻿@model IEnumerable<ShareCode.Models.tblLanguage>
+
+@foreach(var item in Model)
+{
+    <option value="@item.Lang_ID">@item.Lang_Name</option>
+}

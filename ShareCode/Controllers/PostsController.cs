@@ -18,201 +18,7 @@ namespace ShareCode.Controllers
         private DBShareCodeEntities db = new DBShareCodeEntities();
         private const int PAGE_SIZE = 9;
 
-        // GET: Posts
-        public ActionResult AllPost(int? page)
-        {
-            ViewBag.Title = "Tất cả code";
-            ViewBag.couttPost = db.tblPosts.Where(t => t.Post_Active == true && t.Post_Trash == false).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-
-        public ActionResult FilterPostsByCatID(int? id, int? page)
-        {
-            if(id == null)
-            {
-                return HttpNotFound();
-            }
-            tblCategory category = db.tblCategories.Find(id);
-            if(db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(category.Cat_Name)) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(category.Cat_Name)).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = category.Cat_Name,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.Title = "Tìm kiếm code theo danh mục";
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Cat == id && t.Post_Active == true && t.Post_Trash == false).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Cat == id && t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-
-        public ActionResult FilterPostsByGenresID(int? id, int? page)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            tblGenre genre = db.tblGenres.Find(id);
-            if (db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(genre.Genres_Name)) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(genre.Genres_Name)).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = genre.Genres_Name,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.Title = "Tìm kiếm code theo thể loại";
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Genres == id && t.Post_Active == true && t.Post_Trash == false).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Genres == id && t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-
-        public ActionResult FilterPostsByGroupCodeID(int? id, int? page)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            tblGroupCode groupCode = db.tblGroupCodes.Find(id);
-            if (db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(groupCode.Group_Name)) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains(groupCode.Group_Name)).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = groupCode.Group_Name,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.Title = "Tìm kiếm code theo nhóm loại";
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Group == id && t.Post_Active == true && t.Post_Trash == false).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Group == id && t.Post_Active == true && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-        public ActionResult TopPosts(int? page)
-        {
-            ViewBag.Title = "Top Code";
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-        public ActionResult QualityPosts(int? page)
-        {
-            ViewBag.Title = "Code chất lượng";
-            if (db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code chất lượng")) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code chất lượng")).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = ViewBag.Title,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 99).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-        public ActionResult ReferPosts(int? page)
-        {
-            ViewBag.Title = "Code tham khảo";
-            if (db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code tham khảo")) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code tham khảo")).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = ViewBag.Title,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price > 0 && t.Post_Price < 100).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-        public ActionResult FreePosts(int? page)
-        {
-            ViewBag.Title = "Code miễn phí";
-            if (db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code miễn phí")) != null)
-            {
-                db.tblTags.FirstOrDefault(t => t.Tag_Title.Contains("Code miễn phí")).Tag_CountSearch++;
-                db.SaveChanges();
-            }
-            else
-            {
-                tblTag tag = new tblTag()
-                {
-                    Tag_Title = ViewBag.Title,
-                    Tag_DateAdd = DateTime.Now,
-                    Tag_CountSearch = 1
-                };
-                db.tblTags.Add(tag);
-                db.SaveChanges();
-            }
-            ViewBag.countPost = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).Count();
-            IPagedList<tblPost> post = db.tblPosts.Where(t => t.Post_Trash == false && t.Post_Active == true && t.Post_Price == 0).OrderByDescending(t => t.Post_CountDownLoad).ThenBy(t => t.tblRates.Average(z => z.Rate_Star)).ThenBy(t => t.Post_DateCreate).Take(100).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View("Index", post);
-        }
-        public ActionResult FilterAdvanced(int? page, string key, int category, int groupcode)
-        {
-            ViewBag.Title = "Tìm kiếm code nâng cao";
-            List<tblPost> posts = new List<tblPost>();
-            if(category != 0 && groupcode != 0)
-            {
-                posts = db.tblPosts.Where(t => t.Post_Cat == category && t.Post_Group == groupcode).ToList();
-            }
-            else if(category != 0 && groupcode == 0)
-            {
-                posts = db.tblPosts.Where(t => t.Post_Cat == category).ToList();
-            }
-            else if(category == 0 && groupcode != 0)
-            {
-                posts = db.tblPosts.Where(t => t.Post_Group == groupcode).ToList();
-            }
-            else
-            {
-                posts = db.tblPosts.ToList();
-            }
-            posts = posts.Where(t => t.Post_Title.Contains(key) || t.tblUser.User_DisplayName.Contains(key) || t.Post_Code.Contains(key) || t.tblCategory.Cat_Name.Contains(key) || t.tblGroupCode.Group_Name.Contains(key) || t.tblGenre.Genres_Name.Contains(key) && t.Post_Trash == false).ToList();
-            ViewBag.couttPost = posts.Count();
-            return View("Index", posts.OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE));
-        }
+        
         public ActionResult MyPosts(int? page)
         {
             HttpCookie member_cookie = Request.Cookies["member_id"];
@@ -220,11 +26,35 @@ namespace ShareCode.Controllers
             {
                 return Redirect("/User/Login");
             }
+            ViewBag.Title = "Code đã tải";
             tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
-            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID && t.Post_Trash == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
+            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID && t.Post_Trash == false && t.Post_Active == true).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(posts);
         }
-
+        public ActionResult MyPostApproval(int? page)
+        {
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
+            {
+                return Redirect("/User/Login");
+            }
+            ViewBag.Title = "Code chờ duyệt";
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+            IPagedList<tblPost> posts = db.tblPosts.Where(t => t.Post_User == user.User_ID && t.Post_Trash == false && t.Post_Active == false).OrderByDescending(t => t.Post_DateCreate).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View("MyPosts", posts);
+        }
+        public ActionResult RevenuePosts(int? page)
+        {
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
+            {
+                return Redirect("/User/Login");
+            }
+            ViewBag.Title = "Code chờ duyệt";
+            tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
+            IPagedList<tblOrder> orders = db.tblOrders.Where(t => t.tblPost.Post_User == user.User_ID).OrderByDescending(t => t.Order_DateAdd).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(orders);
+        }
         public ActionResult PostBought(int? page)
         {
             HttpCookie member_cookie = Request.Cookies["member_id"];
@@ -277,7 +107,7 @@ namespace ShareCode.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost, HttpPostedFileBase fileimg, List<HttpPostedFileBase> fileimg_viewmoreimage)
+        public ActionResult Create([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost, HttpPostedFileBase fileimg, List<HttpPostedFileBase> fileimg_viewmoreimage, int[] lan_id)
         {
             HttpCookie member_cookie = Request.Cookies["member_id"];
             tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
@@ -291,6 +121,18 @@ namespace ShareCode.Controllers
                 tblPost.Post_Trash = false;
                 tblPost.Post_User = user.User_ID;
                 tblPost.Post_View = 0;
+                if(tblPost.Post_Price == 0)
+                {
+                    tblPost.Post_Group = 3;
+                }
+                else if(tblPost.Post_Price > 0 && tblPost.Post_Price < 100)
+                {
+                    tblPost.Post_Group = 2;
+                }
+                else
+                {
+                    tblPost.Post_Group = 1;
+                }
 
                 // add image 
                 // add single image
@@ -302,18 +144,30 @@ namespace ShareCode.Controllers
 
                 // adđ multiple images
 
-                string mulImages = "";
-                foreach(var item in fileimg_viewmoreimage)
-                {
-                    string fileNameMultiple = Guid.NewGuid() + Path.GetExtension(item.FileName);
-                    var pathimgMul = Path.Combine(Server.MapPath("~/Content/Layout/img/post"), fileNameMultiple);
-                    item.SaveAs(pathimgMul);
-                    mulImages += ";" + fileNameMultiple;
-                }
-                tblPost.Post_ViewMoreImage = mulImages;
+                //string mulImages = "";
+                //foreach(var item in fileimg_viewmoreimage)
+                //{
+                //    string fileNameMultiple = Guid.NewGuid() + Path.GetExtension(item.FileName);
+                //    var pathimgMul = Path.Combine(Server.MapPath("~/Content/Layout/img/post"), fileNameMultiple);
+                //    item.SaveAs(pathimgMul);
+                //    mulImages += ";" + fileNameMultiple;
+                //}
+                //tblPost.Post_ViewMoreImage = mulImages;
 
                 db.tblPosts.Add(tblPost);
                 db.SaveChanges();
+                tblPost post = db.tblPosts.OrderByDescending(t => t.Post_ID).FirstOrDefault(t => t.Post_Title == tblPost.Post_Title && t.Post_Active == false && t.Post_Trash == false && t.Post_User == user.User_ID);
+                foreach(var item in lan_id)
+                {
+                    tblPostLang addItem = new tblPostLang()
+                    {
+                        Lang_ID = item,
+                        Post_ID = post.Post_ID,
+                        PostLang_DateAdd = DateTime.Now
+                    };
+                    db.tblPostLangs.Add(addItem);
+                    db.SaveChanges();
+                }
                 return Redirect("/User/MyInfo");
             }
 
@@ -338,7 +192,7 @@ namespace ShareCode.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tblPost tblPost = db.tblPosts.Find(id);
-            if (tblPost == null)
+            if (tblPost == null || tblPost.Post_User != user.User_ID)
             {
                 return HttpNotFound();
             }
@@ -352,14 +206,21 @@ namespace ShareCode.Controllers
         {
             HttpCookie member_cookie = Request.Cookies["member_id"];
             tblUser user = db.tblUsers.Find(int.Parse(member_cookie.Value.ToString()));
-            tblRate addItem = new tblRate()
+            if(db.tblRates.FirstOrDefault(t => t.Rate_Post == id && t.Rate_User == user.User_ID) != null)
             {
-                Rate_User = user.User_ID,
-                Rate_Star = star,
-                Rate_Post = id,
-                Rate_DateVote = DateTime.Now
-            };
-            db.tblRates.Add(addItem);
+                db.tblRates.FirstOrDefault(t => t.Rate_Post == id && t.Rate_User == user.User_ID).Rate_Star = star;
+            }
+            else
+            {
+                tblRate addItem = new tblRate()
+                {
+                    Rate_User = user.User_ID,
+                    Rate_Star = star,
+                    Rate_Post = id,
+                    Rate_DateVote = DateTime.Now
+                };
+                db.tblRates.Add(addItem);
+            }
             db.SaveChanges();
             return RedirectToAction("Details", new { id });
         }
@@ -385,13 +246,58 @@ namespace ShareCode.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost)
+        public ActionResult Edit([Bind(Include = "Post_ID,Post_Title,Post_Avata,Post_ViewMoreImage,Post_Description,Post_View,Post_Vote,Post_Rate,Post_CountDownLoad,Post_LinkDown,Post_DateCreate,Post_Cat,Post_User,Post_Favorite,Post_TutorialSetup,Post_Price,Post_Genres,Post_Group,Post_Active,Post_Trash,Post_Code")] tblPost tblPost, HttpPostedFileBase file_img, int[] lan_id)
         {
             if (ModelState.IsValid)
             {
+                // update avata
+                if (file_img != null)
+                {
+                    // delete old image
+                    if (tblPost.Post_Avata != null)
+                    {
+                        string fullPath = Request.MapPath("~/Content/Layout/img/post/" + tblPost.Post_Avata);
+                        System.IO.File.Delete(fullPath);
+                    }
+                    // update new image
+                    var img = Guid.NewGuid().ToString() + Path.GetExtension(file_img.FileName);
+                    var pathimg = Path.Combine(Server.MapPath("~/Content/Layout/img/post"), img);
+                    file_img.SaveAs(pathimg);
+                    tblPost.Post_Avata = img;
+                }
+                if (tblPost.Post_Price == 0)
+                {
+                    tblPost.Post_Group = 3;
+                }
+                else if (tblPost.Post_Price > 0 && tblPost.Post_Price < 100)
+                {
+                    tblPost.Post_Group = 2;
+                }
+                else
+                {
+                    tblPost.Post_Group = 1;
+                }
                 db.Entry(tblPost).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                List<tblPostLang> removeItem = db.tblPostLangs.Where(t => t.Post_ID == tblPost.Post_ID).ToList();
+                foreach(var item in removeItem)
+                {
+                    db.tblPostLangs.Remove(item);
+                    db.SaveChanges();
+                }
+                foreach(var item in lan_id)
+                {
+                    tblPostLang addItem = new tblPostLang()
+                    {
+                        Post_ID = tblPost.Post_ID,
+                        Lang_ID = item,
+                        PostLang_DateAdd = DateTime.Now
+                    };
+                    db.tblPostLangs.Add(addItem);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("MyPosts");
             }
             ViewBag.Post_Cat = new SelectList(db.tblCategories, "Cat_ID", "Cat_Name", tblPost.Post_Cat);
             ViewBag.Post_User = new SelectList(db.tblUsers, "User_ID", "User_DisplayName", tblPost.Post_User);

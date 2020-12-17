@@ -22,8 +22,8 @@ namespace ShareCode.Models
             this.tblFavorites = new HashSet<tblFavorite>();
             this.tblOrders = new HashSet<tblOrder>();
             this.tblReports = new HashSet<tblReport>();
-            this.tblLanguages = new HashSet<tblLanguage>();
             this.tblRates = new HashSet<tblRate>();
+            this.tblPostLangs = new HashSet<tblPostLang>();
         }
     
         public int Post_ID { get; set; }
@@ -61,8 +61,8 @@ namespace ShareCode.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblReport> tblReports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblLanguage> tblLanguages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblRate> tblRates { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPostLang> tblPostLangs { get; set; }
     }
 }

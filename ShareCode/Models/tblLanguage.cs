@@ -17,7 +17,7 @@ namespace ShareCode.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblLanguage()
         {
-            this.tblPosts = new HashSet<tblPost>();
+            this.tblPostLangs = new HashSet<tblPostLang>();
         }
     
         public int Lang_ID { get; set; }
@@ -26,6 +26,6 @@ namespace ShareCode.Models
         public Nullable<bool> Lang_Trash { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPost> tblPosts { get; set; }
+        public virtual ICollection<tblPostLang> tblPostLangs { get; set; }
     }
 }

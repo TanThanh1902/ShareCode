@@ -3,5 +3,5 @@
 
 @foreach (var item in Model)
 {
-    <a class="dropdown-item " href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = item.Group_ID})">@item.Group_Name</a>
+    <a class="dropdown-item " href="@Url.Action("FilterPostsByGroupCodeID", "Search", new { id = item.Group_ID})">@item.Group_Name</a>
 }

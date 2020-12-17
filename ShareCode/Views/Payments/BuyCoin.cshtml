@@ -1,0 +1,70 @@
+﻿@using ShareCode.Models;
+
+@{
+    ViewBag.Title = "Nạp xu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            
+        </div>
+        <div class="col-lg-8">
+            <div class="alert alert-danger">
+                <h3 class="font-weight-bold">Nạp xu</h3>
+            </div>
+
+            <div class="container">
+                <ul>
+                    @if (ViewBag.addSuccess != null && ViewBag.addSuccess)
+                    {
+                        <li><span>Nạp xu thành công!. <a href="/Home/Index">Quay về trang chủ</a></span></li>
+                        ViewBag.addSuccess = false;
+                    }
+                    else
+                    {
+                        <li>
+                            <form action="@Url.Action("BuyCoin", "Payments")" method="post">
+                                @Html.AntiForgeryToken();
+                                <div class="row">
+                                    <input type="hidden" id="coin" name="packCoin" />
+                                    <div class="col-md-4" style="margin-bottom: 10px">
+                                        <input type="button" class="btn btn-default" style="width: 100%; height: 50px; border: 2px dashed #007bff; font-size: 18px; color: grey; font-style: italic" value="20 xu (40.000 VNĐ)" onclick="addCoin(20)"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="button" class="btn btn-default" style="width: 100%; height: 50px; border: 2px dashed #007bff; font-size: 18px; color: grey; font-style: italic" value="40 xu (79.000 VNĐ)" onclick="addCoin(40)"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="button" class="btn btn-default" style="width: 100%; height: 50px; border: 2px dashed #007bff; font-size: 18px; color: grey; font-style: italic" value="100 xu (189.000 VNĐ)" onclick="addCoin(100)"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="button" class="btn btn-default" style="width: 100%; height: 50px; border: 2px dashed #007bff; font-size: 18px; color: grey; font-style: italic" value="200 xu (379.000 VNĐ)" onclick="addCoin(200)"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="button" class="btn btn-default" style="width: 100%; height: 50px; border: 2px dashed #007bff; font-size: 18px; color: grey; font-style: italic" value="500 xu (969.000 VNĐ)" onclick="addCoin(500)"/>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-primary" value="Mua" style="float: right" />
+                                </div>
+                            </form>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            @Html.Action("InfoRight", "View")
+        </div>
+    </div>
+</div>
+
+<script>
+    function addCoin(coin) {
+        document.getElementById("coin").value = coin;
+    }
+</script>

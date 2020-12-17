@@ -5,7 +5,6 @@
     ViewBag.Title = Model.Post_Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
     DBShareCodeEntities db = new DBShareCodeEntities();
-    List<string> mulImage = Model.Post_ViewMoreImage.Split(';').ToList();
     tblUser user = new tblUser();
     HttpCookie member_cookie = Request.Cookies["member_id"];
     if (member_cookie != null)
@@ -62,7 +61,7 @@
                                     <div class="col-lg-4" id="favorite">
                                         @if (user.User_ID == Model.Post_User)
                                         {
-                                            <button class="ui red button float-right"><i class="fa fa-comments">&nbsp;</i>Xem bình luận</button>
+                                            <button data-target="#commentsList" class="ui red button float-right"><i class="fa fa-comments">&nbsp;</i>Xem bình luận</button>
                                         }
                                         else
                                         {
@@ -87,17 +86,35 @@
                                     <hr />
                                     <div class="col-lg-8">
                                         <ul>
-                                            <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Posts", new { id = Model.Post_Cat })" style="color: red">@Model.tblCategory.Cat_Name</a></li>
-                                            <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Posts", new { id = Model.Post_Genres })" style="color: red">@Model.tblGenre.Genres_Name</a></li>
-                                            <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Posts", new { id = Model.Post_Group })" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
+                                            <li><b>Danh mục:</b><a href="@Url.Action("FilterPostsByCatID", "Search", new { id = Model.Post_Cat })" style="color: red">@Model.tblCategory.Cat_Name</a></li>
+                                            <li><b>Thể loại:</b><a href="@Url.Action("FilterPostsByGenresID", "Search", new { id = Model.Post_Genres })" style="color: red">@Model.tblGenre.Genres_Name</a></li>
+                                            <li><b>Nhóm code:</b><a href="@Url.Action("FilterPostsByGroupCodeID", "Search", new { id = Model.Post_Group })" style="color: red">@Model.tblGroupCode.Group_Name</a></li>
+                                            <li>
+                                                <b>Ngôn ngữ code:</b>
+                                                @{
+                                                    int demLan = Model.tblPostLangs.Count();
+                                                    int stepLan = 1;
+                                                }
+                                                @foreach (var lan in Model.tblPostLangs)
+                                                {
+                                                    if (stepLan == demLan)
+                                                    {
+                                                        <a href="@Url.Action("FilterPostsByLanguage", "Search", new { id = lan.Lang_ID })" style="color: red">@lan.tblLanguage.Lang_Name</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("FilterPostsByLanguage", "Search", new { id = lan.Lang_ID })" style="color: red">@lan.tblLanguage.Lang_Name</a><span> | </span>
+                                                    }
+                                                    stepLan++;
+                                                }
+                                            </li>
                                             <li><b>Ngày đăng:</b>@Model.Post_DateCreate.Value.ToLongDateString()</li>
-                                            <li><b>Dung lượng:</b>Chưa có</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         @if (user.User_ID == Model.Post_User)
                                         {
-                                            <button class="ui green button float-right w-100 mt-2"><i class="fa fa-edit">&nbsp;</i>Chỉnh sửa</button>
+                                            <button onclick="window.location.href='/Posts/Edit/@Model.Post_ID'" class="ui green button float-right w-100 mt-2"><i class="fa fa-edit">&nbsp;</i>Chỉnh sửa</button>
                                         }
                                         else
                                         {
@@ -122,7 +139,7 @@
                             <div class="col-lg-12">
                                 <div class="ui two column grid">
                                     <div class="column  w-100">
-                                        <div class="ui segment">
+                                        <div class="ui segment" style="font-size: 17px">
                                             <a class="ui red ribbon label">Mô tả chi tiết</a>
                                             <br />
                                             <br />
@@ -134,7 +151,7 @@
                             <div class="col-lg-12 mt-4" id="dow">
                                 <div class="ui two column grid">
                                     <div class="column  w-100">
-                                        <div class="ui segment">
+                                        <div class="ui segment" style="font-size: 17px">
                                             <a class="ui green ribbon label">Hướng dẫn cài đặt</a>
                                             <br />
                                             <br />
@@ -261,12 +278,12 @@
 
             <div class="card p-3">
                 <div class="d-flex align-items-center">
-                    <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
+                    <div class="image"> <img src="~/Content/Layout/img/users/@Model.tblUser.User_Avata" class="rounded" width="155"> </div>
                     <div class="ml-3 w-100">
-                        <h4 class="mb-0 mt-0">Tấn thanh</h4> <span>0924404019</span>
+                        <h4 class="mb-0 mt-0">@Model.tblUser.User_DisplayName</h4> <span>@Model.tblUser.User_Phone</span>
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="articles">Miễn phí</span> <span class="number1">0</span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Trả phí</span> <span class="number2">980</span> </div>
+                            <div class="d-flex flex-column"> <span class="articles">Miễn phí</span> <span class="number1">@Model.tblUser.tblPosts.Where(t => t.Post_Price == 0).Count()</span> </div>
+                            <div class="d-flex flex-column"> <span class="followers">Có phí</span> <span class="number2">@Model.tblUser.tblPosts.Where(t => t.Post_Price > 0).Count()</span> </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div>
                     </div>
@@ -384,27 +401,79 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-image: url('../../Content/Layout/img/hero/h1_hero.png'); background-repeat: no-repeat">
-                    <h2 class="font-weight-bold" id="exampleModalLabel"><b class="text-center" style="color: white">Sharecodeonline.com</b></h2>
+                    <h2 class="font-weight-bold" id="exampleModalLabel"><b class="text-center" style="color: white">Đánh giá Code</b></h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: white">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=5'">
-                        <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt
-                    </div>
-                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=4'">
-                        <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt
-                    </div>
-                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=3'">
-                        <div class="ui star rating" data-rating="3" data-max-rating="5"></div>Code bình thường
-                    </div>
-                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=2'">
-                        <div class="ui star rating" data-rating="2" data-max-rating="5"></div>Code tạm ổn
-                    </div>
-                    <div class="d-flex align-items-center" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=1'">
-                        <div class="ui star rating" data-rating="1" data-max-rating="5"></div>Code tệ
-                    </div>
+                    <ul class="list-group">
+                        @if (Model.tblRates.Where(t => t.Rate_User == user.User_ID && t.Rate_Star == 5).Count() > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt
+                                <span style="float: right; color: forestgreen"><i class="fa fa-check"></i></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=5'">
+                                <div class="ui star rating" data-rating="5" data-max-rating="5"></div> Code rất tốt
+                            </li>
+                        }
+                        @if (Model.tblRates.Where(t => t.Rate_User == user.User_ID && t.Rate_Star == 4).Count() > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt
+                                <span style="float: right; color: forestgreen"><i class="fa fa-check"></i></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=4'">
+                                <div class="ui star rating" data-rating="4" data-max-rating="5"></div> Code tốt
+                            </li>
+                        }
+                        @if (Model.tblRates.Where(t => t.Rate_User == user.User_ID && t.Rate_Star == 3).Count() > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div> Code bình thường
+                                <span style="float: right; color: forestgreen"><i class="fa fa-check"></i></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=3'">
+                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div> Code bình thường
+                            </li>
+                        }
+                        @if (Model.tblRates.Where(t => t.Rate_User == user.User_ID && t.Rate_Star == 2).Count() > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="ui star rating" data-rating="2" data-max-rating="5"></div> Code tạm ổn
+                                <span style="float: right; color: forestgreen"><i class="fa fa-check"></i></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=2'">
+                                <div class="ui star rating" data-rating="2" data-max-rating="5"></div> Code tạm ổn
+                            </li>
+                        }
+                        @if (Model.tblRates.Where(t => t.Rate_User == user.User_ID && t.Rate_Star == 1).Count() > 0)
+                        {
+                            <li class="list-group-item">
+                                <div class="ui star rating" data-rating="1" data-max-rating="5"></div> Code tệ
+                                <span style="float: right; color: forestgreen"><i class="fa fa-check"></i></span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item" onclick="window.location.href='/Posts/Vote/@Model.Post_ID?star=1'">
+                                <div class="ui star rating" data-rating="1" data-max-rating="5"></div> Code tệ
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
@@ -457,12 +526,12 @@
                     <img src="~/Content/Layout/img/post/@Model.Post_Avata" class="w-100 border border-primary" style="height: 200px" />
                     <br />
                     <div class="row" style="padding-bottom: 10px">
-                        @foreach (var img in mulImage)
+                        @*foreach (var img in mulImage)
                         {
                             <div class="col-md-4">
                                 <img src="~/Content/Layout/img/post/@img" style="width: 100%; height: 50px" />
                             </div>
-                        }
+                        }*@
                     </div>
                 </div>
                 <div class="col-lg-9">

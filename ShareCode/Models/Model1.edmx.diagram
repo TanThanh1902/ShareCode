@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="DBShareCodeModel.tblFavorite" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblGenre" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblGroupCode" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBShareCodeModel.tblLanguage" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblOrder" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblPost" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblReport" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
@@ -40,10 +39,13 @@
         <AssociationConnector Association="DBShareCodeModel.FK_tblReport_tblPost" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblRepply_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblUser_tblRole" ManuallyRouted="false" />
-        <AssociationConnector Association="DBShareCodeModel.tblPostLang" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DBShareCodeModel.tblRate" Width="1.5" PointX="13.5" PointY="8.125" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblRate_tblPost" />
         <AssociationConnector Association="DBShareCodeModel.FK_tblRate_tblUser" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblLanguage" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="DBShareCodeModel.tblPostLang" Width="1.5" PointX="7.5" PointY="2" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPostLang_tblLanguage" />
+        <AssociationConnector Association="DBShareCodeModel.FK_tblPostLang_tblPost" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

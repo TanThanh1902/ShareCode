@@ -13,6 +13,23 @@ namespace ShareCode.Controllers
     {
         DBShareCodeEntities db = new DBShareCodeEntities();
         // GET: Payments
+        public ActionResult BuyCoin()
+        {
+            if(Request.Cookies["member_id"] == null)
+            {
+                return Redirect("/User/Login");
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BuyCoin(int packCoin)
+        {
+            ViewBag.addSuccess = true;
+            db.tblUsers.Find(int.Parse(Request.Cookies["member_id"].Value.ToString())).User_Coin += packCoin;
+            db.SaveChanges();
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PayCoin(ViewPayCoin payCoin)

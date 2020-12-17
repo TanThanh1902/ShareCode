@@ -334,6 +334,7 @@
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ReppliesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
@@ -390,6 +391,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblPost.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPostLang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblRate.cs">
@@ -2142,6 +2146,11 @@
     <Content Include="Content\LayoutAdmin\pages\widget\amchart\serial.min.js" />
     <Content Include="Content\LayoutAdmin\pages\widget\amchart\worldLow.js" />
     <Content Include="Content\LayoutAdmin\pages\widget\amchart\worldLow.min.js" />
+    <Content Include="Content\LayoutLogDangNhap\css\style.css" />
+    <Content Include="Content\LayoutLogDangNhap\images\banner.jpg" />
+    <Content Include="Content\LayoutLogDangNhap\images\banner1.jpg" />
+    <Content Include="Content\LayoutLogDangNhap\images\th.jpg" />
+    <Content Include="Content\LayoutLogDangNhap\images\user.png" />
     <Content Include="Content\Layout\css\animate.min.css" />
     <Content Include="Content\Layout\css\animated-headline.css" />
     <Content Include="Content\Layout\css\bootstrap.min.css" />
@@ -2205,7 +2214,6 @@
     <Content Include="Content\Layout\images\p6.jpg" />
     <Content Include="Content\Layout\images\p7.jpg" />
     <Content Include="Content\Layout\images\p8.jpg" />
-    <Content Include="Content\Layout\img\users\author.png" />
     <Content Include="Content\Layout\img\blog\comment_1.png" />
     <Content Include="Content\Layout\img\blog\comment_2.png" />
     <Content Include="Content\Layout\img\blog\comment_3.png" />
@@ -2720,6 +2728,9 @@
     <Content Include="Areas\Admin\Views\tblOrdersAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\tblOrdersAdmin\Index.cshtml" />
     <Content Include="Configs\log4net.config" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\Login.cshtml" />
+    <Content Include="Content\LayoutLogDangNhap\images\Hòai dư.pdf" />
+    <Content Include="Content\LayoutLogDangNhap\images\x.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2761,7 +2772,7 @@
     <Content Include="Views\Posts\Delete.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
-    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Posts\PostsCollection.cshtml" />
     <Content Include="Views\Posts\Sematic.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
@@ -2790,9 +2801,15 @@
     <Content Include="Views\View\ListGenresSearchHomePage.cshtml" />
     <Content Include="Views\View\HighlightBlogs.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
+    <Content Include="Views\Search\getListSelectCategory.cshtml" />
+    <Content Include="Views\Search\getListSelectGenres.cshtml" />
+    <Content Include="Views\Search\getListSelectLanguage.cshtml" />
+    <Content Include="Views\Posts\RevenuePosts.cshtml" />
+    <Content Include="Views\Payments\BuyCoin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Layout\img\users\" />
     <Folder Include="Content\sql\" />
     <Folder Include="Views\Ajax\" />
   </ItemGroup>

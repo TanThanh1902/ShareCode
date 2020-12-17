@@ -1,8 +1,9 @@
 ﻿@model ShareCode.Models.tblPost
-
+@using ShareCode.Models;
 @{
     ViewBag.Title = "Cập nhật bài đăng " + Model.Post_Title;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    DBShareCodeEntities db = new DBShareCodeEntities();
 }
 <style>
     .ck.ck-editor__editable_inline > :last-child {
@@ -56,7 +57,7 @@
                                 @Html.HiddenFor(model => model.Post_ViewMoreImage)
                                 @Html.HiddenFor(model => model.Post_Trash)
                                 @Html.HiddenFor(model => model.Post_DateCreate)
-                                @Html.HiddenFor(model => model.Post_Vote)
+                                @Html.HiddenFor(model => model.Post_View)
                                 @Html.HiddenFor(model => model.Post_User)
 
                                 <div class="form-horizontal">
@@ -108,9 +109,27 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <b class="control-label col-md-2">Hình thức</b>
+                                        <b class="control-label col-md-2">Ngôn ngữ code</b>
                                         <div class="col-md-12">
-                                            @Html.DropDownList("Post_Group", null, htmlAttributes: new { @class = "form-control" })
+                                            <select class="ui fluid search dropdown" name="lan_id" multiple="">
+                                                <option value="">Chọn ngôn ngữ</option>
+                                                @foreach (var item in db.tblLanguages)
+                                                {
+                                                    if (Model.tblPostLangs.Select(t => t.Lang_ID).Contains(item.Lang_ID))
+                                                    {
+                                                        <option value="@item.Lang_ID" selected>@item.Lang_Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Lang_ID">@item.Lang_Name</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <script>
+                                                $('.ui.dropdown')
+                                                    .dropdown()
+                                                    ;
+                                            </script>
                                         </div>
                                     </div>
 

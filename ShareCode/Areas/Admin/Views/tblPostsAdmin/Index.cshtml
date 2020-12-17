@@ -93,7 +93,16 @@
                             <td>{{todo.cate}}</td>
                             <td>{{todo.ge}}</td>
                             <td>{{todo.form}}</td>
-                            <td>{{todo.ac}}</td>
+                            <td>
+                                <div class="ui toggle checkbox" ng-if="todo.ac === 'False'">
+                                    <input type="checkbox" id="{{ todo.id }}" name="public" onclick="approval(this.id)">
+                                    <label></label>
+                                </div>
+                                <div class="ui toggle checkbox" ng-if="todo.ac === 'True'">
+                                    <input type="checkbox" id="{{ todo.id }}" name="public" checked onclick="approval(this.id)">
+                                    <label></label>
+                                </div>
+                            </td>
                             <td>{{todo.coin}}</td>
                             <td>
                                 <a target="_blank" href="/Posts/Details/{{todo.id}}"><i class="fa fa-eye"></i></a> |
@@ -114,7 +123,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                <button type="button" class="btn btn-primary">Xóa vào thùng rác</button>
+                                                <a href="/Admin/tblPostsAdmin/DeleteConfirmed/{{todo.id}}" type="button" class="btn btn-primary">Xóa</a>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +154,7 @@ todos.controller('myControllerPost', function ($scope) {
 
     $scope.makeTodos = function () {
         $scope.todos = [
-            @foreach(var item in Model.OrderByDescending(n=>n.Post_DateCreate))
+            @foreach (var item in Model.OrderByDescending(n=>n.Post_DateCreate))
             {
                 @: { idp: "@Html.Raw(item.Post_Code)", img: "@item.Post_Avata", name: "@Html.Raw(item.Post_Title)", cate: "@item.tblCategory.Cat_Name", form: "@Html.Raw(item.tblGroupCode.Group_Name)", ac: "@item.Post_Active", coin: "@Html.Raw(item.Post_Price)", id: @item.Post_ID, ge: "@Html.Raw(item.tblGenre.Genres_Name)", date: "@item.Post_DateCreate.Value.Date", month: "@item.Post_DateCreate.Value.Month", year: "@item.Post_DateCreate.Value.Year",crdate: "@item.Post_DateCreate" },
             }
@@ -161,4 +170,20 @@ todos.controller('myControllerPost', function ($scope) {
         $scope.filteredTodos = $scope.todos.slice(begin, end);
     });
 });
+</script>
+<script>
+    function approval(id) {
+        setTimeout(function () {
+            $.ajax({
+                type: "Post",
+                url: "/tblPostsAdmin/ApprovalPost?id=" + id,
+                contentType: "Json",
+                success: function (result) {
+                    if (result) {
+                        alert("Đã thay đổi tình trạng!");
+                    }
+                }
+            })
+        }, 260)
+    }
 </script>

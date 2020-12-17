@@ -25,9 +25,9 @@
             </div>  
             <div class="float-right">
                 <div class="ui buttons">
-                    <button class="ui red basic button">Tất cả (1)</button>
-                    <button class="ui blue basic button">Có phí (1)</button>
-                    <button class="ui green basic button">Miển phí (1)</button>
+                    <button class="ui red basic button">Tất cả (@Model.Count())</button>
+                    <button class="ui blue basic button">Có phí (@Model.Where(t => t.Post_Price > 0).Count())</button>
+                    <button class="ui green basic button">Miển phí (@Model.Where(t => t.Post_Price == 0).Count())</button>
                 </div>
             </div>
             <br />
@@ -50,7 +50,7 @@
                         <tr>
                             <td>@item.Post_ID</td>
                             <td><a class="text-success" href="/Posts/Details/@item.Post_ID">@item.Post_Title</a></td>
-                            <td>@item.Post_Price Xu</td>
+                            <td>@{ int xu = (int)item.Post_Price; } @xu Xu</td>
                             <td>@item.Post_View</td>
                             <td>@item.Post_DateCreate</td>
                             <td>
