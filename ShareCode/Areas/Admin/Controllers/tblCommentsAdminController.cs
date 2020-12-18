@@ -20,7 +20,7 @@ namespace ShareCode.Areas.Admin.Controllers
             var tblComments = db.tblComments.Include(t => t.tblBlog).Include(t => t.tblPost).Include(t => t.tblUser);
             return View(tblComments.ToList());
         }
-
+        // cmt
         // GET: Admin/tblCommentsAdmin/Details/5
         public ActionResult Details(int? id)
         {
